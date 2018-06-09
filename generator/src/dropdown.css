@@ -1,0 +1,41 @@
+.w3-dropdown-input.w3-dropdown-input-opened .w3-dropdown-content {
+	display: block;
+}
+.w3-dropdown-input {
+	position: relative;
+}
+.w3-dropdown-input>B {
+	display: none;
+}
+.w3-dropdown-input>.w3-input:hover {
+	cursor: pointer;
+}
+.w3-dropdown-input.w3-dropdown-input-opened>B {
+	display: block;
+	position: fixed;
+	z-index: 2;
+	background: #FFFFFF;
+	opacity: 0;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+}
+.w3-dropdown-input.w3-dropdown-input-opened>.w3-dropdown-content {
+	position: absolute;
+	top: 100%;
+	left: 0px;
+	right: 0px;
+	margin-top: -1px;
+	background: #FFFFFF;
+	border: 2px solid #666666;
+	box-sizing: border-box;
+	z-index: 3;
+}
+.w3-dropdown-input.w3-dropdown-input-opened>.w3-dropdown-content>DIV {
+	padding: 8px;
+}
+.w3-dropdown-input.w3-dropdown-input-opened>.w3-dropdown-content>DIV:hover {
+	background: #a6a6be;
+	cursor: pointer;
+}

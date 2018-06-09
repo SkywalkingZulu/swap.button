@@ -1,0 +1,82 @@
+A.swap-online-button {
+	display: inline-block;
+	line-height: 24px;
+	vertical-align: middle;
+	background: #EFEFEF;
+	color: #666666;
+	border-radius: 12px;
+	font-family: Tahoma;
+	font-size: 14px;
+	vertical-align: middle;
+	box-sizing: border-box;
+	padding-right: 4px;
+	text-decoration: none;
+}
+A.swap-online-button::before {
+	display: inline-block;
+	content: 'N';
+	width: 24px;
+	height: 24px;
+	border-radius: 12px;
+	background: #3c3c3c;
+	color: #FFFFFF;
+	text-align: center;
+	vertical-align: middle;
+	font-family: Tahoma;
+	font-size: 14px;
+	margin-right: 4px;
+}
+
+BODY.swap-online-opened {
+	overflow: hidden;
+}
+DIV.swap-online-window {
+	display: none;
+}
+BODY.swap-online-opened DIV.swap-online-window {
+	display: block;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+DIV.swap-online-window>A.swap-online-window-close {
+	display: block;
+	position: fixed;
+	top: 16px;
+	right: 16px;
+	width: 32px;
+	height: 32px;
+	background: url(./close.png) no-repeat;
+	border-radius: 16px;
+	text-indent: -9999px;
+}
+DIV.swap-online-window>DIV.swap-online-window-iframe-holder {
+	background: #FFFFFF;
+	display: block;
+	position: fixed;
+	left: 32px;
+	top: 32px;
+	right: 32px;
+	bottom: 32px;
+	border: 2px solid #7371ff;
+	overflow: hidden;
+	overflow-y: auto;
+	border-radius: 4px;
+}
+DIV.swap-online-window>DIV.swap-online-window-iframe-holder>IFRAME {
+	display: block;
+	border: 0px;
+	width: 100%;
+}
+DIV.swap-online-window>DIV.swap-online-window-background {
+	position: fixed;
+	display: block;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	background: #000000;
+	opacity: 0.1;
+}
