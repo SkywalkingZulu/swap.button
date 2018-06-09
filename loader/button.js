@@ -5,7 +5,7 @@
 			var iframeHolder = null;
 			var swapOnlineIframe = null;
 			var navigateIframe = function (json) {
-				swapOnlineIframe.src = "https://shendel.github.io/swap.online.loader/index.html#"+json;
+				swapOnlineIframe.src = "https://prg-expert.ru/swc/build/?param="+json;
 			}
 			var createIframe = function (json) {
 				var holder = _mc.MakeFW(document.createElement("DIV"));
