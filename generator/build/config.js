@@ -117,5 +117,5 @@ window.swap_button_generator_cfg = {
 		}
 	],
 	default_url : '/swapbutton/',
-	host_url : 'https://shendel.github.io/swap.online.loader'
+	host_url : 'https://swaponline.github.io/swap.button/loader'
 }
