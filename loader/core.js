@@ -1,28 +1,8 @@
 function miniCoreObject() {
     this.worldCont = null;
     var ua = navigator.userAgent.toLowerCase();
-    this.isOpera = ua.indexOf("opera") > -1;
-    this.isSafari = (/webkit|khtml/).test(ua);
-    this.isSafari3 = this.isSafari && ua.indexOf("webkit/5") != -1;
-    this.isIE = !this.isOpera && ua.indexOf("msie") > -1;
-    this.isIE5 = !this.isOpera && ua.indexOf("msie 5") > -1;
-    this.isIE6 = !this.isOpera && ua.indexOf("msie 6") > -1;
-    this.isIE7 = !this.isOpera && ua.indexOf("msie 7") > -1;
-    this.isIE8 = !this.isOpera && ua.indexOf("msie 8") > -1;
-    this.isGecko = !this.isSafari && ua.indexOf("gecko") > -1;
-    this.isGecko3 = !this.isSafari && ua.indexOf("rv:1.9") > -1;
-    this.isWindows = (ua.indexOf("windows") != -1 || ua.indexOf("win32") != -1);
-    this.isMac = (ua.indexOf("macintosh") != -1 || ua.indexOf("mac os x") != -1);
-    this.isChrome = (ua.indexOf('chrome') != -1);
-    this.isAir = (ua.indexOf("adobeair") != -1);
-    this.isLinux = (ua.indexOf("linux") != -1);
     this.isSecure = window.location.href.toLowerCase().indexOf("https") === 0;
-    this.isMSIE = this.isIE;
-    this.isRun = true;
-    this.Refreshers = new Array();
     this.zIndexMax = 1000001;
-    this.cashImages = new Array();
-    this.ObjectsStore = new Array();
     this.uid_counter = 0;
     try {
         this.window = window.self;
@@ -31,7 +11,6 @@ function miniCoreObject() {
     this.MaxZOrder = function(cont, cmax) {
         this.zIndexMax++;
         return this.zIndexMax;
-
     }
     this.$ = function(id) {
         if (id instanceof Object) return this.MakeFW(id);
