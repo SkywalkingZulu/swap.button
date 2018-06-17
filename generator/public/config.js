@@ -61,6 +61,8 @@ window.swap_button_generator_cfg = {
 			title	: 'ERC20:NOXON'
 		}
 	],
+	default_pay : [ 'BTC' ],
+	default_recive : [],
 	button_styles: [
 		{
 			id		: 0,

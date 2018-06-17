@@ -13,16 +13,16 @@ class App extends Component {
 		this.props = props;
 		this.cryptos_from = React.createRef();
 		this.cryptos_to = React.createRef();
-		
+		this.cfg = window.swap_button_generator_cfg;
 		this.state = {
 			buttonStyle : 1,
 			themeStyle : 1,
 			crypto_from : 0,
 			crypto_to : 0,
-			cryptos_from : [],
-			cryptos_to : []
+			cryptos_from : this.cfg.default_pay,
+			cryptos_to : this.cfg.default_recive
 		}
-		this.cfg = window.swap_button_generator_cfg;
+		
 	}
 	swapCrypto() {
 		var _from = this.state.crypto_to;
@@ -133,11 +133,11 @@ class App extends Component {
 				</div>
 				<div className="w3-row">
 					<div className="w3-container w3-padding-16 w3-half">
-						<label>Select sell currencies</label>
+						<label>Users pay</label>
 						<CryptoMultySelect ref={this.cryptos_from} side="from" App={this} />
 					</div>
 					<div className="w3-container w3-padding-16 w3-half">
-						<label>Select buy currencies</label>
+						<label>Users recive</label>
 						<CryptoMultySelect ref={this.cryptos_to} side="to" App={this} />
 					</div>
 				</div>
