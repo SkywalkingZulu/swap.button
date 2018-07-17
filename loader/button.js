@@ -5,7 +5,7 @@
 			var iframeHolder = null;
 			var swapOnlineIframe = null;
 			var navigateIframe = function (json) {
-				swapOnlineIframe.src = "https://prg-expert.ru/swc/build/?param="+json;
+				swapOnlineIframe.src = "https://swaponline.github.io/swap.button/swap/build/?param="+json;
 			}
 			var createIframe = function (json) {
 				var holder = _mc.MakeFW(document.createElement("DIV"));
@@ -23,7 +23,7 @@
 					close.href = "#";
 					holder.append(close);
 				var iframe = _mc.MakeFW(document.createElement("IFRAME"));
-					iframe.src = "https://prg-expert.ru/swc/build/?param="+json;
+					iframe.src = "https://swaponline.github.io/swap.button/swap/build/?param="+json;
 					iframe.border = 0;
 				
 					holdifr.append(iframe);
