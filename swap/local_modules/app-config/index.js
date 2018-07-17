@@ -19,11 +19,13 @@ else {
   cfgDir = `${path.resolve(cfgDir)}/`
 }
 
-const defaultConfigPath = path.join(cfgDir, 'default')
+let defaultConfigPath_ = path.join(cfgDir, 'default');
 if (env) {
-  envConfigPath = path.join(cfgDir, env)
+  envConfigPath = path.join(cfgDir, env);
+  defaultConfigPath_ = path.join(cfgDir,'default.'+env);
 }
-
+const defaultConfigPath = defaultConfigPath_;
+console.log("App config included: "+defaultConfigPath);
 try {
   defaultConfig = require(defaultConfigPath).default
 }

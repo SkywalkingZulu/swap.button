@@ -1,4 +1,4 @@
-import baseConfig from './default'
+import baseConfig from './default.testnet.prod'
 import config from './_testnet'
 
 
@@ -6,8 +6,8 @@ export default {
   env: 'production',
   entry: 'testnet',
 
-  base: 'https://swaponline.github.io/swap.button/swap/build/',
-  publicPath: `./`,
+  base: `${baseConfig.publicPath}`,
+  publicPath: `${baseConfig.publicPath}`,
 
   ...config,
 }

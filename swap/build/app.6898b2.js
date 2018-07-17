@@ -219,7 +219,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 // resolve object in webpack
-exports.default = {"propENV":"testnet.prod","paths":{},"referral":{"url":"https://wiki.swap.online/affiliate.php"},"publicPath":"./","http":{"host":"localhost","port":9001},"i18nDate":{"month":"long","day":"numeric","hour":"numeric","minute":"numeric"},"exchangeRates":{"etheth":1,"ethbtc":0.07,"btceth":14,"ethnoxon":1,"noxoneth":1,"btcnoxon":14,"noxonbtc":0.07},"env":"production","entry":"testnet","base":"https://swaponline.github.io/swap.button/swap/build/","services":{"web3":{"provider":"https://rinkeby.infura.io/JCnK5ifEPH9qcQkX0Ahl","rate":0.1,"gas":100000,"gasPrice":"20000000000"},"eos":{"chainId":"038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca","httpEndpoint":"https://jungle.eosio.cr"}},"token":{"contract":"0xBA5c6DC3CAcdE8EA754e47c817846f771944518F"},"eth":{"contract":"0x830aef165b900fa7dc6b219f062c5784f6436d67"},"tokens":{"swap":{"address":"0x5f53dc58cad6101d943b26ffb9427723aeb816f9","decimals":18},"noxon":{"address":"0x60c205722c6c797c725a996cf9cca11291f90749","decimals":0}},"link":{"bitpay":"https://test-insight.bitpay.com","etherscan":"https://rinkeby.etherscan.io","eos":"http://jungle.cryptolions.io/#accountInfo"},"api":{"blocktrail":"https://api.blocktrail.com/v1/tBTC","bitpay":"https://test-insight.bitpay.com/api","etherscan":"https://rinkeby.etherscan.io/api"},"apiKeys":{"etherscan":"RHHFPNMAZMD6I4ZWBZBF6FA11CMW9AXZNM","blocktrail":"1835368c0fa8e71907ca26f3c978ab742a7db42e"}};
+exports.default = {"propENV":"testnet.prod","paths":{},"referral":{"url":"https://wiki.swap.online/affiliate.php"},"publicPath":"/swap.button/swap/build/","http":{"host":"localhost","port":9001},"i18nDate":{"month":"long","day":"numeric","hour":"numeric","minute":"numeric"},"exchangeRates":{"etheth":1,"ethbtc":0.07,"btceth":14,"ethnoxon":1,"noxoneth":1,"btcnoxon":14,"noxonbtc":0.07},"env":"production","entry":"testnet","base":"/swap.button/swap/build/","services":{"web3":{"provider":"https://rinkeby.infura.io/JCnK5ifEPH9qcQkX0Ahl","rate":0.1,"gas":100000,"gasPrice":"20000000000"},"eos":{"chainId":"038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca","httpEndpoint":"https://jungle.eosio.cr"}},"token":{"contract":"0xBA5c6DC3CAcdE8EA754e47c817846f771944518F"},"eth":{"contract":"0x830aef165b900fa7dc6b219f062c5784f6436d67"},"tokens":{"swap":{"address":"0x5f53dc58cad6101d943b26ffb9427723aeb816f9","decimals":18},"noxon":{"address":"0x60c205722c6c797c725a996cf9cca11291f90749","decimals":0}},"link":{"bitpay":"https://test-insight.bitpay.com","etherscan":"https://rinkeby.etherscan.io","eos":"http://jungle.cryptolions.io/#accountInfo"},"api":{"blocktrail":"https://api.blocktrail.com/v1/tBTC","bitpay":"https://test-insight.bitpay.com/api","etherscan":"https://rinkeby.etherscan.io/api"},"apiKeys":{"etherscan":"RHHFPNMAZMD6I4ZWBZBF6FA11CMW9AXZNM","blocktrail":"1835368c0fa8e71907ca26f3c978ab742a7db42e"}};
 
 /***/ }),
 /* 20 */,
@@ -4291,13 +4291,20 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _appConfig = __webpack_require__(19);
+
+var _appConfig2 = _interopRequireDefault(_appConfig);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
-  home: '/swap.button/swap/build/',
-  wallet: '/swap.button/swap/build/wallet',
-  history: '/swap.button/swap/build/history',
-  swap: '/swap.button/swap/build/swap',
-  feed: '/swap.button/swap/build/feed',
-  affiliate: '/swap.button/swap/build/affiliate'
+  home: _appConfig2.default.publicPath,
+  wallet: _appConfig2.default.publicPath + 'wallet',
+  history: _appConfig2.default.publicPath + 'history',
+  swap: _appConfig2.default.publicPath + 'swap',
+  feed: _appConfig2.default.publicPath + 'feed',
+  affiliate: _appConfig2.default.publicPath + 'affiliate' /* /swap.button/swap/build */
 };
 
 /***/ }),
@@ -8304,37 +8311,37 @@ module.exports = {"text":"_33KTXr"};
 /* 910 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/btc_f4b66d.svg";
+module.exports = "/swap.button/swap/build/images/btc_f4b66d.svg";
 
 /***/ }),
 /* 911 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/eth_262e9a.svg";
+module.exports = "/swap.button/swap/build/images/eth_262e9a.svg";
 
 /***/ }),
 /* 912 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/icx_cda046.svg";
+module.exports = "/swap.button/swap/build/images/icx_cda046.svg";
 
 /***/ }),
 /* 913 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/waves_54c731.svg";
+module.exports = "/swap.button/swap/build/images/waves_54c731.svg";
 
 /***/ }),
 /* 914 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/xrp_db0377.svg";
+module.exports = "/swap.button/swap/build/images/xrp_db0377.svg";
 
 /***/ }),
 /* 915 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/nim_954328.svg";
+module.exports = "/swap.button/swap/build/images/nim_954328.svg";
 
 /***/ }),
 /* 916 */
@@ -8893,7 +8900,7 @@ module.exports = {"trade-panel__change":"_1RiAD5"};
 /* 929 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/flip_ac0462.svg";
+module.exports = "/swap.button/swap/build/images/flip_ac0462.svg";
 
 /***/ }),
 /* 930 */
@@ -9936,7 +9943,7 @@ exports.default = ReloadIcon;
 /* 946 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/reload_8f44d7.svg";
+module.exports = "/swap.button/swap/build/images/reload_8f44d7.svg";
 
 /***/ }),
 /* 947 */
@@ -18609,13 +18616,13 @@ module.exports = {"logo":"_3ywc1I"};
 /* 1000 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/logo_ab387e.svg";
+module.exports = "/swap.button/swap/build/images/logo_ab387e.svg";
 
 /***/ }),
 /* 1001 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/logo-colored_2cd869.svg";
+module.exports = "/swap.button/swap/build/images/logo-colored_2cd869.svg";
 
 /***/ }),
 /* 1002 */
@@ -19173,7 +19180,7 @@ module.exports = {"user":"_2RGag8","bell":"_1kxsPB","status":"_1HA8Rs","new":"_3
 /* 1010 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/avatar_33edf0.svg";
+module.exports = "/swap.button/swap/build/images/avatar_33edf0.svg";
 
 /***/ }),
 /* 1011 */
@@ -19323,7 +19330,7 @@ module.exports = {"column":"_3rHFm5","feed":"_2wHzlm","userTooltip":"v8POQM","ti
 /* 1013 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/arrow-right_014b04.svg";
+module.exports = "/swap.button/swap/build/images/arrow-right_014b04.svg";
 
 /***/ }),
 /* 1014 */
@@ -19376,7 +19383,7 @@ module.exports = {"menu":"_33AA4j","menuImg":"fJ2WX6"};
 /* 1016 */
 /***/ (function(module, exports) {
 
-module.exports = "./images/menu_7c02ba.svg";
+module.exports = "/swap.button/swap/build/images/menu_7c02ba.svg";
 
 /***/ }),
 /* 1017 */

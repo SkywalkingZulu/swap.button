@@ -96,7 +96,7 @@
   text-align: center; }
   ._2OcGd6::after {
     content: '';
-    background: url(./images/delete_a5df89.svg);
+    background: url(/swap.button/swap/build/images/delete_a5df89.svg);
     background-size: contain;
     position: absolute;
     top: calc(50% - 8px);
@@ -1018,22 +1018,22 @@ textarea,
 
 @font-face {
   font-family: 'CerebriSans';
-  src: url(./fonts/CerebriSans-Regular.eot);
-  src: url(./fonts/CerebriSans-Regular.eot?#iefix) format("embedded-opentype"), url(./fonts/CerebriSans-Regular.woff2) format("woff2"), url(./fonts/CerebriSans-Regular.woff) format("woff"), url(./fonts/CerebriSans-Regular.ttf) format("truetype");
+  src: url(/swap.button/swap/build/fonts/CerebriSans-Regular.eot);
+  src: url(/swap.button/swap/build/fonts/CerebriSans-Regular.eot?#iefix) format("embedded-opentype"), url(/swap.button/swap/build/fonts/CerebriSans-Regular.woff2) format("woff2"), url(/swap.button/swap/build/fonts/CerebriSans-Regular.woff) format("woff"), url(/swap.button/swap/build/fonts/CerebriSans-Regular.ttf) format("truetype");
   font-weight: 400;
   font-style: normal; }
 
 @font-face {
   font-family: 'CerebriSans SemiBold';
-  src: url(./fonts/CerebriSans-SemiBold.eot);
-  src: url(./fonts/CerebriSans-SemiBold.eot?#iefix) format("embedded-opentype"), url(./fonts/CerebriSans-SemiBold.woff2) format("woff2"), url(./fonts/CerebriSans-SemiBold.woff) format("woff"), url(./fonts/CerebriSans-SemiBold.ttf) format("truetype");
+  src: url(/swap.button/swap/build/fonts/CerebriSans-SemiBold.eot);
+  src: url(/swap.button/swap/build/fonts/CerebriSans-SemiBold.eot?#iefix) format("embedded-opentype"), url(/swap.button/swap/build/fonts/CerebriSans-SemiBold.woff2) format("woff2"), url(/swap.button/swap/build/fonts/CerebriSans-SemiBold.woff) format("woff"), url(/swap.button/swap/build/fonts/CerebriSans-SemiBold.ttf) format("truetype");
   font-weight: 500;
   font-style: normal; }
 
 @font-face {
   font-family: 'CerebriSans Bold';
-  src: url(./fonts/CerebriSans-Bold.eot);
-  src: url(./fonts/CerebriSans-Bold.eot?#iefix) format("embedded-opentype"), url(./fonts/CerebriSans-Bold.woff2) format("woff2"), url(./fonts/CerebriSans-Bold.woff) format("woff"), url(./fonts/CerebriSans-Bold.ttf) format("truetype");
+  src: url(/swap.button/swap/build/fonts/CerebriSans-Bold.eot);
+  src: url(/swap.button/swap/build/fonts/CerebriSans-Bold.eot?#iefix) format("embedded-opentype"), url(/swap.button/swap/build/fonts/CerebriSans-Bold.woff2) format("woff2"), url(/swap.button/swap/build/fonts/CerebriSans-Bold.woff) format("woff"), url(/swap.button/swap/build/fonts/CerebriSans-Bold.ttf) format("truetype");
   font-weight: 600;
   font-style: normal; }
 
@@ -1213,7 +1213,7 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #ff1fc5; }
 
 ._3N5KKg {
-  background: #e91db4 url(./images/add_4c9844.svg) 50% 50% no-repeat;
+  background: #e91db4 url(/swap.button/swap/build/images/add_4c9844.svg) 50% 50% no-repeat;
   padding: 0;
   display: none; }
 
@@ -1384,7 +1384,7 @@ input[type=number]::-webkit-outer-spin-button {
 ._3RrmBT {
   width: 40px;
   height: 40px;
-  background: #f2f9f2 url(./images/accept_3c14aa.svg) 50% 50% no-repeat;
+  background: #f2f9f2 url(/swap.button/swap/build/images/accept_3c14aa.svg) 50% 50% no-repeat;
   border-radius: 20px;
   display: -webkit-box;
   display: -webkit-flex;

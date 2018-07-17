@@ -1,8 +1,10 @@
+import config from 'app-config'
+
 export default {
-  home: '/swap.button/swap/build/',
-  wallet: '/swap.button/swap/build/wallet',
-  history: '/swap.button/swap/build/history',
-  swap: '/swap.button/swap/build/swap',
-  feed: '/swap.button/swap/build/feed',
-  affiliate: '/swap.button/swap/build/affiliate',
+  home: config.publicPath,
+  wallet: config.publicPath+'wallet',
+  history: config.publicPath+'history',
+  swap: config.publicPath+'swap',
+  feed: config.publicPath+'feed',
+  affiliate: config.publicPath+'affiliate', /* /swap.button/swap/build */
 }

@@ -1,4 +1,4 @@
-import baseConfig from './default'
+import baseConfig from './default.local.prod'
 import config from './_testnet'
 
 

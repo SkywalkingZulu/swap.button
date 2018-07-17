@@ -1,4 +1,4 @@
-import baseConfig from './default'
+import baseConfig from './default.mainnet.dev'
 import config from './_mainnet'
 
 
