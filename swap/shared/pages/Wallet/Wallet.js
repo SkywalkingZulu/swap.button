@@ -11,6 +11,7 @@ import Confirm from 'components/Confirm/Confirm'
 
 import Row from './Row/Row'
 
+
 @connect(({ user: { ethData, btcData, tokensData, eosData, nimData } }) => ({
   tokens: Object.keys(tokensData).map(k => (tokensData[k])),
   items: [ ethData, btcData, eosData /* eosData  nimData */ ],
@@ -50,7 +51,7 @@ export default class Wallet extends Component {
     this.changeView('checkKeys')
     localStorage.setItem(constants.localStorage.privateKeysSaved, true)
   }
-  
+
   changeView = (view) => {
     this.setState({
       view,
@@ -66,6 +67,7 @@ export default class Wallet extends Component {
       <section>
         <PageHeadline>
           <SubTitle>Wallet</SubTitle>
+          <p style={{ fontSize: '20px' }}>Please notice, that you need to have minimum 0.01 amount of the ETH on your wallet, to use it for Ethereum miners fee</p>
           { view === 'off' && <SaveKeys isDownload={this.handleDownload} isChange={() => this.changeView('on')} /> }
         </PageHeadline>
         <Confirm

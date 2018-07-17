@@ -25,7 +25,7 @@ var _btc = __webpack_require__(414);
 
 var _btc2 = _interopRequireDefault(_btc);
 
-var _web = __webpack_require__(116);
+var _web = __webpack_require__(115);
 
 var _web2 = _interopRequireDefault(_web);
 
@@ -105,7 +105,7 @@ var _Events = __webpack_require__(901);
 
 var _Events2 = _interopRequireDefault(_Events);
 
-var _constants = __webpack_require__(205);
+var _constants = __webpack_require__(204);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -219,7 +219,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 // resolve object in webpack
-exports.default = {"propENV":"testnet.prod","paths":{},"referral":{"url":"https://wiki.swap.online/affiliate.php"},"publicPath":"/swap.button/swap/build/","http":{"host":"localhost","port":9001},"i18nDate":{"month":"long","day":"numeric","hour":"numeric","minute":"numeric"},"exchangeRates":{"etheth":1,"ethbtc":0.07,"btceth":14,"ethnoxon":1,"noxoneth":1,"btcnoxon":14,"noxonbtc":0.07},"env":"production","entry":"testnet","base":"/swap.button/swap/build/","services":{"web3":{"provider":"https://rinkeby.infura.io/JCnK5ifEPH9qcQkX0Ahl","rate":0.1,"gas":100000,"gasPrice":"20000000000"},"eos":{"chainId":"038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca","httpEndpoint":"https://jungle.eosio.cr"}},"token":{"contract":"0xBA5c6DC3CAcdE8EA754e47c817846f771944518F"},"eth":{"contract":"0x830aef165b900fa7dc6b219f062c5784f6436d67"},"tokens":{"swap":{"address":"0x5f53dc58cad6101d943b26ffb9427723aeb816f9","decimals":18},"noxon":{"address":"0x60c205722c6c797c725a996cf9cca11291f90749","decimals":0}},"link":{"bitpay":"https://test-insight.bitpay.com","etherscan":"https://rinkeby.etherscan.io","eos":"http://jungle.cryptolions.io/#accountInfo"},"api":{"blocktrail":"https://api.blocktrail.com/v1/tBTC","bitpay":"https://test-insight.bitpay.com/api","etherscan":"https://rinkeby.etherscan.io/api"},"apiKeys":{"etherscan":"RHHFPNMAZMD6I4ZWBZBF6FA11CMW9AXZNM","blocktrail":"1835368c0fa8e71907ca26f3c978ab742a7db42e"}};
+exports.default = {"propENV":"testnet.prod","paths":{},"referral":{"url":"https://wiki.swap.online/affiliate.php"},"publicPath":"/swap.button/swap/build/","http":{"host":"localhost","port":9001},"i18nDate":{"month":"long","day":"numeric","hour":"numeric","minute":"numeric"},"exchangeRates":{"etheth":1,"ethbtc":0.07,"btceth":14,"ethnoxon":1,"noxoneth":1,"btcnoxon":14,"noxonbtc":0.07},"env":"production","entry":"testnet","base":"/swap.button/swap/build/","services":{"web3":{"provider":"https://rinkeby.infura.io/JCnK5ifEPH9qcQkX0Ahl","rate":0.1,"gas":2000000,"gasPrice":"20000000000"},"eos":{"chainId":"038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca","httpEndpoint":"https://jungle.eosio.cr"}},"token":{"contract":"0xc87C2668F05803F60EF75b176eea0CCE80D0009C"},"eth":{"contract":"0x830aef165b900fa7dc6b219f062c5784f6436d67"},"tokens":{"swap":{"address":"0xbaa3fa2ed111f3e8488c21861ea7b7dbb5a7b121","decimals":18},"noxon":{"address":"0x60c205722c6c797c725a996cf9cca11291f90749","decimals":0}},"link":{"bitpay":"https://test-insight.bitpay.com","etherscan":"https://rinkeby.etherscan.io","eos":"http://jungle.cryptolions.io/#accountInfo"},"api":{"blocktrail":"https://api.blocktrail.com/v1/tBTC","bitpay":"https://test-insight.bitpay.com/api","etherscan":"https://rinkeby.etherscan.io/api"},"apiKeys":{"etherscan":"RHHFPNMAZMD6I4ZWBZBF6FA11CMW9AXZNM","blocktrail":"1835368c0fa8e71907ca26f3c978ab742a7db42e"}};
 
 /***/ }),
 /* 20 */,
@@ -246,13 +246,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _reduErs = __webpack_require__(320);
 
 var _reduErs2 = _interopRequireDefault(_reduErs);
 
-var _store = __webpack_require__(195);
+var _store = __webpack_require__(194);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -399,7 +399,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getState = exports.reducers = undefined;
 
-var _store = __webpack_require__(195);
+var _store = __webpack_require__(194);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -670,134 +670,7 @@ exports.default = _Swap2.default;
 exports.Flow = _Flow2.default;
 
 /***/ }),
-/* 107 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _getPrototypeOf = __webpack_require__(4);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(2);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(3);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(5);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(6);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _class, _temp, _initialiseProps;
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(9);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _Button = __webpack_require__(44);
-
-var _Button2 = _interopRequireDefault(_Button);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var TimerButton = (_temp = _class = function (_Component) {
-  (0, _inherits3.default)(TimerButton, _Component);
-
-  function TimerButton(_ref) {
-    var timeLeft = _ref.timeLeft;
-    (0, _classCallCheck3.default)(this, TimerButton);
-
-    var _this = (0, _possibleConstructorReturn3.default)(this, (TimerButton.__proto__ || (0, _getPrototypeOf2.default)(TimerButton)).call(this));
-
-    _initialiseProps.call(_this);
-
-    _this.state = {
-      timeLeft: timeLeft
-    };
-    return _this;
-  }
-
-  (0, _createClass3.default)(TimerButton, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.tick();
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      clearTimeout(this.timer);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var timeLeft = this.state.timeLeft;
-      var children = this.props.children;
-
-
-      return _react2.default.createElement(
-        _Button2.default,
-        { brand: true, onClick: this.handleClick },
-        children,
-        ' ',
-        timeLeft,
-        's'
-      );
-    }
-  }]);
-  return TimerButton;
-}(_react.Component), _class.propTypes = {
-  timeLeft: _propTypes2.default.number, // seconds
-  onClick: _propTypes2.default.func.isRequired
-}, _class.defaultProps = {
-  timeLeft: 10
-}, _initialiseProps = function _initialiseProps() {
-  var _this2 = this;
-
-  this.timer = null;
-
-  this.tick = function () {
-    var timeLeft = _this2.state.timeLeft;
-
-    var newTimeLeft = timeLeft - 1;
-
-    if (newTimeLeft <= 0) {
-      _this2.handleClick();
-    } else {
-      _this2.timer = setTimeout(_this2.tick, 1000);
-      _this2.setState({
-        timeLeft: newTimeLeft
-      });
-    }
-  };
-
-  this.handleClick = function () {
-    var onClick = _this2.props.onClick;
-
-
-    clearTimeout(_this2.timer);
-    onClick();
-  };
-}, _temp);
-exports.default = TimerButton;
-
-/***/ }),
+/* 107 */,
 /* 108 */,
 /* 109 */,
 /* 110 */,
@@ -805,8 +678,7 @@ exports.default = TimerButton;
 /* 112 */,
 /* 113 */,
 /* 114 */,
-/* 115 */,
-/* 116 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -831,6 +703,7 @@ var web3 = new _web2.default(new _web2.default.providers.HttpProvider(_appConfig
 exports.default = web3;
 
 /***/ }),
+/* 116 */,
 /* 117 */,
 /* 118 */,
 /* 119 */,
@@ -845,8 +718,7 @@ exports.default = web3;
 /* 128 */,
 /* 129 */,
 /* 130 */,
-/* 131 */,
-/* 132 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -914,6 +786,7 @@ PageHeadline.propTypes = {
 exports.default = (0, _reactCssModules2.default)(PageHeadline, _PageHeadline2.default);
 
 /***/ }),
+/* 132 */,
 /* 133 */,
 /* 134 */,
 /* 135 */,
@@ -923,8 +796,7 @@ exports.default = (0, _reactCssModules2.default)(PageHeadline, _PageHeadline2.de
 /* 139 */,
 /* 140 */,
 /* 141 */,
-/* 142 */,
-/* 143 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -946,7 +818,7 @@ var _Coins = __webpack_require__(907);
 
 var _Coins2 = _interopRequireDefault(_Coins);
 
-var _Coin = __webpack_require__(206);
+var _Coin = __webpack_require__(205);
 
 var _Coin2 = _interopRequireDefault(_Coin);
 
@@ -968,7 +840,7 @@ var Coins = function Coins(_ref) {
 exports.default = (0, _reactCssModules2.default)(Coins, _Coins2.default);
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -988,8 +860,8 @@ exports.default = _SwapAuth2.default;
 module.exports = exports['default'];
 
 /***/ }),
-/* 145 */,
-/* 146 */
+/* 144 */,
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -999,7 +871,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -1080,7 +952,7 @@ WidthContainer.propTypes = {
 exports.default = (0, _reactCssModules2.default)(WidthContainer, _WidthContainer2.default, { allowMultiple: true });
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1137,7 +1009,7 @@ var _Modal = __webpack_require__(1028);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
-var _WidthContainer = __webpack_require__(146);
+var _WidthContainer = __webpack_require__(145);
 
 var _WidthContainer2 = _interopRequireDefault(_WidthContainer);
 
@@ -1276,7 +1148,7 @@ var Modal = (_dec = (0, _reactCssModules2.default)(_Modal2.default, { allowMulti
 exports.default = Modal;
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1287,7 +1159,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -1425,6 +1297,7 @@ var Input = (_dec = (0, _reactCssModules2.default)(_Input2.default, { allowMulti
 exports.default = Input;
 
 /***/ }),
+/* 148 */,
 /* 149 */,
 /* 150 */,
 /* 151 */,
@@ -1470,8 +1343,7 @@ exports.default = Input;
 /* 191 */,
 /* 192 */,
 /* 193 */,
-/* 194 */,
-/* 195 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1482,7 +1354,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.history = undefined;
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -1490,7 +1362,7 @@ var _reactRouterRedux = __webpack_require__(321);
 
 var _history = __webpack_require__(51);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _reduxLogger = __webpack_require__(719);
 
@@ -1514,6 +1386,7 @@ var store = (0, _redaction.createStore)({
 exports.default = store;
 
 /***/ }),
+/* 195 */,
 /* 196 */,
 /* 197 */,
 /* 198 */,
@@ -1522,8 +1395,7 @@ exports.default = store;
 /* 201 */,
 /* 202 */,
 /* 203 */,
-/* 204 */,
-/* 205 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1560,7 +1432,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1570,7 +1442,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -1630,6 +1502,134 @@ var Coin = function Coin(_ref) {
 };
 
 exports.default = (0, _reactCssModules2.default)(Coin, _Coin2.default);
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = undefined;
+
+var _getPrototypeOf = __webpack_require__(4);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(2);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(3);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(5);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(6);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _class, _temp, _initialiseProps;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(9);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _Button = __webpack_require__(44);
+
+var _Button2 = _interopRequireDefault(_Button);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TimerButton = (_temp = _class = function (_Component) {
+  (0, _inherits3.default)(TimerButton, _Component);
+
+  function TimerButton(_ref) {
+    var timeLeft = _ref.timeLeft;
+    (0, _classCallCheck3.default)(this, TimerButton);
+
+    var _this = (0, _possibleConstructorReturn3.default)(this, (TimerButton.__proto__ || (0, _getPrototypeOf2.default)(TimerButton)).call(this));
+
+    _initialiseProps.call(_this);
+
+    _this.state = {
+      timeLeft: timeLeft
+    };
+    return _this;
+  }
+
+  (0, _createClass3.default)(TimerButton, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.tick();
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      clearTimeout(this.timer);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var timeLeft = this.state.timeLeft;
+      var children = this.props.children;
+
+
+      return _react2.default.createElement(
+        _Button2.default,
+        { brand: true, onClick: this.handleClick },
+        children,
+        ' ',
+        timeLeft,
+        's'
+      );
+    }
+  }]);
+  return TimerButton;
+}(_react.Component), _class.propTypes = {
+  timeLeft: _propTypes2.default.number, // seconds
+  onClick: _propTypes2.default.func.isRequired
+}, _class.defaultProps = {
+  timeLeft: 10
+}, _initialiseProps = function _initialiseProps() {
+  var _this2 = this;
+
+  this.timer = null;
+
+  this.tick = function () {
+    var timeLeft = _this2.state.timeLeft;
+
+    var newTimeLeft = timeLeft - 1;
+
+    if (newTimeLeft <= 0) {
+      _this2.handleClick();
+    } else {
+      _this2.timer = setTimeout(_this2.tick, 1000);
+      _this2.setState({
+        timeLeft: newTimeLeft
+      });
+    }
+  };
+
+  this.handleClick = function () {
+    var onClick = _this2.props.onClick;
+
+
+    clearTimeout(_this2.timer);
+    onClick();
+  };
+}, _temp);
+exports.default = TimerButton;
 
 /***/ }),
 /* 207 */
@@ -2233,7 +2233,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _values = __webpack_require__(204);
+var _values = __webpack_require__(203);
 
 var _values2 = _interopRequireDefault(_values);
 
@@ -2249,7 +2249,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _constants = __webpack_require__(205);
+var _constants = __webpack_require__(204);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -2812,7 +2812,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -3308,7 +3308,7 @@ var _propTypes = __webpack_require__(9);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _helpers = __webpack_require__(11);
 
@@ -3427,7 +3427,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -3485,7 +3485,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -3612,7 +3612,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -3930,7 +3930,7 @@ var _routes = __webpack_require__(394);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-var _store = __webpack_require__(195);
+var _store = __webpack_require__(194);
 
 var _store2 = _interopRequireDefault(_store);
 
@@ -3975,7 +3975,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(110);
+var _reactRouter = __webpack_require__(109);
 
 var _reactRouterDom = __webpack_require__(52);
 
@@ -4051,7 +4051,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _bitcoinjsLib = __webpack_require__(154);
+var _bitcoinjsLib = __webpack_require__(153);
 
 var _bitcoinjsLib2 = _interopRequireDefault(_bitcoinjsLib);
 
@@ -4318,7 +4318,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -4755,7 +4755,7 @@ var _actions2 = _interopRequireDefault(_actions);
 
 var _helpers = __webpack_require__(11);
 
-var _PageHeadline = __webpack_require__(132);
+var _PageHeadline = __webpack_require__(131);
 
 var _PageHeadline2 = _interopRequireDefault(_PageHeadline);
 
@@ -4973,7 +4973,7 @@ var _defineProperty2 = __webpack_require__(99);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -5019,7 +5019,7 @@ var _defineProperty2 = __webpack_require__(99);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -5068,7 +5068,7 @@ var _toConsumableArray2 = __webpack_require__(79);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -5107,7 +5107,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.setVisibility = exports.initialState = undefined;
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -5139,7 +5139,7 @@ var _defineProperty2 = __webpack_require__(99);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -5223,7 +5223,7 @@ var _toConsumableArray2 = __webpack_require__(79);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -5449,6 +5449,7 @@ var getBalances = function getBalances() {
   _actions2.default.eos.getBalance();
 
   (0, _keys2.default)(_appConfig2.default.tokens).forEach(function (name) {
+    console.log('USER', name);
     _actions2.default.token.getBalance(_appConfig2.default.tokens[name].address, name, _appConfig2.default.tokens[name].decimals);
   });
   // actions.nimiq.getBalance()
@@ -5542,7 +5543,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -5562,7 +5563,7 @@ var _helpers = __webpack_require__(11);
 
 var _core = __webpack_require__(80);
 
-var _bitcoinjsLib = __webpack_require__(154);
+var _bitcoinjsLib = __webpack_require__(153);
 
 var _bitcoinjsLib2 = _interopRequireDefault(_bitcoinjsLib);
 
@@ -5743,7 +5744,7 @@ var _helpers = __webpack_require__(11);
 
 var _core = __webpack_require__(80);
 
-var _web = __webpack_require__(116);
+var _web = __webpack_require__(115);
 
 var _web2 = _interopRequireDefault(_web);
 
@@ -5909,7 +5910,7 @@ var _helpers = __webpack_require__(11);
 
 var _core = __webpack_require__(80);
 
-var _web = __webpack_require__(116);
+var _web = __webpack_require__(115);
 
 var _web2 = _interopRequireDefault(_web);
 
@@ -5921,7 +5922,7 @@ var _appConfig = __webpack_require__(19);
 
 var _appConfig2 = _interopRequireDefault(_appConfig);
 
-var _bignumber = __webpack_require__(130);
+var _bignumber = __webpack_require__(129);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5966,12 +5967,17 @@ var getBalance = function getBalance(contractAddress, name, decimals) {
 
   var url = _appConfig2.default.api.etherscan + '?module=account&action=tokenbalance&contractaddress=' + contractAddress + '&address=' + address;
 
+  if (name === undefined) {
+    return null;
+  }
+
   return _helpers.request.get(url).then(function (_ref) {
     var result = _ref.result;
 
     var amount = new _bignumber.BigNumber(String(result)).dividedBy(new _bignumber.BigNumber(String(10)).pow(decimals)).toNumber();
 
     _reducers2.default.user.setTokenBalance({ name: name, amount: amount });
+    return result;
   }).catch(function (r) {
     return console.error('Token service isn\'t available, try later');
   });
@@ -6028,14 +6034,15 @@ var send = function send(from, to, amount, decimals) {
 
   var options = {
     from: address,
-    gas: '' + _appConfig2.default.services.web3.gas,
-    gasPrice: '' + _appConfig2.default.services.web3.gasPrice
+    gas: '' + _appConfig2.default.services.web3.gas
   };
 
   tokenContract = new _web2.default.eth.Contract(_humanStandardTokenAbi2.default, from, options);
 
-  var newAmount = new _bignumber.BigNumber(String(amount)).times(new _bignumber.BigNumber('10').pow(new _bignumber.BigNumber(String(decimals))));
-
+  var newDecimals = new _bignumber.BigNumber(10).pow(new _bignumber.BigNumber(String(decimals)));
+  console.log('newDecimals', newDecimals);
+  var newAmount = new _bignumber.BigNumber(String(amount)).times(newDecimals);
+  console.log('newAmount', newAmount);
   return new _promise2.default(function (resolve, reject) {
     return tokenContract.methods.transfer(to, newAmount).send().then(function (receipt) {
       resolve(receipt);
@@ -6451,7 +6458,7 @@ var _parseFloat = __webpack_require__(737);
 
 var _parseFloat2 = _interopRequireDefault(_parseFloat);
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -7145,6 +7152,8 @@ var Orders = function (_Component) {
       var titles = ['EXCHANGE', 'YOU BUY', 'YOU SELL', 'EXCHANGE RATE', 'ACTIONS'];
       var orders = this.state.orders;
 
+
+      console.log(orders);
 
       var filteredOrders = this.filterOrders(orders, filter);
       var mePeer = _swap2.default.services.room.peer;
@@ -7980,7 +7989,7 @@ var _defineProperty2 = __webpack_require__(99);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _values = __webpack_require__(204);
+var _values = __webpack_require__(203);
 
 var _values2 = _interopRequireDefault(_values);
 
@@ -7990,7 +7999,7 @@ var _typeforce = __webpack_require__(12);
 
 var _typeforce2 = _interopRequireDefault(_typeforce);
 
-var _constants = __webpack_require__(205);
+var _constants = __webpack_require__(204);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -8075,6 +8084,10 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _appConfig = __webpack_require__(19);
+
+var _appConfig2 = _interopRequireDefault(_appConfig);
+
 var _actions = __webpack_require__(16);
 
 var _actions2 = _interopRequireDefault(_actions);
@@ -8091,7 +8104,7 @@ var _helpers = __webpack_require__(11);
 
 var _reactRouterDom = __webpack_require__(52);
 
-var _Coins = __webpack_require__(143);
+var _Coins = __webpack_require__(142);
 
 var _Coins2 = _interopRequireDefault(_Coins);
 
@@ -8164,23 +8177,31 @@ var Row = (_temp2 = _class = function (_Component) {
       if (row === undefined) {
         return null;
       }
+
       var buyCurrency = row.buyCurrency,
           sellCurrency = row.sellCurrency,
           sellAmount = row.sellAmount,
           buyAmount = row.buyAmount,
           isMy = row.isMy;
 
-      var amount = isMy ? buyAmount : sellAmount;
-      var currency = isMy ? buyCurrency : sellCurrency;
+      var amount = isMy ? sellAmount : buyAmount;
+      var currency = isMy ? sellCurrency : buyCurrency;
+      currency = currency.toLowerCase();
 
-      if (currency.toLowerCase() === 'eth') {
+      if (currency === 'eth') {
         _actions2.default.ethereum.getBalance().then(function (balance) {
           _this2.setState({
             balance: balance
           });
         });
-      } else {
+      } else if (currency === 'btc') {
         _actions2.default.bitcoin.getBalance().then(function (balance) {
+          _this2.setState({
+            balance: balance
+          });
+        });
+      } else if (currency !== undefined) {
+        _actions2.default.token.getBalance(_appConfig2.default.tokens[currency].address, currency, _appConfig2.default.tokens[currency].decimals).then(function (balance) {
           _this2.setState({
             balance: balance
           });
@@ -8208,6 +8229,9 @@ var Row = (_temp2 = _class = function (_Component) {
       if (row === undefined) {
         return null;
       }
+
+      console.log(balance);
+      console.log(amount);
 
       var id = row.id,
           buyCurrency = row.buyCurrency,
@@ -8746,7 +8770,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -9069,7 +9093,7 @@ var _RowFeeds = __webpack_require__(932);
 
 var _RowFeeds2 = _interopRequireDefault(_RowFeeds);
 
-var _Coins = __webpack_require__(143);
+var _Coins = __webpack_require__(142);
 
 var _Coins2 = _interopRequireDefault(_Coins);
 
@@ -9200,7 +9224,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -9234,7 +9258,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _helpers = __webpack_require__(11);
 
@@ -9242,7 +9266,7 @@ var _actions = __webpack_require__(16);
 
 var _actions2 = _interopRequireDefault(_actions);
 
-var _PageHeadline = __webpack_require__(132);
+var _PageHeadline = __webpack_require__(131);
 
 var _PageHeadline2 = _interopRequireDefault(_PageHeadline);
 
@@ -9353,6 +9377,11 @@ var Wallet = (_dec = (0, _redaction.connect)(function (_ref) {
             null,
             'Wallet'
           ),
+          _react2.default.createElement(
+            'p',
+            { style: { fontSize: '20px' } },
+            'Please notice, that you need to have minimum 0.01 amount of the ETH on your wallet, to use it for Ethereum miners fee'
+          ),
           view === 'off' && _react2.default.createElement(_SaveKeys2.default, { isDownload: this.handleDownload, isChange: function isChange() {
               return _this2.changeView('on');
             } })
@@ -9424,7 +9453,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _reactCssModules = __webpack_require__(1);
 
@@ -9712,7 +9741,7 @@ var _Row = __webpack_require__(942);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Coin = __webpack_require__(206);
+var _Coin = __webpack_require__(205);
 
 var _Coin2 = _interopRequireDefault(_Coin);
 
@@ -10107,16 +10136,7 @@ var SwapComponent = function (_PureComponent) {
 
 
       if (!orderId) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h3',
-            null,
-            'The order creator is offline. Waiting for him..'
-          ),
-          _react2.default.createElement(_InlineLoader2.default, null)
-        );
+        return null;
       }
 
       var swap = new _swap2.default(orderId);
@@ -10149,7 +10169,7 @@ var _keys = __webpack_require__(21);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -10165,7 +10185,7 @@ var _createClass2 = __webpack_require__(3);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _bignumber = __webpack_require__(130);
+var _bignumber = __webpack_require__(129);
 
 var _bignumber2 = _interopRequireDefault(_bignumber);
 
@@ -10314,7 +10334,7 @@ var _toConsumableArray2 = __webpack_require__(79);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -10540,7 +10560,7 @@ var _InlineLoader = __webpack_require__(81);
 
 var _InlineLoader2 = _interopRequireDefault(_InlineLoader);
 
-var _TimerButton = __webpack_require__(107);
+var _TimerButton = __webpack_require__(206);
 
 var _TimerButton2 = _interopRequireDefault(_TimerButton);
 
@@ -10969,7 +10989,7 @@ var _InlineLoader = __webpack_require__(81);
 
 var _InlineLoader2 = _interopRequireDefault(_InlineLoader);
 
-var _TimerButton = __webpack_require__(107);
+var _TimerButton = __webpack_require__(206);
 
 var _TimerButton2 = _interopRequireDefault(_TimerButton);
 
@@ -11402,24 +11422,16 @@ var _InlineLoader = __webpack_require__(81);
 
 var _InlineLoader2 = _interopRequireDefault(_InlineLoader);
 
-var _TimerButton = __webpack_require__(107);
-
-var _TimerButton2 = _interopRequireDefault(_TimerButton);
-
-var _appConfig = __webpack_require__(19);
-
-var _appConfig2 = _interopRequireDefault(_appConfig);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var EthToBtc = function (_Component) {
-  (0, _inherits3.default)(EthToBtc, _Component);
+var EthTokenToBtc = function (_Component) {
+  (0, _inherits3.default)(EthTokenToBtc, _Component);
 
-  function EthToBtc(_ref) {
+  function EthTokenToBtc(_ref) {
     var swap = _ref.swap;
-    (0, _classCallCheck3.default)(this, EthToBtc);
+    (0, _classCallCheck3.default)(this, EthTokenToBtc);
 
-    var _this = (0, _possibleConstructorReturn3.default)(this, (EthToBtc.__proto__ || (0, _getPrototypeOf2.default)(EthToBtc)).call(this));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (EthTokenToBtc.__proto__ || (0, _getPrototypeOf2.default)(EthTokenToBtc)).call(this));
 
     _this.handleFlowStateUpdate = function (values) {
       _this.setState({
@@ -11439,6 +11451,10 @@ var EthToBtc = function (_Component) {
       _this.swap.flow.syncBalance();
     };
 
+    _this.tryRefund = function () {
+      _this.swap.flow.tryRefund();
+    };
+
     _this.swap = swap;
 
     _this.state = {
@@ -11447,7 +11463,7 @@ var EthToBtc = function (_Component) {
     return _this;
   }
 
-  (0, _createClass3.default)(EthToBtc, [{
+  (0, _createClass3.default)(EthTokenToBtc, [{
     key: 'componentWillMount',
     value: function componentWillMount() {
       this.swap.on('state update', this.handleFlowStateUpdate);
@@ -11466,31 +11482,42 @@ var EthToBtc = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(
+          'button',
+          { onClick: this.tryRefund },
+          'TRY REFUND'
+        ),
+        flow.refundTransactionHash && _react2.default.createElement(
+          'div',
+          null,
+          'Transaction:',
+          _react2.default.createElement(
+            'strong',
+            null,
+            _react2.default.createElement(
+              'a',
+              {
+                href: 'https://rinkeby.etherscan.io/tx/' + flow.refundTransactionHash,
+                target: '_blank',
+                rel: 'noopener noreferrer'
+              },
+              flow.refundTransactionHash
+            )
+          )
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
         this.swap.id && _react2.default.createElement(
           'strong',
           null,
-          this.swap.sellAmount.toString(),
+          this.swap.sellAmount.toNumber(),
           ' ',
           this.swap.sellCurrency,
           ' \u27F6 ',
-          this.swap.buyAmount.toString(),
+          this.swap.buyAmount.toNumber(),
           ' ',
           this.swap.buyCurrency
         ),
-        !this.swap.id && (this.swap.isMy ? _react2.default.createElement(
-          'h3',
-          null,
-          'This order doesn\'t have a buyer'
-        ) : _react2.default.createElement(
-          _react.Fragment,
-          null,
-          _react2.default.createElement(
-            'h3',
-            null,
-            'The order creator is offline. Waiting for him..'
-          ),
-          _react2.default.createElement(_InlineLoader2.default, null)
-        )),
         flow.isWaitingForOwner && _react2.default.createElement(
           _react.Fragment,
           null,
@@ -11519,7 +11546,7 @@ var EthToBtc = function (_Component) {
             null,
             _react2.default.createElement('br', null),
             _react2.default.createElement(
-              _TimerButton2.default,
+              'button',
               { onClick: this.signSwap },
               'Confirm'
             )
@@ -11542,7 +11569,7 @@ var EthToBtc = function (_Component) {
                 _react2.default.createElement(
                   'a',
                   {
-                    href: _appConfig2.default.link.etherscan + '/tx/' + flow.signTransactionHash,
+                    href: 'https://rinkeby.etherscan.io/tx/' + flow.signTransactionHash,
                     target: '_blank',
                     rel: 'noopener noreferrer'
                   },
@@ -11580,6 +11607,24 @@ var EthToBtc = function (_Component) {
                 flow.secretHash
               )
             ),
+            _react2.default.createElement(
+              'div',
+              null,
+              'Script address:',
+              _react2.default.createElement(
+                'strong',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  {
+                    href: 'https://www.blocktrail.com/tBTC/address/' + flow.btcScriptValues.address,
+                    target: '_blank',
+                    rel: 'noopener noreferrer'
+                  },
+                  flow.btcScriptValues.address
+                )
+              )
+            ),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'pre',
@@ -11595,7 +11640,7 @@ var EthToBtc = function (_Component) {
               null,
               _react2.default.createElement('br', null),
               _react2.default.createElement(
-                _TimerButton2.default,
+                'button',
                 { onClick: this.confirmBTCScriptChecked },
                 'Everything is OK. Continue'
               )
@@ -11631,7 +11676,7 @@ var EthToBtc = function (_Component) {
                 _react2.default.createElement(
                   'strong',
                   null,
-                  this.swap.sellAmount.toString()
+                  this.swap.sellAmount.toNumber()
                 ),
                 ' ',
                 this.swap.sellCurrency
@@ -11645,7 +11690,7 @@ var EthToBtc = function (_Component) {
             ),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
-              _TimerButton2.default,
+              'button',
               { type: 'button', onClick: this.updateBalance },
               'Continue'
             )
@@ -11665,7 +11710,6 @@ var EthToBtc = function (_Component) {
             null,
             '4. Creating Ethereum Contract. Please wait, it will take a while'
           ),
-          flow.step === 5 && _react2.default.createElement(_InlineLoader2.default, null),
           flow.ethSwapCreationTransactionHash && _react2.default.createElement(
             'div',
             null,
@@ -11676,14 +11720,15 @@ var EthToBtc = function (_Component) {
               _react2.default.createElement(
                 'a',
                 {
-                  href: _appConfig2.default.link.etherscan + '/tx/' + flow.ethSwapCreationTransactionHash,
+                  href: 'https://rinkeby.etherscan.io/tx/' + flow.ethSwapCreationTransactionHash,
                   target: '_blank',
-                  rel: 'noreferrer noopener'
+                  rel: 'noopener noreferrer'
                 },
-                flow.hash
+                flow.ethSwapCreationTransactionHash
               )
             )
           ),
+          flow.step === 5 && _react2.default.createElement(_InlineLoader2.default, null),
           (flow.step === 6 || flow.isEthWithdrawn) && _react2.default.createElement(
             _react.Fragment,
             null,
@@ -11709,7 +11754,7 @@ var EthToBtc = function (_Component) {
               _react2.default.createElement(
                 'a',
                 {
-                  href: _appConfig2.default.link.bitpay + '/tx/' + flow.btcSwapWithdrawTransactionHash,
+                  href: 'https://www.blocktrail.com/tBTC/tx/' + flow.btcSwapWithdrawTransactionHash,
                   target: '_blank',
                   rel: 'noopener noreferrer'
                 },
@@ -11736,10 +11781,10 @@ var EthToBtc = function (_Component) {
       );
     }
   }]);
-  return EthToBtc;
+  return EthTokenToBtc;
 }(_react.Component);
 
-exports.default = EthToBtc;
+exports.default = EthTokenToBtc;
 
 /***/ }),
 /* 957 */
@@ -11777,17 +11822,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _appConfig = __webpack_require__(19);
-
-var _appConfig2 = _interopRequireDefault(_appConfig);
-
 var _InlineLoader = __webpack_require__(81);
 
 var _InlineLoader2 = _interopRequireDefault(_InlineLoader);
-
-var _TimerButton = __webpack_require__(107);
-
-var _TimerButton2 = _interopRequireDefault(_TimerButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -11850,28 +11887,14 @@ var BtcToEthToken = function (_Component) {
         this.swap.id && _react2.default.createElement(
           'strong',
           null,
-          this.swap.sellAmount.toString(),
+          this.swap.sellAmount.toNumber(),
           ' ',
           this.swap.sellCurrency,
           ' \u27F6 ',
-          this.swap.buyAmount.toString(),
+          this.swap.buyAmount.toNumber(),
           ' ',
           this.swap.buyCurrency
         ),
-        !this.swap.id && (this.swap.isMy ? _react2.default.createElement(
-          'h3',
-          null,
-          'This order doesn\'t have a buyer'
-        ) : _react2.default.createElement(
-          _react.Fragment,
-          null,
-          _react2.default.createElement(
-            'h3',
-            null,
-            'The order creator is offline. Waiting for him..'
-          ),
-          _react2.default.createElement(_InlineLoader2.default, null)
-        )),
         flow.isWaitingForOwner && _react2.default.createElement(
           _react.Fragment,
           null,
@@ -11906,7 +11929,7 @@ var BtcToEthToken = function (_Component) {
             _react2.default.createElement('input', { type: 'text', placeholder: 'Secret Key', defaultValue: secret }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
-              _TimerButton2.default,
+              'button',
               { onClick: this.submitSecret },
               'Confirm'
             )
@@ -11969,7 +11992,7 @@ var BtcToEthToken = function (_Component) {
                 _react2.default.createElement(
                   'strong',
                   null,
-                  this.swap.sellAmount.toString()
+                  this.swap.sellAmount.toNumber()
                 ),
                 ' ',
                 this.swap.sellCurrency
@@ -11983,7 +12006,7 @@ var BtcToEthToken = function (_Component) {
             ),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
-              _TimerButton2.default,
+              'button',
               { type: 'button', onClick: this.updateBalance },
               'Continue'
             )
@@ -12006,25 +12029,25 @@ var BtcToEthToken = function (_Component) {
               null,
               '3. Creating Bitcoin Script. Please wait, it will take a while'
             ),
-            !flow.btcScriptValues && _react2.default.createElement(_InlineLoader2.default, null)
-          ),
-          flow.btcScriptCreatingTransactionHash && _react2.default.createElement(
-            'div',
-            null,
-            'Transaction:',
-            _react2.default.createElement(
-              'strong',
+            flow.btcScriptCreatingTransactionHash && _react2.default.createElement(
+              'div',
               null,
+              'Transaction:',
               _react2.default.createElement(
-                'a',
-                {
-                  target: '_blank',
-                  rel: 'noreferrer noopener',
-                  href: _appConfig2.default.link.bitpay + '/tx/' + flow.btcScriptCreatingTransactionHash
-                },
-                flow.btcScriptCreatingTransactionHash
+                'strong',
+                null,
+                _react2.default.createElement(
+                  'a',
+                  {
+                    href: 'https://www.blocktrail.com/tBTC/tx/' + flow.btcScriptCreatingTransactionHash,
+                    target: '_blank',
+                    rel: 'noopener noreferrer'
+                  },
+                  flow.btcScriptCreatingTransactionHash
+                )
               )
-            )
+            ),
+            !flow.btcScriptValues && _react2.default.createElement(_InlineLoader2.default, null)
           ),
           (flow.step === 5 || flow.isEthContractFunded) && _react2.default.createElement(
             _react.Fragment,
@@ -12051,7 +12074,7 @@ var BtcToEthToken = function (_Component) {
               _react2.default.createElement(
                 'a',
                 {
-                  href: _appConfig2.default.link.etherscan + '/tx/' + flow.ethSwapWithdrawTransactionHash,
+                  href: 'https://rinkeby.etherscan.io/tx/' + flow.ethSwapWithdrawTransactionHash,
                   target: '_blank',
                   rel: 'noreferrer noopener'
                 },
@@ -12095,7 +12118,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = undefined;
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -12125,7 +12148,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _actions = __webpack_require__(16);
 
@@ -12135,7 +12158,7 @@ var _swap = __webpack_require__(13);
 
 var _swap2 = _interopRequireDefault(_swap);
 
-var _PageHeadline = __webpack_require__(132);
+var _PageHeadline = __webpack_require__(131);
 
 var _PageHeadline2 = _interopRequireDefault(_PageHeadline);
 
@@ -12311,7 +12334,7 @@ var _actions = __webpack_require__(16);
 
 var _actions2 = _interopRequireDefault(_actions);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _reactCssModules = __webpack_require__(1);
 
@@ -12467,7 +12490,7 @@ var _Row = __webpack_require__(962);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _Coin = __webpack_require__(206);
+var _Coin = __webpack_require__(205);
 
 var _Coin2 = _interopRequireDefault(_Coin);
 
@@ -12725,7 +12748,7 @@ var _RowHistory = __webpack_require__(966);
 
 var _RowHistory2 = _interopRequireDefault(_RowHistory);
 
-var _Coins = __webpack_require__(143);
+var _Coins = __webpack_require__(142);
 
 var _Coins2 = _interopRequireDefault(_Coins);
 
@@ -12873,9 +12896,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
-var _PageHeadline = __webpack_require__(132);
+var _PageHeadline = __webpack_require__(131);
 
 var _PageHeadline2 = _interopRequireDefault(_PageHeadline);
 
@@ -13053,7 +13076,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouter = __webpack_require__(110);
+var _reactRouter = __webpack_require__(109);
 
 var _propTypes = __webpack_require__(9);
 
@@ -13063,7 +13086,7 @@ var _actions = __webpack_require__(16);
 
 var _actions2 = _interopRequireDefault(_actions);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _moment = __webpack_require__(62);
 
@@ -13103,7 +13126,7 @@ var _ModalConductor = __webpack_require__(378);
 
 var _ModalConductor2 = _interopRequireDefault(_ModalConductor);
 
-var _WidthContainer = __webpack_require__(146);
+var _WidthContainer = __webpack_require__(145);
 
 var _WidthContainer2 = _interopRequireDefault(_WidthContainer);
 
@@ -13225,11 +13248,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createSwapApp = undefined;
 
-var _web = __webpack_require__(116);
+var _web = __webpack_require__(115);
 
 var _web2 = _interopRequireDefault(_web);
 
-var _bitcoinjsLib = __webpack_require__(154);
+var _bitcoinjsLib = __webpack_require__(153);
 
 var _bitcoinjsLib2 = _interopRequireDefault(_bitcoinjsLib);
 
@@ -13247,7 +13270,7 @@ var _swap = __webpack_require__(13);
 
 var _swap2 = _interopRequireDefault(_swap);
 
-var _swap3 = __webpack_require__(144);
+var _swap3 = __webpack_require__(143);
 
 var _swap4 = _interopRequireDefault(_swap3);
 
@@ -13330,7 +13353,8 @@ var createSwapApp = function createSwapApp() {
       }
     }), new _swap9.EthTokenSwap({
       name: _swap.constants.COINS.noxon,
-      address: '0xBA5c6DC3CAcdE8EA754e47c817846f771944518F',
+      address: _appConfig2.default.token.contract,
+      decimals: _appConfig2.default.tokens.noxon.decimals,
       abi: [{ "constant": false, "inputs": [{ "name": "_secret", "type": "bytes32" }, { "name": "_ownerAddress", "type": "address" }], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "getSecret", "outputs": [{ "name": "", "type": "bytes32" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_ratingContractAddress", "type": "address" }], "name": "setReputationAddress", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "participantSigns", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_ownerAddress", "type": "address" }], "name": "abort", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "swaps", "outputs": [{ "name": "token", "type": "address" }, { "name": "secret", "type": "bytes32" }, { "name": "secretHash", "type": "bytes20" }, { "name": "createdAt", "type": "uint256" }, { "name": "balance", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_secretHash", "type": "bytes20" }, { "name": "_participantAddress", "type": "address" }, { "name": "_value", "type": "uint256" }, { "name": "_token", "type": "address" }], "name": "createSwap", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_ownerAddress", "type": "address" }], "name": "checkSign", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "close", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "ratingContractAddress", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "sign", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_ownerAddress", "type": "address" }], "name": "getBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "refund", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [], "name": "Sign", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "createdAt", "type": "uint256" }], "name": "CreateSwap", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Withdraw", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Close", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Refund", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Abort", "type": "event" }],
       tokenAddress: _appConfig2.default.tokens.noxon.address,
       tokenAbi: [{ "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_amount", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_amount", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "getBurnPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "manager", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "unlockEmission", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "emissionlocked", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "acceptOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "lockEmission", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "burnAll", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_newManager", "type": "address" }], "name": "changeManager", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_newOwner", "type": "address" }], "name": "changeOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_to", "type": "address" }, { "name": "_amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "emissionPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "addToReserve", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "burnPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "tokenAddress", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transferAnyERC20Token", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }, { "name": "_spender", "type": "address" }], "name": "allowance", "outputs": [{ "name": "remaining", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "NoxonInit", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [], "name": "acceptManagership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "buyer", "type": "address" }, { "indexed": false, "name": "ethers", "type": "uint256" }, { "indexed": false, "name": "_emissionedPrice", "type": "uint256" }, { "indexed": false, "name": "amountOfTokens", "type": "uint256" }], "name": "TokenBought", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "buyer", "type": "address" }, { "indexed": false, "name": "ethers", "type": "uint256" }, { "indexed": false, "name": "_burnedPrice", "type": "uint256" }, { "indexed": false, "name": "amountOfTokens", "type": "uint256" }], "name": "TokenBurned", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "etherReserved", "type": "uint256" }], "name": "EtherReserved", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_from", "type": "address" }, { "indexed": true, "name": "_to", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_owner", "type": "address" }, { "indexed": true, "name": "_spender", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Approval", "type": "event" }],
@@ -13339,7 +13363,8 @@ var createSwapApp = function createSwapApp() {
       }
     }), new _swap9.EthTokenSwap({
       name: _swap.constants.COINS.swap,
-      address: '0xBA5c6DC3CAcdE8EA754e47c817846f771944518F',
+      address: _appConfig2.default.token.contract,
+      decimals: _appConfig2.default.tokens.swap.decimals,
       abi: [{ "constant": false, "inputs": [{ "name": "_secret", "type": "bytes32" }, { "name": "_ownerAddress", "type": "address" }], "name": "withdraw", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "getSecret", "outputs": [{ "name": "", "type": "bytes32" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_ratingContractAddress", "type": "address" }], "name": "setReputationAddress", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "participantSigns", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_ownerAddress", "type": "address" }], "name": "abort", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "", "type": "address" }, { "name": "", "type": "address" }], "name": "swaps", "outputs": [{ "name": "token", "type": "address" }, { "name": "secret", "type": "bytes32" }, { "name": "secretHash", "type": "bytes20" }, { "name": "createdAt", "type": "uint256" }, { "name": "balance", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_secretHash", "type": "bytes20" }, { "name": "_participantAddress", "type": "address" }, { "name": "_value", "type": "uint256" }, { "name": "_token", "type": "address" }], "name": "createSwap", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_ownerAddress", "type": "address" }], "name": "checkSign", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "close", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "ratingContractAddress", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "sign", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_ownerAddress", "type": "address" }], "name": "getBalance", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_participantAddress", "type": "address" }], "name": "refund", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [], "name": "Sign", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "createdAt", "type": "uint256" }], "name": "CreateSwap", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Withdraw", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Close", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Refund", "type": "event" }, { "anonymous": false, "inputs": [], "name": "Abort", "type": "event" }],
       tokenAddress: _appConfig2.default.tokens.swap.address,
       tokenAbi: [{ "constant": true, "inputs": [], "name": "name", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_spender", "type": "address" }, { "name": "_amount", "type": "uint256" }], "name": "approve", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "totalSupply", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "_from", "type": "address" }, { "name": "_to", "type": "address" }, { "name": "_amount", "type": "uint256" }], "name": "transferFrom", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "getBurnPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "decimals", "outputs": [{ "name": "", "type": "uint8" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "manager", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "unlockEmission", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "emissionlocked", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "acceptOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "lockEmission", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [{ "name": "", "type": "address" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "symbol", "outputs": [{ "name": "", "type": "string" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "burnAll", "outputs": [{ "name": "", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_newManager", "type": "address" }], "name": "changeManager", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_newOwner", "type": "address" }], "name": "changeOwner", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [{ "name": "_to", "type": "address" }, { "name": "_amount", "type": "uint256" }], "name": "transfer", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [], "name": "emissionPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "addToReserve", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": true, "inputs": [], "name": "burnPrice", "outputs": [{ "name": "", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [{ "name": "tokenAddress", "type": "address" }, { "name": "amount", "type": "uint256" }], "name": "transferAnyERC20Token", "outputs": [{ "name": "success", "type": "bool" }], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": true, "inputs": [{ "name": "_owner", "type": "address" }, { "name": "_spender", "type": "address" }], "name": "allowance", "outputs": [{ "name": "remaining", "type": "uint256" }], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [], "name": "NoxonInit", "outputs": [{ "name": "", "type": "bool" }], "payable": true, "stateMutability": "payable", "type": "function" }, { "constant": false, "inputs": [], "name": "acceptManagership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "payable": true, "stateMutability": "payable", "type": "fallback" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "buyer", "type": "address" }, { "indexed": false, "name": "ethers", "type": "uint256" }, { "indexed": false, "name": "_emissionedPrice", "type": "uint256" }, { "indexed": false, "name": "amountOfTokens", "type": "uint256" }], "name": "TokenBought", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "buyer", "type": "address" }, { "indexed": false, "name": "ethers", "type": "uint256" }, { "indexed": false, "name": "_burnedPrice", "type": "uint256" }, { "indexed": false, "name": "amountOfTokens", "type": "uint256" }], "name": "TokenBurned", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": false, "name": "etherReserved", "type": "uint256" }], "name": "EtherReserved", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_from", "type": "address" }, { "indexed": true, "name": "_to", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Transfer", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "name": "_owner", "type": "address" }, { "indexed": true, "name": "_spender", "type": "address" }, { "indexed": false, "name": "_value", "type": "uint256" }], "name": "Approval", "type": "event" }],
@@ -13348,13 +13373,7 @@ var createSwapApp = function createSwapApp() {
       }
     })],
 
-    flows: [_swap10.ETH2BTC, _swap10.BTC2ETH /*,
-                                             ETHTOKEN2BTC(constants.COINS.noxon),
-                                             BTC2ETHTOKEN(constants.COINS.noxon),
-                                             ETHTOKEN2BTC(constants.COINS.swap),
-                                             BTC2ETHTOKEN(constants.COINS.swap),
-                                             */
-    ]
+    flows: [_swap10.ETH2BTC, _swap10.BTC2ETH, (0, _swap10.ETHTOKEN2BTC)(_swap.constants.COINS.noxon), (0, _swap10.BTC2ETHTOKEN)(_swap.constants.COINS.noxon), (0, _swap10.ETHTOKEN2BTC)(_swap.constants.COINS.swap), (0, _swap10.BTC2ETHTOKEN)(_swap.constants.COINS.swap)]
   });
 };
 
@@ -13365,15 +13384,15 @@ exports.createSwapApp = createSwapApp;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./": 144,
+	"./": 143,
 	"./SwapAuth": 207,
 	"./SwapAuth.js": 207,
 	"./btc": 371,
 	"./btc.js": 371,
 	"./eth": 372,
 	"./eth.js": 372,
-	"./index": 144,
-	"./index.js": 144
+	"./index": 143,
+	"./index.js": 143
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -13406,11 +13425,11 @@ var _stringify = __webpack_require__(98);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _typeof2 = __webpack_require__(108);
+var _typeof2 = __webpack_require__(107);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -13701,11 +13720,11 @@ var _keys = __webpack_require__(21);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _bignumber = __webpack_require__(130);
+var _bignumber = __webpack_require__(129);
 
 var _bignumber2 = _interopRequireDefault(_bignumber);
 
@@ -14091,7 +14110,7 @@ var _getOwnPropertyDescriptor = __webpack_require__(374);
 
 var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
 
-var _defineProperty = __webpack_require__(190);
+var _defineProperty = __webpack_require__(189);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -14200,7 +14219,7 @@ var _keys = __webpack_require__(21);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -15036,7 +15055,7 @@ var _promise = __webpack_require__(43);
 
 var _promise2 = _interopRequireDefault(_promise);
 
-var _values = __webpack_require__(204);
+var _values = __webpack_require__(203);
 
 var _values2 = _interopRequireDefault(_values);
 
@@ -15747,7 +15766,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof2 = __webpack_require__(108);
+var _typeof2 = __webpack_require__(107);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -16457,7 +16476,7 @@ var _inherits2 = __webpack_require__(6);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _get2 = __webpack_require__(145);
+var _get2 = __webpack_require__(144);
 
 var _get3 = _interopRequireDefault(_get2);
 
@@ -16814,7 +16833,46 @@ var ETH2BTC = function (_Flow) {
                 return _context3.abrupt('return');
 
               case 28:
-                _context3.next = 30;
+
+                // if (!isEthClosed) {
+                //   try {
+                //     // TODO BE CAREFUL WITH CLOSE()!
+                //     // TODO if call .close() before secret received then ETH participant will lost it and never withdraw from BTC script...
+                //     await flow.ethSwap.close({
+                //       participantAddress: participant.eth.address,
+                //     })
+                //
+                //     flow.setState({
+                //       isEthClosed: true,
+                //     })
+                //   }
+                //   catch (err) {
+                //     // TODO notify user that smth goes wrong
+                //     console.error(err)
+                //     return
+                //   }
+                // }
+                /*
+                        if (!isEthClosed) {
+                          try {
+                            // TODO BE CAREFUL WITH CLOSE()!
+                            // TODO if call .close() before secret received then ETH participant will lost it and never withdraw from BTC script...
+                
+                            flow.setState({
+                              isEthClosed: true,
+                            })
+                          }
+                          catch (err) {
+                            // TODO notify user that smth goes wrong
+                            console.error(err)
+                            return
+                          }
+                        }
+                */
+                flow.setState({
+                  isEthClosed: true
+                });
+                _context3.next = 31;
                 return flow.btcSwap.withdraw({
                   scriptValues: flow.state.btcScriptValues,
                   secret: secret
@@ -16824,13 +16882,13 @@ var ETH2BTC = function (_Flow) {
                   });
                 });
 
-              case 30:
+              case 31:
 
                 flow.finishStep({
                   isBtcWithdrawn: true
                 });
 
-              case 31:
+              case 32:
               case 'end':
                 return _context3.stop();
             }
@@ -16999,7 +17057,7 @@ var _inherits2 = __webpack_require__(6);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _get2 = __webpack_require__(145);
+var _get2 = __webpack_require__(144);
 
 var _get3 = _interopRequireDefault(_get2);
 
@@ -17458,7 +17516,7 @@ var _inherits2 = __webpack_require__(6);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _get2 = __webpack_require__(145);
+var _get2 = __webpack_require__(144);
 
 var _get3 = _interopRequireDefault(_get2);
 
@@ -18110,7 +18168,7 @@ var _inherits2 = __webpack_require__(6);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _get2 = __webpack_require__(145);
+var _get2 = __webpack_require__(144);
 
 var _get3 = _interopRequireDefault(_get2);
 
@@ -18520,7 +18578,7 @@ var _Header = __webpack_require__(997);
 
 var _Header2 = _interopRequireDefault(_Header);
 
-var _WidthContainer = __webpack_require__(146);
+var _WidthContainer = __webpack_require__(145);
 
 var _WidthContainer2 = _interopRequireDefault(_WidthContainer);
 
@@ -18755,7 +18813,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _swap = __webpack_require__(13);
 
@@ -19492,7 +19550,7 @@ var _Info = __webpack_require__(1021);
 
 var _Info2 = _interopRequireDefault(_Info);
 
-var _WidthContainer = __webpack_require__(146);
+var _WidthContainer = __webpack_require__(145);
 
 var _WidthContainer2 = _interopRequireDefault(_WidthContainer);
 
@@ -19661,7 +19719,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _Loader = __webpack_require__(208);
 
@@ -19768,7 +19826,7 @@ var _actions = __webpack_require__(16);
 
 var _actions2 = _interopRequireDefault(_actions);
 
-var _Modal = __webpack_require__(147);
+var _Modal = __webpack_require__(146);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -19879,7 +19937,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -20002,7 +20060,7 @@ var _Button = __webpack_require__(44);
 
 var _Button2 = _interopRequireDefault(_Button);
 
-var _Coins = __webpack_require__(143);
+var _Coins = __webpack_require__(142);
 
 var _Coins2 = _interopRequireDefault(_Coins);
 
@@ -20350,7 +20408,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _appConfig = __webpack_require__(19);
 
@@ -20366,7 +20424,7 @@ var _actions = __webpack_require__(16);
 
 var _actions2 = _interopRequireDefault(_actions);
 
-var _bignumber = __webpack_require__(130);
+var _bignumber = __webpack_require__(129);
 
 var _reactCssModules = __webpack_require__(1);
 
@@ -20706,11 +20764,11 @@ var _inherits2 = __webpack_require__(6);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _assign = __webpack_require__(30);
+var _assign = __webpack_require__(29);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _extends2 = __webpack_require__(29);
+var _extends2 = __webpack_require__(28);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -21053,7 +21111,7 @@ var _FieldLabel = __webpack_require__(212);
 
 var _FieldLabel2 = _interopRequireDefault(_FieldLabel);
 
-var _Input = __webpack_require__(148);
+var _Input = __webpack_require__(147);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -21232,7 +21290,7 @@ var _inherits2 = __webpack_require__(6);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _dec, _dec2, _class, _class2, _temp2;
+var _dec, _class, _class2, _temp2;
 
 var _react = __webpack_require__(0);
 
@@ -21241,8 +21299,6 @@ var _react2 = _interopRequireDefault(_react);
 var _propTypes = __webpack_require__(9);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _redaction = __webpack_require__(28);
 
 var _helpers = __webpack_require__(11);
 
@@ -21262,7 +21318,7 @@ var _WithdrawModal = __webpack_require__(1059);
 
 var _WithdrawModal2 = _interopRequireDefault(_WithdrawModal);
 
-var _Modal = __webpack_require__(147);
+var _Modal = __webpack_require__(146);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -21270,7 +21326,7 @@ var _FieldLabel = __webpack_require__(212);
 
 var _FieldLabel2 = _interopRequireDefault(_FieldLabel);
 
-var _Input = __webpack_require__(148);
+var _Input = __webpack_require__(147);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -21280,12 +21336,7 @@ var _Button2 = _interopRequireDefault(_Button);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var WithdrawModal = (_dec = (0, _redaction.connect)({
-  ethData: 'user.ethData',
-  btcData: 'user.btcData',
-  nimData: 'user.nimData',
-  eosData: 'user.eosData'
-}), _dec2 = (0, _reactCssModules2.default)(_WithdrawModal2.default), _dec(_class = _dec2(_class = (_temp2 = _class2 = function (_React$Component) {
+var WithdrawModal = (_dec = (0, _reactCssModules2.default)(_WithdrawModal2.default), _dec(_class = (_temp2 = _class2 = function (_React$Component) {
   (0, _inherits3.default)(WithdrawModal, _React$Component);
 
   function WithdrawModal() {
@@ -21301,18 +21352,17 @@ var WithdrawModal = (_dec = (0, _redaction.connect)({
 
     return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = WithdrawModal.__proto__ || (0, _getPrototypeOf2.default)(WithdrawModal)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       isSubmitted: false,
-      address: ' ',
+      address: '',
       amount: ''
     }, _this.handleSubmit = function () {
       var _this$state = _this.state,
           to = _this$state.address,
           amount = _this$state.amount;
-      var _this$props = _this.props,
-          ethData = _this$props.ethData,
-          btcData = _this$props.btcData,
-          nimData = _this$props.nimData,
-          eosData = _this$props.eosData,
-          currency = _this$props.data.currency;
+      var _this$props$data = _this.props.data,
+          currency = _this$props$data.currency,
+          contractAddress = _this$props$data.contractAddress,
+          address = _this$props$data.address,
+          decimals = _this$props$data.decimals;
 
 
       if (!to || !amount || amount < 0.01) {
@@ -21323,27 +21373,22 @@ var WithdrawModal = (_dec = (0, _redaction.connect)({
       }
 
       var action = void 0;
-      var from = void 0;
 
       if (currency === 'ETH') {
         action = _actions2.default.ethereum;
-        from = ethData.address;
       } else if (currency === 'BTC') {
         action = _actions2.default.bitcoin;
-        from = btcData.address;
       } else if (currency === 'NIM') {
         action = _actions2.default.nimiq;
-        from = nimData.address;
       } else if (currency === 'EOS') {
         action = _actions2.default.eos;
-        from = eosData.address;
-      } else if (currency === 'NOXON') {
+      } else {
         action = _actions2.default.token;
       }
 
       _actions2.default.loader.show();
 
-      action.send(from, to, Number(amount)).then(function () {
+      action.send(contractAddress || address, to, Number(amount), decimals).then(function () {
         _actions2.default.loader.hide();
         action.getBalance();
 
@@ -21389,6 +21434,11 @@ var WithdrawModal = (_dec = (0, _redaction.connect)({
         _Modal2.default,
         { name: name, title: 'Withdraw ' + data.currency.toUpperCase() },
         _react2.default.createElement(
+          'p',
+          { style: { fontSize: '16px' } },
+          'Please wait, it takes from 3 to 5 minutes to complete the transaction.'
+        ),
+        _react2.default.createElement(
           _FieldLabel2.default,
           { inRow: true },
           'Address'
@@ -21423,7 +21473,7 @@ var WithdrawModal = (_dec = (0, _redaction.connect)({
 }(_react2.default.Component), _class2.propTypes = {
   name: _propTypes2.default.string,
   data: _propTypes2.default.object
-}, _temp2)) || _class) || _class);
+}, _temp2)) || _class);
 exports.default = WithdrawModal;
 
 /***/ }),
@@ -21475,7 +21525,7 @@ var _propTypes = __webpack_require__(9);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _moment = __webpack_require__(62);
 
@@ -21503,7 +21553,7 @@ var _Field = __webpack_require__(1062);
 
 var _Field2 = _interopRequireDefault(_Field);
 
-var _Modal = __webpack_require__(147);
+var _Modal = __webpack_require__(146);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -21723,7 +21773,7 @@ var _Field = __webpack_require__(1063);
 
 var _Field2 = _interopRequireDefault(_Field);
 
-var _Input = __webpack_require__(148);
+var _Input = __webpack_require__(147);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -22043,7 +22093,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ModalContainer = exports.ModalConductor = exports.Modal = undefined;
 
-var _Modal = __webpack_require__(147);
+var _Modal = __webpack_require__(146);
 
 var _Modal2 = _interopRequireDefault(_Modal);
 
@@ -22245,7 +22295,7 @@ var _Swap = __webpack_require__(1069);
 
 var _Swap2 = _interopRequireDefault(_Swap);
 
-var _TimerButton = __webpack_require__(107);
+var _TimerButton = __webpack_require__(206);
 
 var _TimerButton2 = _interopRequireDefault(_TimerButton);
 
@@ -22333,7 +22383,7 @@ var _FieldLabel = __webpack_require__(212);
 
 var _FieldLabel2 = _interopRequireDefault(_FieldLabel);
 
-var _Input = __webpack_require__(148);
+var _Input = __webpack_require__(147);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -22407,7 +22457,7 @@ var _propTypes = __webpack_require__(9);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _redaction = __webpack_require__(28);
+var _redaction = __webpack_require__(31);
 
 var _notifications = __webpack_require__(1075);
 

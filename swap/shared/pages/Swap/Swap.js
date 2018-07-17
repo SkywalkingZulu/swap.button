@@ -25,12 +25,7 @@ export default class SwapComponent extends PureComponent {
     const { match : { params : { orderId } } } = this.props
 
     if (!orderId) {
-      return (
-        <div>
-          <h3>The order creator is offline. Waiting for him..</h3>
-          <InlineLoader />
-        </div>
-      )
+      return null
     }
 
     const swap = new Swap(orderId)

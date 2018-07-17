@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import config from 'app-config'
 
 import actions from 'redux/actions'
 import PropTypes from 'prop-types'
@@ -30,19 +31,28 @@ export default class Row extends Component {
     if (row === undefined) {
       return null
     }
-    const { buyCurrency, sellCurrency, sellAmount, buyAmount, isMy } = row
-    const amount = isMy ? buyAmount : sellAmount
-    const currency = isMy ? buyCurrency : sellCurrency
 
-    if (currency.toLowerCase() === 'eth') {
+    const { buyCurrency, sellCurrency, sellAmount, buyAmount, isMy } = row
+    const amount = isMy ? sellAmount : buyAmount
+    let currency = isMy ? sellCurrency : buyCurrency
+    currency = currency.toLowerCase()
+
+    if (currency === 'eth') {
       actions.ethereum.getBalance()
         .then(balance => {
           this.setState({
             balance,
           })
         })
-    } else {
+    } else if (currency === 'btc') {
       actions.bitcoin.getBalance()
+        .then(balance => {
+          this.setState({
+            balance,
+          })
+        })
+    } else if (currency !== undefined) {
+      actions.token.getBalance(config.tokens[currency].address, currency, config.tokens[currency].decimals)
         .then(balance => {
           this.setState({
             balance,
@@ -98,6 +108,9 @@ export default class Row extends Component {
     if (row === undefined) {
       return null
     }
+
+    console.log(balance)
+    console.log(amount)
 
     const { id, buyCurrency, sellCurrency, isMy, buyAmount, sellAmount, isRequested, owner :{  peer: ownerPeer } } = row
     const mePeer = SwapApp.services.room.peer

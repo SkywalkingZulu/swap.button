@@ -1,8 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import config from 'app-config'
-
 import InlineLoader from 'components/loaders/InlineLoader/InlineLoader'
-import TimerButton from 'components/controls/TimerButton/TimerButton'
 
 
 export default class BtcToEthToken extends Component {
@@ -49,23 +46,10 @@ export default class BtcToEthToken extends Component {
       <div>
         {
           this.swap.id && (
-            <strong>{this.swap.sellAmount.toString()} {this.swap.sellCurrency} &#10230; {this.swap.buyAmount.toString()} {this.swap.buyCurrency}</strong>
+            <strong>{this.swap.sellAmount.toNumber()} {this.swap.sellCurrency} &#10230; {this.swap.buyAmount.toNumber()} {this.swap.buyCurrency}</strong>
           )
         }
 
-        {
-          !this.swap.id && (
-            this.swap.isMy ? (
-              <h3>This order doesn't have a buyer</h3>
-            ) : (
-              <Fragment>
-                <h3>The order creator is offline. Waiting for him..</h3>
-                <InlineLoader />
-              </Fragment>
-            )
-          )
-        }
-        
         {
           flow.isWaitingForOwner && (
             <Fragment>
@@ -74,7 +58,7 @@ export default class BtcToEthToken extends Component {
             </Fragment>
           )
         }
-        
+
         {
           (flow.step === 1 || flow.isMeSigned) && (
             <Fragment>
@@ -96,7 +80,7 @@ export default class BtcToEthToken extends Component {
                   <Fragment>
                     <input type="text" placeholder="Secret Key" defaultValue={secret} />
                     <br />
-                    <TimerButton onClick={this.submitSecret}>Confirm</TimerButton>
+                    <button onClick={this.submitSecret}>Confirm</button>
                   </Fragment>
                 ) : (
                   <Fragment>
@@ -113,12 +97,12 @@ export default class BtcToEthToken extends Component {
                     <h3>Not enough money for this swap. Please charge the balance</h3>
                     <div>
                       <div>Your balance: <strong>{flow.balance}</strong> {this.swap.sellCurrency}</div>
-                      <div>Required balance: <strong>{this.swap.sellAmount.toString()}</strong> {this.swap.sellCurrency}</div>
+                      <div>Required balance: <strong>{this.swap.sellAmount.toNumber()}</strong> {this.swap.sellCurrency}</div>
                       <hr />
                       <span>{flow.address}</span>
                     </div>
                     <br />
-                    <TimerButton type="button" onClick={this.updateBalance}>Continue</TimerButton>
+                    <button type="button" onClick={this.updateBalance}>Continue</button>
                   </Fragment>
                 )
               }
@@ -136,27 +120,27 @@ export default class BtcToEthToken extends Component {
                   <Fragment>
                     <h3>3. Creating Bitcoin Script. Please wait, it will take a while</h3>
                     {
+                      flow.btcScriptCreatingTransactionHash && (
+                        <div>
+                          Transaction:
+                          <strong>
+                            <a
+                              href={`https://www.blocktrail.com/tBTC/tx/${flow.btcScriptCreatingTransactionHash}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {flow.btcScriptCreatingTransactionHash}
+                            </a>
+                          </strong>
+                        </div>
+                      )
+                    }
+                    {
                       !flow.btcScriptValues && (
                         <InlineLoader />
                       )
                     }
                   </Fragment>
-                )
-              }
-              {
-                flow.btcScriptCreatingTransactionHash && (
-                  <div>
-                    Transaction:
-                    <strong>
-                      <a
-                        target="_blank"
-                        rel="noreferrer noopener"
-                        href={`${config.link.bitpay}/tx/${flow.btcScriptCreatingTransactionHash}`}
-                      >
-                        {flow.btcScriptCreatingTransactionHash}
-                      </a>
-                    </strong>
-                  </div>
                 )
               }
 
@@ -181,10 +165,10 @@ export default class BtcToEthToken extends Component {
               {
                 flow.ethSwapWithdrawTransactionHash && (
                   <div>
-                  Transaction:
+                    Transaction:
                     <strong>
                       <a
-                        href={`${config.link.etherscan}/tx/${flow.ethSwapWithdrawTransactionHash}`}
+                        href={`https://rinkeby.etherscan.io/tx/${flow.ethSwapWithdrawTransactionHash}`}
                         target="_blank"
                         rel="noreferrer noopener"
                       >
