@@ -6,7 +6,7 @@ export default {
   env: 'production',
   entry: 'testnet',
 
-  base: './',
+  base: 'https://swaponline.github.io/swap.button/swap/build/',
   publicPath: `./`,
 
   ...config,
