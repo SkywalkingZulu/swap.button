@@ -4808,36 +4808,6 @@ var Home = (_temp = _class = function (_Component) {
         _react2.default.createElement(
           _PageHeadline2.default,
           null,
-          _react2.default.createElement(
-            _react.Fragment,
-            null,
-            _react2.default.createElement(
-              _Title2.default,
-              null,
-              'Swap.Online - CRYPTO-CURRENCY ',
-              _react2.default.createElement(
-                'abbr',
-                { title: 'Over-The-Counter Market' },
-                'OTC MARKET'
-              )
-            ),
-            _react2.default.createElement(
-              _SubTitle2.default,
-              null,
-              'Check out our ',
-              _react2.default.createElement(
-                'a',
-                { href: 'https://wiki.swap.online/en.pdf', target: '_balnk', rel: 'noreferrer noopener' },
-                'project brief'
-              ),
-              ' and participate in ',
-              _react2.default.createElement(
-                'a',
-                { href: 'http://swap.wpmix.net/#airdrop', traget: 'landframe' },
-                'smart airdrop.'
-              )
-            )
-          ),
           _react2.default.createElement(_Orders2.default, {
             filter: filterOrders,
             handleSellCurrencySelect: this.handleSellCurrencySelect,
@@ -18699,7 +18669,7 @@ var _Nav2 = _interopRequireDefault(_Nav);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var nav = [{ title: 'Orders', link: _helpers.links.home }, { title: 'Wallet', link: _helpers.links.wallet }, { title: 'History', link: _helpers.links.history }, { title: 'Affiliate', link: _helpers.links.affiliate }];
+var nav = [{ title: 'Orders', link: _helpers.links.home }, { title: 'Wallet', link: _helpers.links.wallet }, { title: 'History', link: _helpers.links.history }];
 
 var Nav = (_dec = (0, _reactCssModules2.default)(_Nav2.default), _dec(_class = function (_Component) {
   (0, _inherits3.default)(Nav, _Component);
