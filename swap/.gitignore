@@ -1,0 +1,10 @@
+lib
+
+.DS_Store
+.idea
+.eslintcache
+
+*-lock.*
+
+node_modules
+swap.core
