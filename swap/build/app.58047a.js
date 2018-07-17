@@ -16814,32 +16814,7 @@ var ETH2BTC = function (_Flow) {
                 return _context3.abrupt('return');
 
               case 28:
-                if (isEthClosed) {
-                  _context3.next = 37;
-                  break;
-                }
-
-                _context3.prev = 29;
-
-                // TODO BE CAREFUL WITH CLOSE()!
-                // TODO if call .close() before secret received then ETH participant will lost it and never withdraw from BTC script...
-
-                flow.setState({
-                  isEthClosed: true
-                });
-                _context3.next = 37;
-                break;
-
-              case 33:
-                _context3.prev = 33;
-                _context3.t1 = _context3['catch'](29);
-
-                // TODO notify user that smth goes wrong
-                console.error(_context3.t1);
-                return _context3.abrupt('return');
-
-              case 37:
-                _context3.next = 39;
+                _context3.next = 30;
                 return flow.btcSwap.withdraw({
                   scriptValues: flow.state.btcScriptValues,
                   secret: secret
@@ -16849,18 +16824,18 @@ var ETH2BTC = function (_Flow) {
                   });
                 });
 
-              case 39:
+              case 30:
 
                 flow.finishStep({
                   isBtcWithdrawn: true
                 });
 
-              case 40:
+              case 31:
               case 'end':
                 return _context3.stop();
             }
           }
-        }, _callee3, _this2, [[6, 13], [29, 33]]);
+        }, _callee3, _this2, [[6, 13]]);
       })),
 
       // 8. Finish
