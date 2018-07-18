@@ -218,7 +218,7 @@ window._mc.wcDOMReady3 = wcDOMReady3;
 			var iframeHolder = null;
 			var swapOnlineIframe = null;
 			var navigateIframe = function (json) {
-				swapOnlineIframe.src = "https://swaponline.github.io/swap.button/swap/build/?param="+json;
+				swapOnlineIframe.src = "https://swaponline.github.io/swap.button/swap/build/?param="+json+"#/swap.button/swap/build/";
 			}
 			var createIframe = function (json) {
 				var holder = _mc.MakeFW(document.createElement("DIV"));
@@ -236,7 +236,7 @@ window._mc.wcDOMReady3 = wcDOMReady3;
 					close.href = "#";
 					holder.append(close);
 				var iframe = _mc.MakeFW(document.createElement("IFRAME"));
-					iframe.src = "https://swaponline.github.io/swap.button/swap/build/?param="+json;
+					iframe.src = "https://swaponline.github.io/swap.button/swap/build/?param="+json+"#/swap.button/swap/build/";
 					iframe.border = 0;
 				
 					holdifr.append(iframe);
