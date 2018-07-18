@@ -1,5 +1,5 @@
 import React from 'react'
-import { ConnectedRouter } from 'react-router-redux'
+import { HashRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
 
@@ -16,14 +16,14 @@ export default class Root extends React.PureComponent {
 
   render() {
     const { history, store, routes } = this.props
-    return (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <App>
-            {routes}
-          </App>
-        </ConnectedRouter>
-      </Provider>
+	return (
+		<Provider store={store}>
+			<HashRouter history={history}>
+				<App>
+					{routes}
+				</App>
+			</HashRouter>
+		</Provider>
     )
   }
 }
