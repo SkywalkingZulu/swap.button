@@ -26,10 +26,6 @@ window.swap_button_generator_cfg = {
 						});
 						include("SCRIPT", {
 							type : "text/javascript",
-							src : "{%host_url%}/core.js"
-						});
-						include("SCRIPT", {
-							type : "text/javascript",
 							src : "{%host_url%}/button.js"
 						});
 					};
