@@ -15,7 +15,13 @@ const sign = async () => {
 
   Object.keys(config.tokens)
     .forEach(name => {
-      actions.token.login(_ethPrivateKey, config.tokens[name].address, name, config.tokens[name].decimals)
+		let tokenKey = _ethPrivateKey;
+		if (localStorage.getItem(constants.privateKeyNames[name])) {
+			tokenKey = localStorage.getItem(constants.privateKeyNames[name]);
+		} else {
+			localStorage.setItem(constants.privateKeyNames[name],tokenKey)
+		}
+		actions.token.login(tokenKey, config.tokens[name].address, name, config.tokens[name].decimals)
     })
   // await actions.nimiq.login(_ethPrivateKey)
 

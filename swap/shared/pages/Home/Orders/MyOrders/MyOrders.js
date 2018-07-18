@@ -43,7 +43,7 @@ export default class MyOrders extends PureComponent {
 
     return (
       <Fragment>
-        <h3 style={{ marginTop: '50px' }} >Your orders</h3>
+        <h3>Your orders</h3>
         <Table
           titles={titles}
           rows={orders}
