@@ -612,7 +612,7 @@ var _require = __webpack_require__(83),
     PublicKey = _require.PublicKey;
 
 var Fcbuffer = __webpack_require__(1083);
-var ByteBuffer = __webpack_require__(384);
+var ByteBuffer = __webpack_require__(383);
 var assert = __webpack_require__(23);
 
 var json = { schema: __webpack_require__(1088) };
@@ -1577,7 +1577,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var assert = __webpack_require__(23);
 
-var _require = __webpack_require__(384),
+var _require = __webpack_require__(383),
     Long = _require.Long;
 
 module.exports = {
@@ -1975,7 +1975,7 @@ function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 
 var BN = __webpack_require__(17);
 
-var _require = __webpack_require__(384),
+var _require = __webpack_require__(383),
     Long = _require.Long;
 
 var assert = __webpack_require__(23);
@@ -3227,7 +3227,7 @@ function writeDouble( buf, v, offset, dirn ) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var ByteBuffer = __webpack_require__(384);
+var ByteBuffer = __webpack_require__(383);
 var Struct = __webpack_require__(1093);
 
 module.exports = {
@@ -3519,7 +3519,7 @@ function toByteBuffer(type, value) {
 "use strict";
 
 
-var ByteBuffer = __webpack_require__(384);
+var ByteBuffer = __webpack_require__(383);
 
 /**
   @class Struct
@@ -4798,7 +4798,7 @@ module.exports = __webpack_require__(1113);
 /***/ 1113:
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(50);
+var anObject = __webpack_require__(51);
 var get = __webpack_require__(215);
 module.exports = __webpack_require__(14).getIterator = function (it) {
   var iterFn = get(it);
@@ -4984,7 +4984,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var assert = __webpack_require__(23);
 var ecc = __webpack_require__(83);
 var Fcbuffer = __webpack_require__(1083);
-var createHash = __webpack_require__(49);
+var createHash = __webpack_require__(50);
 
 var _require = __webpack_require__(1086),
     processArgs = _require.processArgs;

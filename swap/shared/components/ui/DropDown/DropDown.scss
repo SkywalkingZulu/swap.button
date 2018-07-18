@@ -15,8 +15,8 @@
 }
 
 .selectedItem {
-  height: 56px;
-  line-height: 56px;
+  height: 36px;
+  line-height: 36px;
   padding-right: 46px;
   padding-left: 16px;
   cursor: pointer;
@@ -35,7 +35,7 @@
 
 .select {
   min-width: 100%;
-  max-height: (56px * 4);
+  max-height: (36px * 4);
   background-color: #fff;
   margin-top: 4px;
   position: absolute;
@@ -48,8 +48,8 @@
 }
 
 .option {
-  height: 56px;
-  line-height: 56px;
+  height: 36px;
+  line-height: 36px;
   border-top: 1px solid #ddd;
   padding: 0 16px;
   cursor: pointer;

@@ -11,7 +11,7 @@ const SearchSwap = ({ buyCurrency, sellCurrency, updateFilter, flipCurrency }) =
   <div styleName="choice">
     <div styleName="row">
       <p styleName="text" >You want to buy</p>
-      <CurrencySelect
+	  <CurrencySelect
         styleName="currencySelect"
         selectedValue={buyCurrency}
         onSelect={updateFilter}
@@ -20,7 +20,7 @@ const SearchSwap = ({ buyCurrency, sellCurrency, updateFilter, flipCurrency }) =
     <Flip onClick={flipCurrency} />
     <div styleName="row">
       <p styleName="text" >You want to sell</p>
-      <CurrencySelect
+	  <CurrencySelect
         styleName="currencySelect"
         selectedValue={sellCurrency}
         onSelect={updateFilter}

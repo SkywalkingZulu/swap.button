@@ -18,7 +18,30 @@ const RowFeeds = ({ row, mePeer, acceptRequest, declineRequest, removeOrder }) =
   }
 
   const { requests, buyAmount, buyCurrency, sellAmount, sellCurrency,  id } = row
-
+  console.log("Render My Order Row");
+  console.log( row );
+  let action = "";
+  if (requests && requests.length) {
+	  action = (function () {
+		  return <div styleName="buttons">
+					<div styleName="delete" onClick={() => declineRequest(id, requests[0].peer)} >Decline</div>
+					<Link to={`${links.swap}/${sellCurrency}-${buyCurrency}/${id}`}>
+						<div styleName="accept" onClick={() => acceptRequest(id, requests[0].peer)} >Accept</div>
+					</Link>
+				</div>
+	  })();
+  } else {
+	  action = (function() {
+		  return <div styleName="delete" onClick={() => removeOrder(id)} > Delete order</div>
+	  })();
+  }
+  
+  if (row.isProcessing) {
+	  action = (function(){
+		  return <div styleName="processed" onClick={() => removeOrder(id)} > Processed <em>(Delete)</em></div>
+	  })();
+  }
+  
   return (
     <tr>
       <td>
@@ -34,18 +57,7 @@ const RowFeeds = ({ row, mePeer, acceptRequest, declineRequest, removeOrder }) =
         { config.exchangeRates[`${buyCurrency.toLowerCase()}${sellCurrency.toLowerCase()}`] }
       </td>
       <td>
-        {
-          Boolean(requests && requests.length) ? (
-            <div styleName="buttons">
-              <div styleName="delete" onClick={() => declineRequest(id, requests[0].peer)} >Decline</div>
-              <Link to={`${links.swap}/${sellCurrency}-${buyCurrency}/${id}`}>
-                <div styleName="accept" onClick={() => acceptRequest(id, requests[0].peer)} >Accept</div>
-              </Link>
-            </div>
-          ) : (
-            <div styleName="delete" onClick={() => removeOrder(id)} > Delete order</div>
-          )
-        }
+		{ action }
       </td>
     </tr>
   )

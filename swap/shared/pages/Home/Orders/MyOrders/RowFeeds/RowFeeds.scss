@@ -14,10 +14,16 @@
 }
 
 
-.delete, .accept {
+.delete, .accept , .processed {
   cursor: pointer;
 }
-
+.processed {
+	color: #3de25b;
+}
+.processed EM {
+	font-style: normal;
+	color: #e32950;
+}
 td {
   text-align: center;
 }
