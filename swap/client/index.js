@@ -6,7 +6,7 @@ import store, { history } from 'redux/store'
 import Root from 'containers/Root/Root'
 import Loader from 'components/loaders/Loader/Loader'
 
-
+window.document.body.className = "";
 ReactDOM.render(
   <Loader />,
   document.getElementById('root')

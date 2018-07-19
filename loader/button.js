@@ -256,6 +256,7 @@ window._mc.wcDOMReady3 = wcDOMReady3;
 					e = _mc.Event(e);
 					if (e.target.classHas('swap-online-window-close')) {
 						e.preventDefault();
+						swapOnlineIframe.src = "about:blank";
 						body.classDel("swap-online-opened");
 					}
 					if (e.target.classHas('swap-online-button')) {
