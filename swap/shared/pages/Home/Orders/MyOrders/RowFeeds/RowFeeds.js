@@ -32,13 +32,20 @@ const RowFeeds = ({ row, mePeer, acceptRequest, declineRequest, removeOrder }) =
 	  })();
   } else {
 	  action = (function() {
-		  return <div styleName="delete" onClick={() => removeOrder(id)} > Delete order</div>
+		  return <div styleName="buttons">
+					<div styleName="delete" onClick={() => removeOrder(id)} > Delete order</div>
+				</div>
 	  })();
   }
   
   if (row.isProcessing) {
 	  action = (function(){
-		  return <div styleName="processed" onClick={() => removeOrder(id)} > Processed <em>(Delete)</em></div>
+		  return <div styleName="buttons">
+					<Link to={`${links.swap}/${sellCurrency}-${buyCurrency}/${id}`}>
+						Status
+					</Link>
+					<div styleName="processed" onClick={() => removeOrder(id)} > Processed <em>(Delete)</em></div>
+				</div>
 	  })();
   }
   

@@ -73,7 +73,7 @@ export default class BtcToEth extends Component {
   render() {
     const { secret, flow, enabledButton } = this.state
     const refundTxHex = this.getRefundTxHex()
-
+	//console.log(flow);
     return (
       <div>
         {
