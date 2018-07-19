@@ -16,9 +16,7 @@ export default class Orders extends Component {
   }
 
   componentWillMount() {
-    actions.analytics.dataEvent('open-page-orders');
-	console.log("Order WillMount");
-	console.log(SwapApp.services.orders.items);
+    actions.analytics.dataEvent('open-page-orders')
     SwapApp.services.orders
       .on('new orders', this.updateOrders)
       .on('new order', this.updateOrders)
@@ -35,8 +33,6 @@ export default class Orders extends Component {
   }
 
   updateOrders = () => {
-	console.log("updateOrders");
-	console.log(SwapApp.services.orders.items);
     this.setState({
       orders: SwapApp.services.orders.items,
     })
@@ -49,20 +45,17 @@ export default class Orders extends Component {
   }
 
   filterOrders = (orders, filter) =>
-    orders.filter(f => (`${f.buyCurrency.toLowerCase()}${f.sellCurrency.toLowerCase()}` === filter && !f.isProcessing))
+    orders.filter(f => (`${f.buyCurrency.toLowerCase()}${f.sellCurrency.toLowerCase()}` === filter))
 
   render() {
     const { filter, sellCurrency, buyCurrency, handleSellCurrencySelect, flipCurrency } = this.props
     const titles = [ 'EXCHANGE', 'YOU BUY', 'YOU SELL', 'EXCHANGE RATE', 'ACTIONS' ]
     const { orders } = this.state
 
-    console.log(orders)
-
     const filteredOrders = this.filterOrders(orders, filter)
     const mePeer = SwapApp.services.room.peer
     const myOrders = orders.filter(order => order.owner.peer === mePeer)
 
-	
     return (
       <Fragment>
         <MyOrders

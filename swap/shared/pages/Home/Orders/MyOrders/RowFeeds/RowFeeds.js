@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import config from  'app-config'
 
 import { links } from 'helpers'
 import { Link } from 'react-router-dom'
@@ -17,54 +16,29 @@ const RowFeeds = ({ row, mePeer, acceptRequest, declineRequest, removeOrder }) =
     return null
   }
 
-  const { requests, buyAmount, buyCurrency, sellAmount, sellCurrency,  id } = row
-  console.log("Render My Order Row");
-  console.log( row );
-  let action = "";
-  if (requests && requests.length) {
-	  action = (function () {
-		  return <div styleName="buttons">
-					<div styleName="delete" onClick={() => declineRequest(id, requests[0].peer)} >Decline</div>
-					<Link to={`${links.swap}/${sellCurrency}-${buyCurrency}/${id}`}>
-						<div styleName="accept" onClick={() => acceptRequest(id, requests[0].peer)} >Accept</div>
-					</Link>
-				</div>
-	  })();
-  } else {
-	  action = (function() {
-		  return <div styleName="buttons">
-					<div styleName="delete" onClick={() => removeOrder(id)} > Delete order</div>
-				</div>
-	  })();
-  }
-  
-  if (row.isProcessing) {
-	  action = (function(){
-		  return <div styleName="buttons">
-					<Link to={`${links.swap}/${sellCurrency}-${buyCurrency}/${id}`}>
-						Status
-					</Link>
-					<div styleName="processed" onClick={() => removeOrder(id)} > Processed <em>(Delete)</em></div>
-				</div>
-	  })();
-  }
-  
+  const { requests, buyAmount, buyCurrency, sellAmount, sellCurrency, exchangeRate, id } = row
+
   return (
     <tr>
       <td>
         <Coins names={[buyCurrency, sellCurrency]}  />
       </td>
+      <td>{`${buyAmount} ${buyCurrency}`}</td>
+      <td>{`${sellAmount} ${sellCurrency}`}</td>
+      <td>{`${exchangeRate} ${buyCurrency}-${sellCurrency}`}</td>
       <td>
-        {`${buyCurrency.toUpperCase()} ${buyAmount.toNumber().toFixed(3)}`}
-      </td>
-      <td>
-        {`${sellCurrency.toUpperCase()} ${sellAmount.toNumber().toFixed(3)}`}
-      </td>
-      <td>
-        { config.exchangeRates[`${buyCurrency.toLowerCase()}${sellCurrency.toLowerCase()}`] }
-      </td>
-      <td>
-		{ action }
+        {
+          Boolean(requests && requests.length) ? (
+            <div styleName="buttons">
+              <div styleName="delete" onClick={() => declineRequest(id, requests[0].peer)} >Decline</div>
+              <Link to={`${links.swap}/${sellCurrency}-${buyCurrency}/${id}`}>
+                <div styleName="accept" onClick={() => acceptRequest(id, requests[0].peer)} >Accept</div>
+              </Link>
+            </div>
+          ) : (
+            <div styleName="delete" onClick={() => removeOrder(id)} > Delete order</div>
+          )
+        }
       </td>
     </tr>
   )
