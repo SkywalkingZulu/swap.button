@@ -16,16 +16,23 @@ export default class Footer extends Component {
     userOnline: 0,
     connected: false,
   }
-
+  checkConnect = () => {
+	  try {
+		const connected = SwapApp.services.room.connection._ipfs.isOnline()
+	  
+		  SwapApp.services.room.connection.on('peer joined', this.handleUserJoin)
+		  this.setState({
+			connected,
+		  })
+	  } catch (e) {
+		  console.log("Error IPFS connect. Try again");
+		  setTimeout(this.checkConnect, 8000);
+	  }
+    }
   componentWillMount() {
-    setTimeout(() => {
-      const connected = SwapApp.services.room.connection._ipfs.isOnline()
-
-      SwapApp.services.room.connection.on('peer joined', this.handleUserJoin)
-      this.setState({
-        connected,
-      })
-    }, 8000)
+	  window._SwapApp = SwapApp;
+	  
+    setTimeout(this.checkConnect, 8000)
   }
 
   componentWillUnmount() {

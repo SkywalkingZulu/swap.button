@@ -55,25 +55,25 @@ export default class Row extends Component {
         <td>
           {
             isMy ? (
-              `${buyAmount} ${buyCurrency} `
+              `${buyAmount.toFixed(5)} ${buyCurrency} `
             ) : (
-              `${sellAmount} ${sellCurrency} `
+              `${sellAmount.toFixed(5)} ${sellCurrency} `
             )
           }
         </td>
         <td>
           {
             isMy ? (
-              `${sellAmount} ${sellCurrency} `
+              `${sellAmount.toFixed(5)} ${sellCurrency} `
             ) : (
-              `${buyAmount} ${buyCurrency} `
+              `${buyAmount.toFixed(5)} ${buyCurrency} `
             )
           }
         </td>
         <td>
-          {exchangeRate}
+          {(exchangeRate || (buyAmount/sellAmount)).toFixed(5)}
           {
-            isMy ? `${buyCurrency}-${sellCurrency}` : `${sellCurrency}-${buyCurrency}`
+            isMy ? `${buyCurrency}/${sellCurrency}` : `${sellCurrency}/${buyCurrency}`
           }
         </td>
         <td>

@@ -8,6 +8,7 @@ import styles from './Row.scss'
 import Coin from 'components/Coin/Coin'
 import WithdrawButton from 'components/controls/WithdrawButton/WithdrawButton'
 import ReloadButton from 'components/controls/ReloadButton/ReloadButton'
+import SettingsButton from 'components/controls/SettingsButton/SettingsButton'
 import InlineLoader from 'components/loaders/InlineLoader/InlineLoader'
 
 import LinkAccount from '../LinkAccount/LinkAcount'
@@ -49,8 +50,7 @@ export default class Row extends Component {
       action = actions.eos.getBalance
       actions.analytics.dataEvent('balances-update-eos')
     }
-    else if (currency !== undefined) {
-      console.log('currency Waller', currency)
+    else {
       action = actions.token.getBalance
       actions.analytics.dataEvent('balances-update-token')
     }
@@ -85,6 +85,22 @@ export default class Row extends Component {
   handleEosLogin = () => {
     actions.modals.open(constants.modals.Eos, {})
   }
+  handleChangeETH = () => {
+	actions.modals.open(constants.modals.ChangeETH, {})
+  }
+  handleChangeBTC = () => {
+	actions.modals.open(constants.modals.ChangeBTC, {})
+  }
+  handleChangeSWAP = () => {
+	actions.modals.open(constants.modals.ChangeSWAP, {})
+  }
+  handleChangeNOXON = () => {
+	actions.modals.open(constants.modals.ChangeNOXON, {})
+  }
+  handleChangeEos = () => {
+	actions.modals.open(constants.modals.Eos, {})
+  }
+  
 
   render() {
     const { isBalanceFetching, viewText } = this.state
@@ -95,7 +111,7 @@ export default class Row extends Component {
         <td>
           <Coin name={currency} size={40} />
         </td>
-        <td>{currency}</td>
+        <td>{currency.toUpperCase()}</td>
         <td style={{ minWidth: '80px' }}>
           {
             isBalanceFetching ? (
@@ -105,19 +121,36 @@ export default class Row extends Component {
             )
           }
         </td>
-        <td ref={td => this.textAddress = td}>
-          <LinkAccount type={currency} address={address} >{address}</LinkAccount>
-          { currency === 'EOS' && address === '' &&
-            <button styleName="button" onClick={this.handleEosLogin}>Login with your account</button>
-          }
+        <td style={{ verticalAlign: 'middle', lineHeight: '40px' }} ref={td => this.textAddress = td}>
+			{ currency.toUpperCase() === 'BTC' && 
+				<SettingsButton styleName="settingsButton" onClick={this.handleChangeBTC} />
+			}
+			{ currency.toUpperCase() === 'ETH' &&
+				<SettingsButton styleName="settingsButton" onClick={this.handleChangeETH} />
+			}
+			{ currency.toUpperCase() === 'SWAP' &&
+				<SettingsButton styleName="settingsButton" onClick={this.handleChangeSWAP} />
+			}
+			{ currency.toUpperCase() === 'NOXON' &&
+				<SettingsButton styleName="settingsButton" onClick={this.handleChangeNOXON} />
+			}
+			{ currency.toUpperCase() === 'EOS' && address !== '' &&
+				<SettingsButton styleName="settingsButton" onClick={this.handleChangeETH} />
+			}
+			<LinkAccount type={currency} address={address} >{address}</LinkAccount>
+			{ currency === 'EOS' && address === '' &&
+				<button styleName="button" onClick={this.handleEosLogin}>Login with your account</button>
+			}
         </td>
         <td style={{ position: 'relative' }} >
-          <div>
-            <button styleName="button" onClick={this.handleCopiedAddress}>Copy</button>
-            <ReloadButton styleName="reloadButton" onClick={this.handleReloadBalance} />
-            <WithdrawButton data={{ currency, address, contractAddress, decimals }} />
-            { viewText && <p styleName="copied" >Address copied to clipboard</p> }
-          </div>
+          {address !== '' &&
+            <div>
+              <button styleName="button" onClick={this.handleCopiedAddress}>Copy</button>
+              <ReloadButton styleName="reloadButton" onClick={this.handleReloadBalance} />
+              <WithdrawButton data={{ currency, balance, address, contractAddress, decimals }} />
+              { viewText && <p styleName="copied" >Address copied to clipboard</p> }
+            </div>
+          }
         </td>
       </tr>
     )

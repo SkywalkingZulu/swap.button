@@ -1,14 +1,14 @@
 import abi from 'human-standard-token-abi'
 import { request } from 'helpers'
 import { getState } from 'redux/core'
+import actions from 'redux/actions'
 import web3 from 'helpers/web3'
 import reducers from 'redux/core/reducers'
 import config from 'app-config'
 import { BigNumber } from 'bignumber.js'
 
 
-BigNumber.config({ DECIMAL_PLACES: 21 })
-
+BigNumber.config({ RANGE: [-1e+9, 1e+9], POW_PRECISION: 0  })
 
 const login = (privateKey, contractAddress, nameContract, decimals) => {
   let data
@@ -64,9 +64,12 @@ const getBalance = (contractAddress, name, decimals) => {
     }).catch(r => console.error('Token service isn\'t available, try later'))
 }
 
-const fetchBalance = (address) =>
-  request.get(`https://rinkeby.etherscan.io/api?module=account&action=tokenbalance&contractaddress=0x60c205722c6c797c725a996cf9cca11291f90749&address=${address}`)
+const fetchBalance = (tokenAddress) => {
+  const { user: { ethData: { address } } } = getState()
+
+  return request.get(`https://rinkeby.etherscan.io/api?module=account&action=tokenbalance&contractaddress=${tokenAddress}&address=${address}`)
     .then(({ result }) => result)
+}
 
 
 const getTransaction = (contractAddress) =>
@@ -86,7 +89,6 @@ const getTransaction = (contractAddress) =>
     request.get(url)
       .then((res) => {
         if (res.status) {
-          console.log(res.result)
           transactions = res.result
             .filter((item) => item.value > 0).map((item) => ({
               confirmations: item.confirmations > 0 ? 'Confirmed' : 'Unconfirmed',
@@ -106,7 +108,7 @@ const getTransaction = (contractAddress) =>
   })
 
 
-const send = (from, to, amount, decimals) => {
+const send = (contractAddress, to, amount, decimals) => {
   const { user: { ethData: { address } } } = getState()
   let tokenContract
 
@@ -116,16 +118,66 @@ const send = (from, to, amount, decimals) => {
     gasPrice: `${config.services.web3.gasPrice}`,
   }
 
-  tokenContract = new web3.eth.Contract(abi, from, options)
+  tokenContract = new web3.eth.Contract(abi, contractAddress, options)
 
   const newAmount = new BigNumber(String(amount)).times(new BigNumber(10).pow(decimals)).decimalPlaces(decimals).toNumber()
 
-  return new Promise((resolve, reject) =>
-    tokenContract.methods.transfer(to, newAmount).send()
-      .then(receipt => {
-        resolve(receipt)
+  return new Promise(async (resolve, reject) => {
+    const receipt = await tokenContract.methods.transfer(to, newAmount).send()
+      .on('transactionHash', (hash) => {
+        const txId = `${config.link.etherscan}/tx/${hash}`
+        actions.loader.show(true, true, txId)
       })
-  )
+      .on('error', (err) => {
+        reject(err)
+      })
+
+    resolve(receipt)
+  })
+}
+
+const approve = (contractAddress, amount, decimals, name) => {
+  const { user: { ethData: { address } } } = getState()
+
+  const newAmount = new BigNumber(String(amount)).times(new BigNumber(10).pow(decimals)).decimalPlaces(decimals).toNumber()
+  const ERC20     = new web3.eth.Contract(abi, contractAddress)
+
+  return new Promise(async (resolve, reject) => {
+    try {
+      const result = await ERC20.methods.approve(config.token.contract, newAmount).send({
+        from: address,
+        gas: `${config.services.web3.gas}`,
+        gasPrice: `${config.services.web3.gasPrice}`,
+      })
+        .on('error', err => {
+          reject(err)
+        })
+
+      resolve(result)
+    }
+    catch (err) {
+      reject(err)
+    }
+  })
+    .then(() => {
+      reducers.user.setTokenApprove({ name, approve: true  })
+    })
+}
+
+const allowance = (contractAddress, name) => {
+  const { user: { ethData: { address } } } = getState()
+  const ERC20     = new web3.eth.Contract(abi, contractAddress)
+
+  return new Promise(async (resolve, reject) => {
+    let allowance = await ERC20.methods.allowance(address, config.token.contract).call()
+
+    console.log('💸 allowance:', allowance)
+
+    reducers.user.setTokenApprove({ name, approve: allowance > 0 })
+
+    resolve(allowance)
+  })
+
 }
 
 
@@ -135,4 +187,6 @@ export default {
   getTransaction,
   send,
   fetchBalance,
+  approve,
+  allowance,
 }

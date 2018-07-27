@@ -7,6 +7,8 @@ import TimerButton from 'components/controls/TimerButton/TimerButton'
 import Button from 'components/controls/Button/Button'
 import Timer from './Timer/Timer'
 
+import crypto from 'crypto'
+
 
 export default class BtcToEthToken extends Component {
 
@@ -17,7 +19,7 @@ export default class BtcToEthToken extends Component {
 
     this.state = {
       flow: this.swap.flow.state,
-      secret: 'c0809ce9f484fdcdfb2d5aabd609768ce0374ee97a1a5618ce4cd3f16c00a078',
+      secret: crypto.randomBytes(32).toString('hex'),
       enabledButton: false,
     }
   }
@@ -261,7 +263,7 @@ export default class BtcToEthToken extends Component {
                 )
               }
               {
-                flow.step >= 5 && (
+                flow.step >= 5 && !flow.finishSwap && (
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     { enabledButton &&  <Button brand onClick={this.tryRefund}>TRY REFUND</Button> }
                     <Timer
