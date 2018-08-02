@@ -16,6 +16,7 @@
 		<script type="text/javascript" src="./js/config.js"></script>
 		<script type="text/javascript" src="./js/ui.js"></script>
 		<script type="text/javascript" src="./js/app.js"></script>
+		<script type="text/javascript" src="./js/help.templ.js"></script>
 		<script type="text/javascript" src="./js/actions/eth.js"></script>
 		<script type="text/javascript" src="./js/actions/btc.js"></script>
 		<script type="text/javascript" src="./js/debug.js"></script>
@@ -91,10 +92,10 @@
 							<td>
 							</td>
 						</tr>
-						<tr class="-template" data-target="empty">
+						<tr class="-template" data-template="empty">
 							<td colspan="6">Your order list is empty</td>
 						</tr>
-						<tr class="-template" data-target="row">
+						<tr class="-template" data-template="row">
 							<td data-target="buyC"></td>
 							<td data-target="buyA"></td>
 							<td data-target="sellC"></td>
@@ -126,21 +127,24 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr class="-template" data-target="empty">
+					<tr class="-template" data-template="empty">
 						<td colspan="6">Order list is empty</td>
 					</tr>
-					<tr class="-template" data-target="row">
-						<td data-target="sellC"></td>
-						<td data-target="sellA"></td>
-						<td data-target="buyC"></td>
-						<td data-target="buyA"></td>
-						<td data-target="rate"></td>
+					<tr class="-order-row -template" data-target="id" data-id="%id%" data-template="row">
+						<td data-target="sellC">%sellC%</td>
+						<td data-target="sellA">%sellA%</td>
+						<td data-target="buyC">%buyC%</td>
+						<td data-target="buyA">%buyA%</td>
+						<td data-target="rate">%rate%</td>
 						<td>
-							<a href="#" data-target="id" data-action="begin-swap">SWAP</a>
+							<a href="#" data-id="%id%" data-target="id" data-action="cancel-request">Wait confirm</a>
+							<a href="#" data-id="%id%" data-target="id" data-action="begin-swap">SWAP</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
+		</section>
+		<section id="debug-view" style="padding: 50px; margin: 50px; outline: 2px solid red">
 		</section>
 	</body>
 </html>

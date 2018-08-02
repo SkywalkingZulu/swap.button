@@ -1,4 +1,5 @@
 $(document).ready( function () {
+	console.info("DEBUG BEGIN ---------------------- ");
 	$(window).bind("IPFS>DISCONNECT", function (e) {
 		console.info("Ipfs disconnected");
 	});
@@ -86,4 +87,109 @@ $(document).ready( function () {
 			window.location.reload();
 		} );
 	})();
+	
+	/*
+	Templ test
+	*/
+	console.info("Test templ work");
+	var templ = function () {
+		/*
+		{#tmpl-begin#}
+		<div id="{#boo.id#}">
+			{#boo.label#}
+			{#boo.foo.label#}
+			<strong>
+				{#boo.foo.moo.label#}
+				<b>
+					{#boo.foo.moo.zoo.label#}
+					<em class="some-selector">
+						{#boo.foo.moo.zoo.goo.label#}
+						<u class="some-selector-2">
+							{#boo.foo.moo.zoo.goo.soo.label#}
+						</u>
+					</em>
+				</b>
+			</strong>
+		</div>
+		{#tmpl-end#}
+		*/
+	};
+	var templ_o = APP.Help.getTempl( templ );
+	console.info("Template object");
+	console.log(templ_o);
+	templ_o.setObject('boo', {
+		id : 'test-templ-1',
+		label : 'boo label',
+		foo : {
+			label : 'foo label',
+			moo : {
+				label : 'moo label',
+				zoo : {
+					label : 'zoo label',
+					goo : {
+						label: 'zoo label',
+						soo: {
+							label : 'soo label'
+						}
+					}
+				}
+			}
+		}
+	});
+	console.info("get plain text and reset");
+	console.log(templ_o.getPlain());
+	templ_o.reset();
+	templ_o.setObject('boo', {
+		id : 'test-templ-2',
+		label : 'boo label 2',
+		foo : {
+			label : 'foo label 2',
+			moo : {
+				label : 'moo label 2',
+				zoo : {
+					label : 'zoo label 2',
+					goo : {
+						label: 'zoo label 2',
+						soo: {
+							label : 'soo label 2'
+						}
+					}
+				}
+			}
+		}
+	});
+	console.info("after reset plain and dom");
+	console.log(templ_o.getPlain());
+	console.log(templ_o.getDom());
+	console.info("bind funcs for dom object...");
+	templ_o.bind_func('test_func', function() {
+		console.log('test_func call');
+	} );
+	templ_o.bind_func('test_func_2', function(a,b) {
+		console.log('test_func_2 call ', a, b );
+	} );
+	console.info("bind events for dom elements of template");
+	templ_o.bind('STRONG>B', 'click', function (e) {
+		alert('STRONG>B click + preventDefault');
+	} );
+	templ_o.bind('STRONG', 'click', function(e) {
+		alert('STRONG click');
+	} );
+	templ_o.bind('.some-selector', 'click', function (e) {
+		alert('some-selector click');
+	} );
+	templ_o.bind('.some-selector-2', 'click', function (e) {
+		alert('some-selector-2 click');
+	} );
+	console.info("append template");
+	$('#debug-view').append(templ_o.getDom());
+	console.info("test binded dom funcs");
+	console.info($('#test-templ-2')[0].test_func());
+	console.info($('#test-templ-2')[0].test_func_2(1,3));
+	
+	
+	
+	
+	
+	console.info("DEBUG TESTS END --------------------------------");
 } );

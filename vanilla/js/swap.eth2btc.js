@@ -7,6 +7,10 @@ APP.Swap.interfaces['ETH-BTC'] = function (orderID) {
 		
 		
 	};
+	order.sendRequest((isAccepted) => {
+		
+		console.log(`user ${order.owner.peer} ${isAccepted ? 'accepted' : 'declined'} your request`)
+	});
 	swap.on('state update', swap_state_update);
 	console.log(swap);
     console.log(swap.flow._flowName.toUpperCase());

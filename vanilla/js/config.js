@@ -18,7 +18,7 @@ const config = {
 			
 			/* Crimea sanctions - only for dev */
 			'/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star',
-            '/dns4/star.wpmix.net/tcp/443/wss/p2p-websocket-star',
+            //'/dns4/star.wpmix.net/tcp/443/wss/p2p-websocket-star',
 			
 		],
 		server: 'discovery.libp2p.array.io',

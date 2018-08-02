@@ -1,4 +1,15 @@
 const APP = {};
+APP._p = {};
+APP._p.getKeys = function(obj) {
+	if (obj instanceof Object) {
+		var _ret = [];
+		for(var k in obj) {
+			_ret.push(k);
+		};
+		return _ret;
+	};
+	return [];
+};
 
 const localClear = localStorage.clear.bind(localStorage)
 
@@ -147,6 +158,41 @@ APP.CORE.services.orders.on("remove order", function() { $(window).trigger("CORE
 APP.Actions = {};
 /* ----- Help ------ */
 APP.Help = {};
+APP.Help.eachF = function (items,callback_do) {
+	if (callback_do instanceof Function) {
+		if(!(items instanceof Array) && (items.length===undefined)) {
+			var _keys = APP._p.getKeys(items);
+			var _l = _keys.length;
+			if (_l) {
+				for (var _i=0;_i<_l;_i++) {
+					var ret = callback_do.call(items[_keys[_i]],_keys[_i],items[_keys[_i]]);
+					if (ret===false) {
+						return;
+					}
+				}
+			};
+		} else {
+			var _l = items.length;
+			if (_l) {
+				for (var _i=0;_i<_l;_i++) {
+					var ret = callback_do.call(items[_i],_i,items[_i]);
+					if (ret===false) {
+						return;
+					}
+				}
+			}
+		}
+	};
+};
+APP.Help.Render = function (tmpldom,data) {
+	let domhtml = tmpldom[0].outerHTML;
+	for (let k in data) {
+		if (data.hasOwnProperty(k)) {
+			domhtml = domhtml.split('%'+k+'%').join(data[k]);
+		}
+	};
+	return $(domhtml);
+};
 APP.Help.ApplyData = function (selector,data) {
 	let t = $(selector);
 	if (t.val!==undefined) {

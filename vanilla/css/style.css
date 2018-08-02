@@ -107,3 +107,12 @@ TABLE THEAD TR {
 .-template {
 	display: none;
 }
+
+TABLE#peer-orders-list TBODY TR [data-action="cancel-request"],
+TABLE#peer-orders-list TBODY TR.-is-requested [data-action="begin-swap"] {
+	display: none;
+}
+
+TABLE#peer-orders-list TBODY TR.-is-requested [data-action="cancel-request"] {
+	display: inline-block !important;
+}
