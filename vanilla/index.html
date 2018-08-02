@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Swap Online</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/debug.css" />
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
+		<script type="text/javascript" src="https://wiki.swap.online/bitcoinlib.min.js"></script>
+		<script type="text/javascript" src="https://unpkg.com/ipfs@0.27.7/dist/index.js" ></script>
+		<script type="text/javascript" src="https://wiki.swap.online/ipfs-pubsub-room.js" id="ipfsRoom"></script>
+		<script type="text/javascript" src="./js/lang/ru.js"></script>
+		<script type="text/javascript" src="./js/swap.core.js"></script>
+		<script type="text/javascript" src="./js/config.js"></script>
+		<script type="text/javascript" src="./js/ui.js"></script>
+		<script type="text/javascript" src="./js/app.js"></script>
+		<script type="text/javascript" src="./js/actions/eth.js"></script>
+		<script type="text/javascript" src="./js/actions/btc.js"></script>
+		<script type="text/javascript" src="./js/debug.js"></script>
+		<script type="text/javascript" src="./js/swap.js"></script>
+		<script type="text/javascript" src="./js/swap.eth2btc.js"></script>
+	</head>
+	<body>
+		<section class="-debug -opened" id="debug-account">
+			<header>Debug panel - accounts</header>
+			<article>
+				<div class="-group">
+					<label>ETH Private Key</label>
+					<input type="text" data-target="eth-private-key" />
+					<label>ETH Address</label>
+					<strong data-target="eth-address">.....</strong>
+					<label>ETH Amount</label>
+					<strong data-target="eth-amount">....</strong>
+					<a href="#" data-target="refresh-eth">[Refresh]</a>
+				</div>
+				<div class="-group">
+					<label>BTC Private Key</label>
+					<input type="text" data-target="btc-private-key" />
+					<label>BTC Address</label>
+					<strong data-target="btc-address">....</strong>
+					<label>BTC Amount</label>
+					<strong data-target="btc-amount">....</strong>
+					<a href="#" data-target="refresh-btc">[Refresh]</a>
+				</div>
+				<input type="submit" value="Update data" />
+			</article>
+		</section>
+		<section class="-debug" id="debug-add-order">
+			<header>Debug panel - add order</header>
+			<article>
+				<label>Buy currency</label>
+				<input type="text" data-target="buyC" value="eth" />
+				<label>Buy amount</label>
+				<input type="text" data-target="buyA" value="0.01" />
+				<label>Sell currency</label>
+				<input type="text" data-target="sellC" value="btc" />
+				<label>Sell amount</label>
+				<input type="text" data-target="sellA" value="0.01" />
+				<label>Rate</label>
+				<input type="text" data-target="rate" value="1" />
+				<input type="submit" value="Add test order" />
+			</article>
+		</section>
+		<section class="-debug" id="debug-my-orders">
+			<header>Debug panel - Your orders</header>
+			<article>
+				<table>
+					<thead>
+						<tr>
+							<td colspan="2">Buy</td>
+							<td colspan="2">Sell</td>
+							<td rowspan="2">Rate</td>
+							<td rowspan="2">Actions</td>
+						</tr>
+						<tr>
+							<td>Currency</td>
+							<td>Amount</td>
+							<td>Currency</td>
+							<td>Amount</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td data-target="buyC"></td>
+							<td data-target="buyA"></td>
+							<td data-target="sellC"></td>
+							<td data-target="sellA"></td>
+							<td data-target="rate"></td>
+							<td>
+							</td>
+						</tr>
+						<tr class="-template" data-target="empty">
+							<td colspan="6">Your order list is empty</td>
+						</tr>
+						<tr class="-template" data-target="row">
+							<td data-target="buyC"></td>
+							<td data-target="buyA"></td>
+							<td data-target="sellC"></td>
+							<td data-target="sellA"></td>
+							<td data-target="rate"></td>
+							<td>
+								<a href="#" data-target="id" data-action="remove-order">REMOVE</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+		</section>
+		<section id="peer-orders">
+			<header><h1>Orders</h1></header>
+			<table id="peer-orders-list">
+				<thead>
+					<tr>
+						<td colspan="2">Buy</td>
+						<td colspan="2">Sell</td>
+						<td rowspan="2">Rate</td>
+						<td rowspan="2">Actions</td>
+					</tr>
+					<tr>
+						<td>Currency</td>
+						<td>Amount</td>
+						<td>Currency</td>
+						<td>Amount</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="-template" data-target="empty">
+						<td colspan="6">Order list is empty</td>
+					</tr>
+					<tr class="-template" data-target="row">
+						<td data-target="sellC"></td>
+						<td data-target="sellA"></td>
+						<td data-target="buyC"></td>
+						<td data-target="buyA"></td>
+						<td data-target="rate"></td>
+						<td>
+							<a href="#" data-target="id" data-action="begin-swap">SWAP</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</body>
+</html>

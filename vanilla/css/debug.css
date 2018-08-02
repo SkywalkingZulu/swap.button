@@ -1,0 +1,34 @@
+SECTION.-debug {
+	outline: 2px solid red;
+	margin: 10px;
+}
+SECTION.-debug>ARTICLE {
+	display: none;
+	padding: 10px;
+}
+SECTION.-debug>HEADER {
+	font-size: 12px;
+	padding: 5px;
+	font-weight: bold;
+	background: #EFEFEF;
+	cursor: pointer;
+}
+SECTION.-debug.-opened>HEADER {
+	background: #acc0de;
+}
+SECTION.-debug.-opened>ARTICLE {
+	display: block;
+}
+SECTION.-debug LABEL { display: block; }
+SECTION.-debug DIV.-group {
+	padding: 10px;
+	margin: 10px;
+	border: 2px solid #EFEFEF;
+}
+SECTION.-debug STRONG {
+	display: block;
+	line-height: 24px;
+}
+SECTION.-debug INPUT[type="text"] {
+	width: 100%;
+}
