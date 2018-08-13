@@ -3,9 +3,32 @@ APP.Swap.interfaces['ETH-BTC'] = function (orderID) {
 	const swap = new window.swap.core.Swap(orderID);
 	const swap_state_update = function (values) {
 		console.log('swap state update',values);
-		
-		
-		
+		const step = swap.flow.state.step;
+		console.log('enter step', step)
+		switch (swap.flow._flowName) {
+			case "BTC2ETH":
+			case "BTC2NOXON":
+			case "BTC2SWAP":
+				if ( step == 2 ) {
+					swap.flow.submitSecret(APP.Help.getRandomKey(32));
+				};
+				if ( step + 1 === swap.flow.steps.length ) {
+					console.log('[FINISHED] tx', swap.flow.state.ethSwapWithdrawTransactionHash);
+					// Orders.remove(swap.id)
+				};
+				break;;
+			case "ETH2BTC":
+			case "NOXON2BTC":
+			case "SWAP2BTC":
+				if ( step == 1 ) swap.flow.sign();
+				if ( step == 3 ) swap.flow.verifyBtcScript();
+
+				if ( step + 1 === swap.flow.steps.length ) {
+					console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
+					// Orders.remove(swap.id)
+				};
+				break;
+		}
 	};
 	order.sendRequest((isAccepted) => {
 		

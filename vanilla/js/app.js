@@ -134,7 +134,35 @@ APP.getOrders = function (filter) {
 };
 APP.getMyOrders = function () {
 	return APP.CORE.services.orders.getMyOrders();
-}
+};
+APP.getRequestedOrders = function () {
+	let p = new Promise((callback, onerror) => {
+		const ret = [];
+		APP.Help.eachF(APP.getMyOrders(), function (i,order) {
+			var order = APP.CORE.services.orders.getByKey(order.id);
+			if (order!==null) {
+				if (order.requests.length) {
+					ret.push(order);
+				}
+			}
+		} );
+		callback(ret);
+	} );
+	return p;
+};
+APP.getMyRealOrders = function () {
+	let p = new Promise((callback, onerror) => {
+		const ret = [];
+		APP.Help.eachF(APP.getMyOrders(), function (i,order) {
+			var order = APP.CORE.services.orders.getByKey(order.id);
+			if (order!==null) {
+				ret.push(order);
+			}
+		} );
+		callback(ret);
+	} );
+	return p;
+};
 /* --- Create new Order .... Its need for debug ... users of buy button cannot create orders */
 APP.createOrder = function ( buyCurrency, sellCurrency, buyAmount, sellAmount, exchangeRate) {
 	const data = {
@@ -148,7 +176,73 @@ APP.createOrder = function ( buyCurrency, sellCurrency, buyAmount, sellAmount, e
 
 	return 'Order create'
 };
-
+/* New request broadcast */
+(function () {
+	let prevRequestKeys = [];
+	const onTimerTimeout = 1000;
+	const onTimer = function () {
+		APP.getRequestedOrders().then(
+			result => {
+				let hasChange = false;
+				
+				new Promise((callback, onerror) => {
+					/* New requests find */
+					const newRequested = [];
+					const veryNewRequests = [];
+					APP.Help.eachF(result, function (i,order) {
+						if (prevRequestKeys.indexOf(order.id)==-1) {
+							veryNewRequests.push(order.id);
+							hasChange = true;
+						}
+						newRequested.push(order.id);
+					} );
+					callback( {
+						hasChange : hasChange,
+						addRequest : veryNewRequests,
+						list : newRequested
+					} );
+				}).then (
+					filtered => {
+						let hasRemove = false;
+						const removedRequests = [];
+						new Promise((callback, onerror) => {
+							APP.Help.eachF(prevRequestKeys, function (i,orderId) {
+								if (filtered.list.indexOf(orderId)==-1) {
+									hasRemove = true;
+									removedRequests.push(orderId);
+								};
+							} );
+							callback( { 
+								hasAdded : filtered.hasChange,
+								hasDeleted : hasRemove,
+								list : filtered.list,
+								newRequest : filtered.addRequest,
+								delRequest : removedRequests
+							} );
+						} ).then( 
+							finishResult => {
+								if (finishResult.hasAdded) {
+									$(window).trigger("CORE>REQUEST>NEW", finishResult);
+								};
+								if (finishResult.hasDeleted) {
+									$(window).trigger("CORE>REQUEST>DEL", finishResult);
+								};
+								if (finishResult.hasAdded || finishResult.hasDeleted) {
+									$(window).trigger("CORE>REQUEST>CHANGE", finishResult);
+								};
+								prevRequestKeys = finishResult.list;
+								window.setTimeout( onTimer, onTimerTimeout );
+							}
+						);
+					}
+				)
+			}
+		);
+	};
+	$(window).bind("IPFS>CONNECT" , function (e) {
+		window.setTimeout( onTimer, onTimerTimeout );
+	} );
+})();
 /* ---- Order events broadcast to UI ----- */
 APP.CORE.services.orders.on("new order", function () { $(window).trigger("CORE>ORDERS>ADD"); } );
 APP.CORE.services.orders.on("new orders", function () { $(window).trigger("CORE>ORDERS>NEW"); } );
@@ -201,6 +295,18 @@ APP.Help.ApplyData = function (selector,data) {
 	if (t.html!==undefined) {
 		t.html(data);
 	}
-}
-
+};
+APP.Help.getRandomKey = function (n) {
+	var crypto = (self.crypto || self.msCrypto), QUOTA = 65536;
+	var a = new Uint8Array(n);
+	for (var i = 0; i < n; i += QUOTA) {
+		crypto.getRandomValues(a.subarray(i, i + Math.min(n - i, QUOTA)));
+	};
+	var ret = [];
+	a.map(function(i) {
+		var t = i.toString(16);
+		ret.push((t.toString().length>1) ? t : '0'+t);
+	});
+	return ret.join('');
+};
 console.info("App inited");

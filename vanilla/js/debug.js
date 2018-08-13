@@ -192,6 +192,18 @@ $(document).ready( function () {
 		
 		
 	}
-	
+	/* INCOMING ORDER REQUESTS */
+	$(window).bind("CORE>REQUEST>NEW", function (e, list ) {
+		console.info("New order request incoming");
+		console.log(list);
+	} );
+	$(window).bind("CORE>REQUEST>DEL", function (e,list) {
+		console.info("Order request removed");
+		console.log(list);
+	} );
+	$(window).bind("CORE>REQUEST>CHANGE", function (e,list) {
+		console.info("Order requests list changed");
+		console.log(list);
+	} );
 	console.info("DEBUG TESTS END --------------------------------");
 } );
