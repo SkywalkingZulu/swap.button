@@ -1,4 +1,105 @@
 $(document).ready(function (){
+	/* Debug incoming request list  - not need in production */
+	(function () {
+		var _holder = $('TABLE#incoming-requests>TBODY');
+		var templ_order = APP.Help.getTempl(function () {
+			/* 
+			{#tmpl-begin#}
+			<tr data-id="{#order.id#}">
+				<td>{#order.buyCurrency#}</td>
+				<td>{#order.buyAmountFormated#}</td>
+				<td>{#order.sellCurrency#}</td>
+				<td>{#order.sellAmountFormated#}</td>
+				<td>{#order.rate#}</td>
+				<td data-target="requests">{#requests#}</td>
+			</tr>
+			{#tmpl-end#}
+			*/
+		});
+		var templ_order_request = APP.Help.getTempl( function () {
+			/*
+			{#tmpl-begin#}
+				<div data-target="request" data-request-id="{#request.orderID#}-{#request.peer#}">
+					<a href="#"
+						data-action="order-request-accept"
+						data-id="{#request.orderID#}"
+						data-peer="{#request.peer#}">[accept]</a>
+					<a href="#"
+						data-action="order-request-decline"
+						data-id="{#request.orderID#}"
+						data-peer="{#request.peer#}">[decline]</a>
+				</div>
+			{#tmpl-end#}
+			*/
+		} );
+		$(document).delegate('[data-action="order-request-accept"]', 'click', function (e) {
+			e.preventDefault();
+			const $t = $(e.target);
+			const orderID = $t.data('id');
+			const peerID = $t.data('peer');
+			if (confirm("Accept request?")) {
+				console.log('accept request',orderID,peerID);
+				const order = APP.CORE.services.orders.getByKey(orderID);
+				if (order!==null && order.isMy) {
+					order.acceptRequest(peerID);
+					const result = APP.Swap.interfaces[order.buyCurrency+"-"+order.sellCurrency](orderID);
+					window.ttt = result;
+					console.log(result);
+				};
+			}
+		} );
+		$(document).delegate('[data-action="order-request-decline"]', 'click', function (e) {
+			e.preventDefault();
+			
+			const $t = $(e.target);
+			const orderID = $t.data('id');
+			const peerID = $t.data('peer');
+			if (confirm("Decline request?")) {
+				console.log('decline request',orderID,peerID);
+				const order = APP.CORE.services.orders.getByKey(orderID);
+				if (order!==null && order.isMy) {
+					order.declineRequest(peerID);
+				};
+			}
+		} );
+		$(window).bind('CORE>REQUEST>DEL', function (e,data) {
+			console.log('request del',data);
+			APP.Help.eachF(data.delRequest, function (i,orderID) {
+				_holder.find('TR[data-id="'+orderID+'"]').remove();
+			} );
+		} );
+		$(window).bind('CORE>REQUEST>NEW', function (e,data) {
+			console.log('orders requests');
+			APP.getMyRealOrders().then( list => {
+				console.log(list);
+				APP.Help.eachF( list , function (i,order) {
+					if (data.newRequest.indexOf(order.id)!=-1) {
+						console.log(order);
+						
+						templ_order.reset();
+						templ_order.setObject('order',{
+							id : order.id,
+							buyCurrency : order.buyCurrency,
+							buyAmountFormated: order.buyAmount.toFixed(5),
+							sellCurrency : order.sellCurrency,
+							sellAmountFormated: order.sellAmount.toFixed(5),
+							rate : order.exchangeRate
+						} );
+						APP.Help.eachF( order.requests, function (ii,request) {
+							templ_order_request.reset();
+							templ_order_request.setObject( 'request', {
+								orderID : order.id,
+								peer : request.peer
+							} );
+							templ_order.addVar('requests',templ_order_request.getPlain());
+						} );
+						_holder.prepend(templ_order.getDom());
+						
+					};
+				} );
+			} );
+		} );
+	})();
 	/* Debug my orders - not needed in production */
 	const renderMyOrders = function () {
 		$('#debug-my-orders TABLE TBODY TR:not(.-template)').remove();
@@ -116,7 +217,14 @@ $(document).ready(function (){
 		if (confirm("Send request for begin swap?")) {
 			
 			order.sendRequest((isAccepted) => {
-			  console.log(`user ${order.owner.peer} ${isAccepted ? 'accepted' : 'declined'} your request`)
+				console.log(`user ${order.owner.peer} ${isAccepted ? 'accepted' : 'declined'} your request`)
+				if (!isAccepted) {
+					updateOrderStatus(order);
+				} else {
+					const result = APP.Swap.interfaces[order.buyCurrency+"-"+order.sellCurrency](orderID);
+					window.ttt = result;
+					console.log(result);
+				}
 			});
 			updateOrderStatus(order);
 			/*

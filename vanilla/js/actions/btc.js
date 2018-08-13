@@ -15,19 +15,34 @@ APP.Actions.btc = {
 			}
 		} );
 	},
-	fetchBalance : function (address,callback) {
-		$.ajax( {
-			type : 'GET',
-			url : `${config.api.bitpay}/addr/${address}`,
-			complete : function (rv) {
-				if (callback instanceof Function) {
-					callback(
-						rv.responseJSON.balance,
-						rv.responseJSON.unconfirmedBalance
-					)
+	fetchBalanceAsync : async (address) => {
+		return await APP.Actions.btc.fetchBalance(address);
+	},
+	fetchBalance : async function (address,callback) {
+		if (callback===undefined) {
+			return new Promise( retCallback => {
+				$.ajax( {
+					type : 'GET',
+					url : `${config.api.bitpay}/addr/${address}`,
+					complete : function (rv) {
+						retCallback(rv.responseJSON.balance);
+					}
+				} );
+			} );
+		} else {
+			$.ajax( {
+				type : 'GET',
+				url : `${config.api.bitpay}/addr/${address}`,
+				complete : function (rv) {
+					if (callback instanceof Function) {
+						callback(
+							rv.responseJSON.balance,
+							rv.responseJSON.unconfirmedBalance
+						)
+					}
 				}
-			}
-		} );
+			} );
+		};
 	},
 	getTransaction : function (callback) {
 		new Promise((resolve) => {
@@ -176,6 +191,37 @@ APP.Actions.btc = {
 				}
 			}
 		} );
+	},
+	fetchUnspentsAsync : async (address) => {
+		return await new Promise( retCallback => {
+			$.ajax( {
+				type : 'GET',
+				url : `${config.api.bitpay}/addr/${address}/utxo`,
+				complete : function (rv) {
+					console.log(rv.responseJSON);
+					retCallback(rv.responseJSON);
+				}
+			} );
+		});
+		
+	},
+	broadcastTxAsync : async (txRaw) => {
+		return await new Promise( retCallback => {
+			$.ajax( {
+				type : 'POST',
+				url : `${config.api.bitpay}/tx/send`,
+				data: {
+					rawtx: txRaw,
+				},
+				complete : function (rv) {
+					retCallback(rv.responseJSON);
+				},
+				error: function (jqXHR, exception) {
+					console.log('BTC Action error: broadcastTxAsync');
+					console.log(jqXHR,exception);
+				}
+			} );
+		});
 	},
 	broadcastTx : function (txRaw, callback) {
 		$.ajax( {

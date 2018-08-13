@@ -71,12 +71,12 @@ window.swap.core.app.setup({
 			address: config.eth.contract,
 			gasLimit: 1e5,
 			abi: [{"constant":false,"inputs":[{"name":"val","type":"uint256"}],"name":"testnetWithdrawn","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_secret","type":"bytes32"},{"name":"_ownerAddress","type":"address"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_participantAddress","type":"address"}],"name":"getSecret","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"participantSigns","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"swaps","outputs":[{"name":"secret","type":"bytes32"},{"name":"secretHash","type":"bytes20"},{"name":"createdAt","type":"uint256"},{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_secretHash","type":"bytes20"},{"name":"_participantAddress","type":"address"}],"name":"createSwap","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"ratingContractAddress","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_ownerAddress","type":"address"}],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_participantAddress","type":"address"}],"name":"refund","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"createdAt","type":"uint256"}],"name":"CreateSwap","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"_secret","type":"bytes32"},{"indexed":false,"name":"addr","type":"address"},{"indexed":false,"name":"amount","type":"uint256"}],"name":"Withdraw","type":"event"},{"anonymous":false,"inputs":[],"name":"Close","type":"event"},{"anonymous":false,"inputs":[],"name":"Refund","type":"event"}],
-			fetchBalance: (address) => {},
+			fetchBalance: (address) => APP.Actions.eth.fetchBalanceAsync(address),
 		}),
 		new window.swap.core.swaps.BtcSwap({
-			fetchBalance: (address) => {},
-			fetchUnspents: (scriptAddress) => {},
-			broadcastTx: (txRaw) => {},
+			fetchBalance: (address) => APP.Actions.btc.fetchBalanceAsync(address),
+			fetchUnspents: (scriptAddress) => APP.Actions.btc.fetchUnspentsAsync(scriptAddress),
+			broadcastTx: (txRaw) => APP.Actions.btc.broadcastTxAsync(txRaw),
 		}),
 		new window.swap.core.swaps.EthTokenSwap({
 			name: window.swap.core.constants.COINS.noxon,
@@ -177,7 +177,9 @@ APP.createOrder = function ( buyCurrency, sellCurrency, buyAmount, sellAmount, e
 	return 'Order create'
 };
 /* New request broadcast */
+/* TO-DO - not work with multiline request on one order... need fixs in future (this is ok for debug) */
 (function () {
+	
 	let prevRequestKeys = [];
 	const onTimerTimeout = 1000;
 	const onTimer = function () {
@@ -239,9 +241,15 @@ APP.createOrder = function ( buyCurrency, sellCurrency, buyAmount, sellAmount, e
 			}
 		);
 	};
+	/*
+	APP.CORE.services.room.on('request swap', function (data) { 
+		onTimer();
+	} );
+	*/
 	$(window).bind("IPFS>CONNECT" , function (e) {
 		window.setTimeout( onTimer, onTimerTimeout );
 	} );
+	
 })();
 /* ---- Order events broadcast to UI ----- */
 APP.CORE.services.orders.on("new order", function () { $(window).trigger("CORE>ORDERS>ADD"); } );
