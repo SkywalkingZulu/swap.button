@@ -2,6 +2,9 @@ APP.Actions.eth = {
 	login : function (privateKey, callback ) {
 		/* todo */
 	},
+	getAddress : function () {
+		return APP.CORE.services.auth.accounts.eth.address;
+	},
 	getBalance : function (callback) {
 		APP.CORE.env.web3.eth.getBalance(
 			APP.CORE.services.auth.accounts.eth.address
@@ -16,6 +19,13 @@ APP.Actions.eth = {
 		.catch((e) => {
 			console.log('Web3 doesn\'t work please again later ',  e.error)
 		});
+	},
+	getBalanceAsync : async function () {
+		return APP.CORE.env.web3.eth.getBalance(APP.CORE.services.auth.accounts.eth.address)
+			.then(result => Number(APP.CORE.env.web3.utils.fromWei(result)))
+			.catch((e) => {
+				console.log('Web3 doesn\'t work please again later ', e.error)
+			})
 	},
 	fetchBalanceAsync : (address) =>
 		APP.CORE.env.web3.eth.getBalance(address)

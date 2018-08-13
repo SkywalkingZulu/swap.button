@@ -45,7 +45,7 @@ const config = {
 		},
 	},
 	link: {
-		bitpay: 'https://test-insight.bitpay.com',
+		bitpay: 'https://test-insight.swap.online/insight',
 		etherscan: 'https://rinkeby.etherscan.io',
 		eos: 'http://jungle.cryptolions.io/#accountInfo',
 	},

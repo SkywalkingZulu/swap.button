@@ -2,6 +2,24 @@ APP.Actions.btc = {
 	login : function (privateKey, callback) {
 		/* todo */
 	},
+	getAddress : function () {
+		return APP.CORE.services.auth.accounts.btc.getAddress();
+	},
+	getBalanceAsync : async function () {
+		return new Promise( callback => {
+			const address = APP.CORE.services.auth.accounts.btc.getAddress();
+			const url = `${config.api.bitpay}/addr/${address}`;
+			$.ajax( {
+				type : 'GET',
+				url : url,
+				complete : function (rv) {
+					if (callback instanceof Function) {
+						callback(rv.responseJSON.balance);
+					}
+				}
+			} );
+		});
+	},
 	getBalance : function (callback) {
 		const address = APP.CORE.services.auth.accounts.btc.getAddress();
 		const url = `${config.api.bitpay}/addr/${address}`;

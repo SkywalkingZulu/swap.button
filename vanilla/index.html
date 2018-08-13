@@ -6,7 +6,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<link rel="stylesheet" type="text/css" media="screen" href="./css/style.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="./css/debug.css" />
-		<script type="text/javascript" src="./js/bundle.js"></script>
+		<link rel="stylesheet" type="text/css" media="screen" href="./css/active-swap.css" />
+		<!--<script type="text/javascript" src="./js/bundle.js"></script>-->
 		<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.34/dist/web3.min.js"></script>
 		<script type="text/javascript" src="https://wiki.swap.online/bitcoinlib.min.js"></script>
@@ -22,7 +23,6 @@
 		<script type="text/javascript" src="./js/actions/btc.js"></script>
 		<script type="text/javascript" src="./js/debug.js"></script>
 		<script type="text/javascript" src="./js/swap.js"></script>
-		<script type="text/javascript" src="./js/swap.eth2btc.js"></script>
 	</head>
 	<body>
 		<section class="-debug -opened" id="debug-account">
@@ -32,7 +32,7 @@
 					<label>ETH Private Key</label>
 					<input type="text" data-target="eth-private-key" />
 					<label>ETH Address</label>
-					<strong data-target="eth-address">.....</strong>
+					<a href="#" target="_blank" data-target="eth-address">.....</a>
 					<label>ETH Amount</label>
 					<strong data-target="eth-amount">....</strong>
 					<a href="#" data-target="refresh-eth">[Refresh]</a>
@@ -41,7 +41,7 @@
 					<label>BTC Private Key</label>
 					<input type="text" data-target="btc-private-key" />
 					<label>BTC Address</label>
-					<strong data-target="btc-address">....</strong>
+					<a href="#" target="_blank" data-target="btc-address">....</a>
 					<label>BTC Amount</label>
 					<strong data-target="btc-amount">....</strong>
 					<a href="#" data-target="refresh-btc">[Refresh]</a>
@@ -133,6 +133,7 @@
 				</table>
 			</article>
 		</section>
+		<div id="active-swaps"></div>
 		<section id="peer-orders">
 			<header><h1>Orders</h1></header>
 			<table id="peer-orders-list">
@@ -168,6 +169,7 @@
 				</tbody>
 			</table>
 		</section>
+		
 		<section id="debug-view" style="padding: 50px; margin: 50px; outline: 2px solid red">
 		</section>
 	</body>

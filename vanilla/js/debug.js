@@ -44,6 +44,9 @@ $(document).ready( function () {
 			APP.Help.ApplyData('#debug-account [data-target="eth-address"]',
 				APP.CORE.services.auth.accounts.eth.address
 			);
+			$('#debug-account A[data-target="eth-address"]').attr('href',
+				config.link.etherscan+"/address/"+APP.CORE.services.auth.accounts.eth.address
+			);
 			APP.Actions.eth.getBalance( function (amount) {
 				APP.Help.ApplyData('#debug-account [data-target="eth-amount"]',amount);
 			} );
@@ -52,6 +55,9 @@ $(document).ready( function () {
 			);
 			APP.Help.ApplyData('#debug-account [data-target="btc-address"]',
 				APP.CORE.services.auth.accounts.btc.getAddress()
+			);
+			$('#debug-account A[data-target="btc-address"]').attr('href',
+				config.link.bitpay+"/address/"+APP.CORE.services.auth.accounts.btc.getAddress()
 			);
 			APP.Actions.btc.getBalance( function (amount) {
 				APP.Help.ApplyData('#debug-account [data-target="btc-amount"]',amount);

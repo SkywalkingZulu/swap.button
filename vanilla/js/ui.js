@@ -32,22 +32,7 @@ $(document).ready(function (){
 			{#tmpl-end#}
 			*/
 		} );
-		$(document).delegate('[data-action="order-request-accept"]', 'click', function (e) {
-			e.preventDefault();
-			const $t = $(e.target);
-			const orderID = $t.data('id');
-			const peerID = $t.data('peer');
-			if (confirm("Accept request?")) {
-				console.log('accept request',orderID,peerID);
-				const order = APP.CORE.services.orders.getByKey(orderID);
-				if (order!==null && order.isMy) {
-					order.acceptRequest(peerID);
-					const result = APP.Swap.interfaces[order.buyCurrency+"-"+order.sellCurrency](orderID);
-					window.ttt = result;
-					console.log(result);
-				};
-			}
-		} );
+		
 		$(document).delegate('[data-action="order-request-decline"]', 'click', function (e) {
 			e.preventDefault();
 			
@@ -185,6 +170,9 @@ $(document).ready(function (){
 		renderMyOrders();
 		renderPeerOrders();
 	} );
+	$(window).bind("CORE>ORDERS>REMOVEMY", function (e) {
+		renderMyOrders();
+	} );
 	$(window).bind("CORE>ORDERS>CREATE", function (e) {
 		renderMyOrders();
 	});
@@ -209,11 +197,6 @@ $(document).ready(function (){
 			alert("Order not found");
 			return;
 		};
-		/* implementation exist? */
-		if (APP.Swap.interfaces[order.buyCurrency+"-"+order.sellCurrency]===undefined) {
-			alert("Not implements yet");
-			return;
-		};
 		if (confirm("Send request for begin swap?")) {
 			
 			order.sendRequest((isAccepted) => {
@@ -221,7 +204,9 @@ $(document).ready(function (){
 				if (!isAccepted) {
 					updateOrderStatus(order);
 				} else {
-					const result = APP.Swap.interfaces[order.buyCurrency+"-"+order.sellCurrency](orderID);
+					const result = APP.Swap(orderID);
+					const swapDom = result.getDom();
+					$('#active-swaps').append(swapDom);
 					window.ttt = result;
 					console.log(result);
 				}
@@ -231,6 +216,25 @@ $(document).ready(function (){
 			const result = APP.Swap.interfaces[order.buyCurrency+"-"+order.sellCurrency](orderID);
 			console.log(result);
 			*/
+		}
+	} );
+	/* Seller accept request */
+	$(document).delegate('[data-action="order-request-accept"]', 'click', function (e) {
+		e.preventDefault();
+		const $t = $(e.target);
+		const orderID = $t.data('id');
+		const peerID = $t.data('peer');
+		if (confirm("Accept request?")) {
+			console.log('accept request',orderID,peerID);
+			const order = APP.CORE.services.orders.getByKey(orderID);
+			if (order!==null && order.isMy) {
+				order.acceptRequest(peerID);
+				const result = APP.Swap(orderID);
+				const swapDom = result.getDom();
+				$('#active-swaps').append(swapDom);
+				window.ttt = result;
+				console.log(result);
+			};
 		}
 	} );
 } );

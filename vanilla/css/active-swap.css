@@ -1,0 +1,23 @@
+SECTION.swap-holder {
+	border: 10px solid #188a18;
+    padding: 5px;
+    margin: 5px;
+    background: #d1e6ec;
+}
+SECTION.swap-holder>HEADER {
+	background: #CCCCCC;
+	padding: 10px;
+}
+SECTION.swap-holder>ARTICLE {
+	display: none;
+}
+SECTION.swap-holder>ARTICLE.active-step {
+	display: block;
+}
+SECTION.swap-holder A.button {
+	display: inline-block;
+	padding: 5px;
+	background: #EFEFEF;
+	border: 2px solid #CCCCCC;
+	margin: 5px;
+}
