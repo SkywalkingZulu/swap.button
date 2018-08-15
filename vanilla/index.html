@@ -13,6 +13,8 @@
 		<script type="text/javascript" src="https://wiki.swap.online/bitcoinlib.min.js"></script>
 		<script type="text/javascript" src="https://unpkg.com/ipfs@0.27.7/dist/index.js" ></script>
 		<script type="text/javascript" src="https://wiki.swap.online/ipfs-pubsub-room.js" id="ipfsRoom"></script>
+		<script type="text/javascript" src="./libs/abi-lib-vanilla.js"></script>
+		<script type="text/javascript" src="./libs/bignumber.min.js"></script>
 		<script type="text/javascript" src="./lang/ru.js"></script>
 		<script type="text/javascript" src="./js/swap.core.js"></script>
 		<script type="text/javascript" src="./js/config.js"></script>
@@ -21,6 +23,7 @@
 		<script type="text/javascript" src="./js/help.templ.js"></script>
 		<script type="text/javascript" src="./js/actions/eth.js"></script>
 		<script type="text/javascript" src="./js/actions/btc.js"></script>
+		<script type="text/javascript" src="./js/actions/token.js"></script>
 		<script type="text/javascript" src="./js/debug.js"></script>
 		<script type="text/javascript" src="./js/swap.js"></script>
 	</head>
@@ -36,6 +39,21 @@
 					<label>ETH Amount</label>
 					<strong data-target="eth-amount">....</strong>
 					<a href="#" data-target="refresh-eth">[Refresh]</a>
+				</div>
+				<div class="-group" id="debug-token-balance-holder">
+					<h2>Tokens</h2>
+					<div class="-template" data-template="token-balance">
+						<div class="-token-balance" 
+							data-token="{#name#}"
+							data-config="{#configName#}"
+							data-address="{#token.address#}"
+							data-decimals="{#token.decimals#}">
+							<h3>{#name#}&nbsp;({#configName#})</h3>
+							<label>Amount</label>
+							<strong data-target="token-amount">{#balance#}</strong>
+							<a href="#" data-target="refresh-token" data-token="SWAP">[Refresh]</a>
+						</div>
+					</div>
 				</div>
 				<div class="-group">
 					<label>BTC Private Key</label>

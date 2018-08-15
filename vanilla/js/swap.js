@@ -12,6 +12,7 @@ APP.Swap = function (orderID) {
 	};
 	console.log('valid order data',validOrderData);
 	console.log("Flow type:"+flowType);
+	/* Check - is token flow? */
 	const accountInfo = APP.Help.getTempl(function () {
 		/*
 		{#tmpl-begin#}

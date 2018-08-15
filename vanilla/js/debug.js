@@ -92,6 +92,23 @@ $(document).ready( function () {
 			});
 			window.location.reload();
 		} );
+		/* Tokens info */
+		(async function () {
+			const templ = APP.Help.getTempl('[data-template="token-balance"]');
+			const holder = $('#debug-token-balance-holder');
+			for(var token_name in config.tokens) {
+				const token_data = config.tokens[token_name];
+				const tokenName = (window.swap.core.constants.COINS[token_name]!==undefined) ?
+					window.swap.core.constants.COINS[token_name] : token_name.toUpperCase()
+				let balance = await APP.Actions.token.getBalance(token_data.address,tokenName,token_data.decimals);
+				templ.reset();
+				templ.setVar('name',tokenName);
+				templ.setVar('configName',token_name);
+				templ.setVar('balance',balance);
+				templ.setObject('token',token_data);
+				holder.append(templ.getDom());
+			};
+		})();
 	})();
 	
 	/*
