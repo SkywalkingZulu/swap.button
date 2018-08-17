@@ -1,5 +1,12 @@
 $(document).ready( function () {
 	console.info("DEBUG BEGIN ---------------------- ");
+	$('#show-debug-panel').bind('change', function (e) {
+		if ($('#show-debug-panel').prop('checked')) {
+			$('BODY').addClass('-debug-on');
+		} else {
+			$('BODY').removeClass('-debug-on');
+		}
+	} );
 	$(window).bind("IPFS>DISCONNECT", function (e) {
 		console.info("Ipfs disconnected");
 	});

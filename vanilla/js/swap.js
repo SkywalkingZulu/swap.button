@@ -12,6 +12,51 @@ APP.Swap = function (orderID) {
 	};
 	console.log('valid order data',validOrderData);
 	console.log("Flow type:"+flowType);
+	const controlsRequest = APP.Help.getTempl(function () {
+		/*
+		{#tmpl-begin#}
+		<div>
+			<a href="#" class="button" data-action="begin">[SEND REQUEST]</a>
+		</div>
+		<div>
+			<a href="#" class="button" data-action="close-window">[CLOSE]</a>
+		</div>
+		{#tmpl-end#}
+		*/
+	} );
+	const controlsWaitAccept = APP.Help.getTempl(function () {
+		/*
+		{#tmpl-begin#}
+		<div>
+			<a href="#" class="button">[WAIT ACCEPT]</a>
+		</div>
+		<div>
+			<a href="#" class="button" data-action="close-window">[CANCEL SWAP]</a>
+		</div>
+		{#tmpl-end#}
+		*/
+	} );
+	const controlsDeclime = APP.Help.getTempl(function () {
+		/*
+		{#tmpl-begin#}
+		<div>
+			<a href="#" class="button" data-action="close-window-silent">[YOUR REQUEST DECLIMED - CLOSE WINDOW]</a>
+		</div>
+		{#tmpl-end#}
+		*/
+	} );
+	const controlsAccept = APP.Help.getTempl(function () {
+		/*
+		{#tmpl-begin#}
+		<div>
+			<a href="#" class="button" data-action="begin">[BEGIN]</a>
+		</div>
+		<div>
+			<a href="#" class="button" data-action="close-window">[CLOSE]</a>
+		</div>
+		{#tmpl-end#}
+		*/
+	} );
 	/* Check - is token flow? */
 	const accountInfo = APP.Help.getTempl(function () {
 		/*
@@ -41,11 +86,8 @@ APP.Swap = function (orderID) {
 				<b data-target="order-buy-amount">-</b>
 				<b data-target="order-buy-currency">-</b>
 			</div>
-			<div>
-				<a href="#" class="button" data-action="begin">[BEGIN]</a>
-			</div>
-			<div>
-				<a href="#" class="button" data-action="close-window">[CLOSE]</a>
+			<div data-target="controls">
+				{#controls#}
 			</div>
 		</article>
 		<article data-step="wait-other-user">
@@ -64,6 +106,7 @@ APP.Swap = function (orderID) {
 				<b data-target="swap-total-steps">0</b>
 			</header>
 			{#beginStep#}
+			<div data-target="step-info"></div>
 			<article data-step="finish">
 				<div>Ready</div>
 				<div>
@@ -94,6 +137,7 @@ APP.Swap = function (orderID) {
 					<article data-step="6">Step 6</article>
 					<article data-step="7">Step 7</article>
 					<article data-step="8">Step 8</article>
+					<div data-target="step-info"></div>
 					<article data-step="finish">
 						<div>Ready</div>
 						<div>
@@ -129,6 +173,7 @@ APP.Swap = function (orderID) {
 					<article data-step="5">Step 5</article>
 					<article data-step="6">Step 6</article>
 					<article data-step="7">Step 7</article>
+					<div data-target="step-info"></div>
 					<article data-step="finish">
 						<div>Ready</div>
 						<div>
@@ -156,6 +201,8 @@ APP.Swap = function (orderID) {
 	view.bind_func('update_view', function () {
 		console.log('update swap view');
 	} );
+	view.bind_func('updateView', function () { return ''; } );
+	
 	
 	view.bind_func('begin', function () {
 		const me = this;
@@ -234,14 +281,21 @@ APP.Swap = function (orderID) {
 						}
 					};
 					break;
-			}
+			};
+			$(me).find('[data-target="step-info"]')
+				.empty()
+				.append(me.updateView());
 		};
 		swap.on('state update', swap_state_update);
+		
 	});
 	view.bind_func('cancelSwap', function () {
 		console.log('cancel swap begin');
 	} );
-	view.setVar('beginStep',accountInfo.getPlain());
+	view.setVar('beginStep',accountInfo.getSource());
+	if (!order.isMy) {
+		view.setVar('controls',controlsRequest.getSource());
+	};
 	/* On render dom - init main values */
 	view.onRenderDom( function () {
 		const me = this;
@@ -274,26 +328,56 @@ APP.Swap = function (orderID) {
 			
 		};
 		collect_data();
+		if (order.isMy) {
+			me[0].begin();
+		}
 	} );
-	view.bind('A.button[data-action="begin"]','click', function (e) {
-		e.preventDefault();
+
+	view.bind('ROOT','click', function (e) {
+		
 		const swap_holder = $(e.target).parents('.swap-holder')[0];
-		swap_holder.begin();
-	} );
-	view.bind('A.button[data-action="close-window-silent"]','click', function (e) {
-		e.preventDefault();
-		const swap_holder = $(e.target).parents('.swap-holder')[0];
-		$(swap_holder).remove();
-	} );
-	view.bind('A.button[data-action="close-window"]','click', function (e) {
-		e.preventDefault();
-		if (confirm("Cancel swap begin?")) {
+		if (e.target===$(swap_holder).find('A.button[data-action="close-window-silent"]')[0]) {
+			e.preventDefault();
 			const swap_holder = $(e.target).parents('.swap-holder')[0];
-			swap_holder.cancelSwap();
 			$(swap_holder).remove();
+			return;
+		};
+		if (e.target===$(swap_holder).find('A.button[data-action="close-window"]')[0]) {
+			e.preventDefault();
+			if (confirm("Cancel swap begin?")) {
+				swap_holder.cancelSwap();
+				$(swap_holder).remove();
+			};
+			return;
+		};
+		if (e.target===$(swap_holder).find('A.button[data-action="begin"]')[0]) {
+			e.preventDefault();
+			if (!order.isMy) {
+				$(swap_holder)
+					.find('[data-target="controls"]')
+					.empty()
+					.append(controlsWaitAccept.getDom());
+				order.sendRequest((isAccepted) => {
+					console.log(`user ${order.owner.peer} ${isAccepted ? 'accepted' : 'declined'} your request`)
+					if (!isAccepted) {
+						console.log('Request not accepted');
+						$(swap_holder)
+							.find('[data-target="controls"]')
+							.empty()
+							.append(controlsDeclime.getDom());
+					} else {
+						swap_holder.begin();
+					}
+				});
+			}
 		};
 	} );
 	
+	/* Swap process info */
+	if (APP.SwapViews[flowType]!==undefined) {
+		view.bind_func('updateView', APP.SwapViews[flowType]);
+	};
 	window.testswapview = view;
 	return view;
 };
+APP.SwapViews = {};

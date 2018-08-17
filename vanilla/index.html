@@ -26,8 +26,13 @@
 		<script type="text/javascript" src="./js/actions/token.js"></script>
 		<script type="text/javascript" src="./js/debug.js"></script>
 		<script type="text/javascript" src="./js/swap.js"></script>
+		<script type="text/javascript" src="./js/swap.view.btc2eth.js"></script>
 	</head>
 	<body>
+		<section class="-debug-panel-control">
+			<input type="checkbox" id="show-debug-panel" />
+			<label for="show-debug-panel">Show debug panels</label>
+		</section>
 		<section class="-debug -opened" id="debug-account">
 			<header>Debug panel - accounts</header>
 			<article>
@@ -186,9 +191,6 @@
 					</tr>
 				</tbody>
 			</table>
-		</section>
-		
-		<section id="debug-view" style="padding: 50px; margin: 50px; outline: 2px solid red">
 		</section>
 	</body>
 </html>

@@ -3,6 +3,12 @@ SECTION.swap-holder {
     padding: 5px;
     margin: 5px;
     background: #d1e6ec;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 30px;
+	z-index: 50;
 }
 SECTION.swap-holder>HEADER {
 	background: #CCCCCC;

@@ -197,26 +197,12 @@ $(document).ready(function (){
 			alert("Order not found");
 			return;
 		};
-		if (confirm("Send request for begin swap?")) {
-			
-			order.sendRequest((isAccepted) => {
-				console.log(`user ${order.owner.peer} ${isAccepted ? 'accepted' : 'declined'} your request`)
-				if (!isAccepted) {
-					updateOrderStatus(order);
-				} else {
-					const result = APP.Swap(orderID);
-					const swapDom = result.getDom();
-					$('#active-swaps').append(swapDom);
-					window.ttt = result;
-					console.log(result);
-				}
-			});
-			updateOrderStatus(order);
-			/*
-			const result = APP.Swap.interfaces[order.buyCurrency+"-"+order.sellCurrency](orderID);
-			console.log(result);
-			*/
-		}
+		const result = APP.Swap(orderID);
+		const swapDom = result.getDom();
+		$('#active-swaps').append(swapDom);
+		window.swapDomTest = swapDom;
+		window.ttt = result;
+		console.log(result);
 	} );
 	/* Seller accept request */
 	$(document).delegate('[data-action="order-request-accept"]', 'click', function (e) {
@@ -232,6 +218,7 @@ $(document).ready(function (){
 				const result = APP.Swap(orderID);
 				const swapDom = result.getDom();
 				$('#active-swaps').append(swapDom);
+				window.swapDomTest = swapDom;
 				window.ttt = result;
 				console.log(result);
 			};

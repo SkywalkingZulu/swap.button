@@ -185,12 +185,13 @@ APP.Help.getTempl = function (id,html_source) {
 			APP.Help.eachF(this._fnc_binds, function (name,fnc) {
 				$dom[0][name] = fnc;
 			} );
-			APP.Help.eachF(this._onRenderDom ,function (i,fnc) {
-				fnc.call($dom);
-			} );
 			APP.Help.eachF(this._var_binds, function (name,val) {
 				$dom[0][name] = val;
 			} );
+			APP.Help.eachF(this._onRenderDom ,function (i,fnc) {
+				fnc.call($dom);
+			} );
+			
 			return $dom;
 		};
 	return ret;
