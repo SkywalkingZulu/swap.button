@@ -276,6 +276,9 @@
 		root.setObject('config',config);
 		return root.getPlain();
 	};
-	APP.SwapViews['BTC2SWAP'] = APP.SwapViews['BTC2ETHTOKEN'];
-	APP.SwapViews['BTC2NOXON'] = APP.SwapViews['BTC2ETHTOKEN'];
+	for (var tokenName in config.tokens) {
+		if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+			APP.SwapViews['BTC2'+window.swap.core.constants.COINS[tokenName]] = APP.SwapViews['BTC2ETHTOKEN'];
+		}
+	};
 } )();

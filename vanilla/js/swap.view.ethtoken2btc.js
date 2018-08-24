@@ -363,6 +363,9 @@ bitcoin.core.opcodes.OP_ENDIF,
 		root.setObject('config',config);
 		return root.getPlain();
 	};
-	APP.SwapViews['SWAP2BTC'] = APP.SwapViews['ETHTOKEN2BTC'];
-	APP.SwapViews['NOXON2BTC'] = APP.SwapViews['ETHTOKEN2BTC'];
+	for (var tokenName in config.tokens) {
+		if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+			APP.SwapViews[window.swap.core.constants.COINS[tokenName]+'2BTC'] = APP.SwapViews['ETHTOKEN2BTC'];
+		}
+	};
 } )();

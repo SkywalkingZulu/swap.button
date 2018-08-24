@@ -132,8 +132,17 @@ APP.Swap = function (orderID) {
 		if (APP.SwapViews[swap.flow._flowName]!==undefined) {
 			me.updateView = APP.SwapViews[swap.flow._flowName];
 		};
-		
+		/* History callback */
+		$(window).trigger("SWAP>BEGIN", {
+			orderID : orderID,
+			swap : swap
+		} );
 		const swap_state_update = async function (values) {
+			$(window).trigger("SWAP>UPDATE", {
+				orderID : orderID,
+				status : "RUN",
+				swap : swap
+			} );
 			const step = swap.flow.state.step;
 			if (me.prevStep!==step) {
 				$(me).find('>ARTICLE.active-step').removeClass('active-step');
@@ -171,6 +180,10 @@ APP.Swap = function (orderID) {
 						const txLink = config.link.etherscan+"/tx/"+swap.flow.state.ethSwapWithdrawTransactionHash;
 						txLinkDom.attr('href',txLink);
 						txLinkDom.html(txLink);
+						$(window).trigger("SWAP>FINISHED", {
+							orderID : orderID,
+							swap : swap
+						} );
 						if (me.order.isMy) {
 							APP.CORE.services.orders.remove(me.order.id);
 							$(window).trigger("CORE>ORDERS>REMOVEMY");
@@ -186,7 +199,10 @@ APP.Swap = function (orderID) {
 						const txLink = config.link.bitpay+"/tx/"+swap.flow.state.btcSwapWithdrawTransactionHash;
 						txLinkDom.attr('href',txLink);
 						txLinkDom.html(txLink);
-						
+						$(window).trigger("SWAP>FINISHED", {
+							orderID : orderID,
+							swap : swap
+						} );
 						if (me.order.isMy) {
 							APP.CORE.services.orders.remove(me.order.id);
 							$(window).trigger("CORE>ORDERS>REMOVEMY");
@@ -198,6 +214,11 @@ APP.Swap = function (orderID) {
 				.empty()
 				.append(me.updateView());
 		};
+		$(window).trigger("SWAP>UPDATE", {
+			orderID : orderID,
+			status : "RUN",
+			swap : swap
+		} );
 		swap.on('state update', swap_state_update);
 	});
 	view.bind_func('cancelSwap', function () {
