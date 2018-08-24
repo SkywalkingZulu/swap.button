@@ -113,7 +113,7 @@
 		if (flow.isMeSigned) {
 			root.addVar('root', APP.Help.getTempl( function () {
 				/***
-				<h3>2. Waiting BTC Owner creates Secret Key, creates BTC Script and charges it</h3>
+				<h3>Waiting BTC Owner creates Secret Key, creates BTC Script and charges it</h3>
 				***/
 				} )
 				.getSource()
@@ -130,7 +130,7 @@
 			if (flow.secretHash && flow.btcScriptValues) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-					<h3>3. Bitcoin Script created and charged. Please check the information below</h3>
+					<h3>Bitcoin Script created and charged. Please check the information below</h3>
 					<div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
 					***/
 					} )
@@ -228,7 +228,7 @@ bitcoin.core.opcodes.OP_ENDIF,
 			if (flow.step >= 5 || flow.isEthContractFunded) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-					<h3>4. Creating Ethereum Contract. Please wait, it will take a while</h3>
+					<h3>Creating Ethereum Contract. Please wait, it will take a while</h3>
 					***/
 					} )
 					.getSource()
@@ -286,7 +286,7 @@ bitcoin.core.opcodes.OP_ENDIF,
 			if (flow.step === 6 || flow.isEthWithdrawn) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-					<h3>5. Waiting BTC Owner adds Secret Key to ETH Contact</h3>
+					<h3>Waiting BTC Owner adds Secret Key to ETH Contact</h3>
 					***/
 					} )
 					.getSource()
@@ -295,7 +295,7 @@ bitcoin.core.opcodes.OP_ENDIF,
 			if (flow.step === 7 || flow.isBtcWithdrawn) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-					<h3>6. BTC Owner successfully took money from ETH Contract and left Secret Key. Requesting withdrawal from BTC Script. Please wait</h3>
+					<h3>BTC Owner successfully took money from ETH Contract and left Secret Key. Requesting withdrawal from BTC Script. Please wait</h3>
 					***/
 					} )
 					.getSource()
@@ -333,7 +333,7 @@ bitcoin.core.opcodes.OP_ENDIF,
 			if (flow.isBtcWithdrawn) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-					<h3>7. Money was transferred to your wallet. Check the balance.</h3>
+					<h3>Money was transferred to your wallet. Check the balance.</h3>
 					<h2>Thank you for using Swap.Online!</h2>
 					***/
 					} )

@@ -1,5 +1,4 @@
 APP.Swap = function (orderID) {
-	console.log("Begin swap",orderID);
 	const order = APP.CORE.services.orders.getByKey(orderID);
 	
 	const flowType = (!order.isMy) ? 
@@ -12,18 +11,6 @@ APP.Swap = function (orderID) {
 		sellAmount : (order.isMy) ? order.sellAmount : order.buyAmount,
 		buyAmount : (order.isMy) ? order.buyAmount : order.sellAmount
 	};
-	console.log('valid order data',validOrderData);
-	console.log("Flow type:"+flowType);
-	
-	const until = (_step, swap) =>
-		new Promise(resolve => {
-			setInterval(
-				() => ( swap.flow.state.step >= _step )
-				? resolve() : null,
-			500)
-
-			swap.on('enter step', (step) => ( step >= _step ) ? resolve() : null)
-		});
 	  
 	const controlsRequest = APP.Help.getTempl(function () {
 		/***
@@ -126,9 +113,7 @@ APP.Swap = function (orderID) {
 	view.bind_var('order',order);
 	view.bind_var('prevStep',0);
 	
-	view.bind_func('update_view', function () {
-		console.log('update swap view');
-	} );
+	view.bind_func('update_view', function () { } );
 	view.bind_func('updateView', function () { return ''; } );
 	
 	
@@ -149,7 +134,6 @@ APP.Swap = function (orderID) {
 		};
 		
 		const swap_state_update = async function (values) {
-			console.log('swap state update',values);
 			const step = swap.flow.state.step;
 			if (me.prevStep!==step) {
 				$(me).find('>ARTICLE.active-step').removeClass('active-step');
@@ -163,10 +147,8 @@ APP.Swap = function (orderID) {
 				};
 				$(me).find('[data-target="swap-current-step"]').html(step);
 			};
-			console.log('enter step',swap.flow._flowName, step)
 			const flow = swap.flow;
 			
-			console.log(swap);
 			me.update_view();
 			switch (swap.flow._flowName) {
 				case "BTC2ETH":
@@ -183,14 +165,6 @@ APP.Swap = function (orderID) {
 						}
 					}
 					
-					if ( step == 2 ) {
-						console.info('BTC2ETH Step 2');
-						console.info(swap.flow.state.isParticipantSigned);
-						console.info(swap.flow.state.secretHash);
-						
-						//swap.flow.submitSecret(APP.Help.getRandomKey(32));
-					};
-					
 					if ( step + 1 === swap.flow.steps.length ) {
 						console.log('[FINISHED] tx', swap.flow.state.ethSwapWithdrawTransactionHash);
 						let txLinkDom = $(me).find('A[data-target="tx-link"]');
@@ -206,8 +180,6 @@ APP.Swap = function (orderID) {
 				case "ETH2BTC":
 				case "NOXON2BTC":
 				case "SWAP2BTC":
-					//if ( step == 1 ) swap.flow.sign();
-					//if ( step == 3 ) swap.flow.verifyBtcScript();
 					if ( step + 1 === swap.flow.steps.length ) {
 						console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
 						let txLinkDom = $(me).find('A[data-target="tx-link"]');
@@ -238,7 +210,6 @@ APP.Swap = function (orderID) {
 	/* On render dom - init main values */
 	view.onRenderDom( function () {
 		const me = this;
-		console.log('on render',me);
 		const collect_data = async function () {
 			const btc_address = APP.Actions.btc.getAddress();
 			const btc_amount = await APP.Actions.btc.getBalanceAsync();
@@ -271,53 +242,37 @@ APP.Swap = function (orderID) {
 			me[0].begin();
 		}
 	} );
-	const signSwap = function (swap_holder) {
-		swap_holder.swap.flow.sign();
-	};
 	view.bind('ROOT','click', function (e) {
 		
 		const swap_holder = $(e.target).parents('.swap-holder')[0];
 		const $button = (e.target.nodeName==='A') ? $(e.target) : $($(e.target).parents('A')[0]);
 		if (!$button.length) return;
 		if ($button.data('action')==='submit-secret') {
-			console.log("ACTION:submit-secret");
 			e.preventDefault();
-			//await until(2, swap_holder.swap);
 			swap_holder.swap.flow.submitSecret(APP.Help.getRandomKey(32));
-			//await until(3, swap_holder.swap);
 			return;
 		};
 		if ($button.data('action')==='sign') {
-			console.log("ACTION:sign");
-			console.log("isMeSigned: "+swap_holder.swap.flow.state.isMeSigned);
 			e.preventDefault();
-			signSwap(swap_holder);
+			swap_holder.swap.flow.sign();
 			return;
 		};
 		if ($button.data('action')==='confirm-btc-script') {
-			console.log("ACTION:confirm-btc-script");
 			e.preventDefault();
-			//await until(3, swap_holder.swap)
 			swap_holder.swap.flow.verifyBtcScript()
-			//await until(4, swap_holder.swap)
 			return;
 		};
 		if ($button.data('action')==='update-balance') {
-			console.log("ACTION:update-balance");
 			e.preventDefault();
-			//await until(3, swap_holder.swap)
 			swap_holder.swap.flow.syncBalance();
-			//await until(4, swap_holder.swap)
 			return;
 		};
 		if ($button.data('action')==='try-refund') {
-			console.log("ACTION:try-refund");
 			e.preventDefault();
 			swap_holder.swap.flow.tryRefund();
 			return;
 		};
 		if ($button.data('action')==='get-refund-tx-hex') {
-			console.log("ACTION:get-refund-tx-hex");
 			e.preventDefault();
 			if (swap_holder.swap.flow.btcScriptValues) {
 				swap_holder.swap.flow.getRefundTxHex()
@@ -348,7 +303,6 @@ APP.Swap = function (orderID) {
 				order.sendRequest((isAccepted) => {
 					console.log(`user ${order.owner.peer} ${isAccepted ? 'accepted' : 'declined'} your request`)
 					if (!isAccepted) {
-						console.log('Request not accepted');
 						$(swap_holder)
 							.find('[data-target="controls"]')
 							.empty()

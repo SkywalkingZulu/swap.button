@@ -125,8 +125,7 @@ $(document).ready( function () {
 		console.info("Test templ work");
 		
 		var templ = function () {
-			/*
-			{#tmpl-begin#}
+			/***
 			<div id="{#boo.id#}">
 				{#boo.label#}
 				{#boo.foo.label#}
@@ -143,8 +142,7 @@ $(document).ready( function () {
 					</b>
 				</strong>
 			</div>
-			{#tmpl-end#}
-			*/
+			***/
 		};
 		var templ_o = APP.Help.getTempl( templ );
 		console.info("Template object");

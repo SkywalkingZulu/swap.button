@@ -94,7 +94,7 @@
 			if (flow.secretHash) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>3. Bitcoin Script created and charged. Please check the information below</h3>
+                    <h3>Bitcoin Script created and charged. Please check the information below</h3>
                     <div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
 					***/
 					} )

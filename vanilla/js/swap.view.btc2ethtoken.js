@@ -53,7 +53,7 @@
 		if (flow.step === 1 || flow.isMeSigned) {
 			root.addVar('root', APP.Help.getTempl( function () {
 				/***
-				<h3>1. Waiting participant confirm this swap</h3>
+				<h3>Waiting participant confirm this swap</h3>
 				***/
 				} )
 				.getSource()
@@ -62,7 +62,7 @@
 		if (flow.isParticipantSigned) {
 			root.addVar('root', APP.Help.getTempl( function () {
 				/***
-				<h3>2. Create a secret key</h3>
+				<h3>Create a secret key</h3>
 				***/
 				} )
 				.getSource()
@@ -117,7 +117,7 @@
 			if (flow.step === 4 || flow.btcScriptValues) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>3. Creating Bitcoin Script. Please wait, it will take a while</h3>
+                    <h3>Creating Bitcoin Script. Please wait, it will take a while</h3>
 					***/
 					} )
 					.getSource()
@@ -178,7 +178,7 @@
 			if (flow.step === 5 || flow.isEthContractFunded) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>4. ETH Owner received Bitcoin Script and Secret Hash. Waiting when he creates ETH Contract</h3>
+                    <h3>ETH Owner received Bitcoin Script and Secret Hash. Waiting when he creates ETH Contract</h3>
 					***/
 					} )
 					.getSource()
@@ -187,7 +187,7 @@
 			if (flow.step === 6 || flow.isEthWithdrawn) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-					<h3>5. ETH Contract created and charged. Requesting withdrawal from ETH Contract. Please wait</h3>
+					<h3>ETH Contract created and charged. Requesting withdrawal from ETH Contract. Please wait</h3>
 					***/
 					} )
 					.getSource()
@@ -225,7 +225,7 @@
 			if (flow.isEthWithdrawn) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-					<h3>6. Money was transferred to your wallet. Check the balance.</h3>
+					<h3>Money was transferred to your wallet. Check the balance.</h3>
                     <h2>Thank you for using Swap.Online!</h2>
 					***/
 					} )

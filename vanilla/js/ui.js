@@ -13,8 +13,6 @@ $(document).ready(function () {
 		} );
 		const holder_buy = $('[data-target="filter-buy-currency"]');
 		const holder_sell = $('[data-target="filter-sell-currency"]');
-		console.log(config.filter.buy);
-		console.log(config.filter.sell);
 		if (holder_buy.length && holder_sell.length) {
 			let buy_all = (config.filter.buy.indexOf('ALL')!==-1) ? true : false;
 			let sell_all = (config.filter.sell.indexOf('ALL')!==-1) ? true : false;
@@ -66,8 +64,7 @@ $(document).ready(function () {
 	(function () {
 		var _holder = $('TABLE#incoming-requests>TBODY');
 		var templ_order = APP.Help.getTempl(function () {
-			/* 
-			{#tmpl-begin#}
+			/***
 			<tr data-id="{#order.id#}">
 				<td>{#order.buyCurrency#}</td>
 				<td>{#order.buyAmountFormated#}</td>
@@ -76,12 +73,10 @@ $(document).ready(function () {
 				<td>{#order.rate#}</td>
 				<td data-target="requests">{#requests#}</td>
 			</tr>
-			{#tmpl-end#}
-			*/
+			***/
 		});
 		var templ_order_request = APP.Help.getTempl( function () {
-			/*
-			{#tmpl-begin#}
+			/***
 				<div data-target="request" data-request-id="{#request.orderID#}-{#request.peer#}">
 					<a href="#"
 						data-action="order-request-accept"
@@ -92,8 +87,7 @@ $(document).ready(function () {
 						data-id="{#request.orderID#}"
 						data-peer="{#request.peer#}">[decline]</a>
 				</div>
-			{#tmpl-end#}
-			*/
+			***/
 		} );
 		
 		$(document).delegate('[data-action="order-request-decline"]', 'click', function (e) {
@@ -103,7 +97,6 @@ $(document).ready(function () {
 			const orderID = $t.data('id');
 			const peerID = $t.data('peer');
 			if (confirm("Decline request?")) {
-				console.log('decline request',orderID,peerID);
 				const order = APP.CORE.services.orders.getByKey(orderID);
 				if (order!==null && order.isMy) {
 					order.declineRequest(peerID);
@@ -111,19 +104,14 @@ $(document).ready(function () {
 			}
 		} );
 		$(window).bind('CORE>REQUEST>DEL', function (e,data) {
-			console.log('request del',data);
 			APP.Help.eachF(data.delRequest, function (i,orderID) {
 				_holder.find('TR[data-id="'+orderID+'"]').remove();
 			} );
 		} );
 		$(window).bind('CORE>REQUEST>NEW', function (e,data) {
-			console.log('orders requests');
 			APP.getMyRealOrders().then( list => {
-				console.log(list);
 				APP.Help.eachF( list , function (i,order) {
 					if (data.newRequest.indexOf(order.id)!=-1) {
-						console.log(order);
-						
 						templ_order.reset();
 						templ_order.setObject('order',{
 							id : order.id,
@@ -153,7 +141,6 @@ $(document).ready(function () {
 		$('#debug-my-orders TABLE TBODY TR:not(.-template)').remove();
 		if (APP.CORE.services.orders.getMyOrders().length>0) {
 			$.each( APP.CORE.services.orders.getMyOrders() , function (i,order) {
-				console.log(order);
 				let row = $('#debug-my-orders TABLE TBODY TR.-template[data-template="row"]').
 							clone().
 							removeClass("-template");
@@ -268,7 +255,6 @@ $(document).ready(function () {
 		e.preventDefault();
 		const orderID = $(e.target).data('id');
 		const order = APP.CORE.services.orders.getByKey(orderID);
-		console.log(order,orderID);
 		/* exist? */
 		if (order===undefined) {
 			alert("Order not found");
@@ -278,8 +264,7 @@ $(document).ready(function () {
 		const swapDom = result.getDom();
 		$('#active-swaps').append(swapDom);
 		window.swapDomTest = swapDom;
-		window.ttt = result;
-		console.log(result);
+		window.swapTestProcessor = result;
 	} );
 	/* Seller accept request */
 	$(document).delegate('[data-action="order-request-accept"]', 'click', function (e) {
@@ -288,7 +273,6 @@ $(document).ready(function () {
 		const orderID = $t.data('id');
 		const peerID = $t.data('peer');
 		if (confirm("Accept request?")) {
-			console.log('accept request',orderID,peerID);
 			const order = APP.CORE.services.orders.getByKey(orderID);
 			if (order!==null && order.isMy) {
 				order.acceptRequest(peerID);
@@ -296,8 +280,7 @@ $(document).ready(function () {
 				const swapDom = result.getDom();
 				$('#active-swaps').append(swapDom);
 				window.swapDomTest = swapDom;
-				window.ttt = result;
-				console.log(result);
+				window.swapTestProcessor = result;
 			};
 		}
 	} );
