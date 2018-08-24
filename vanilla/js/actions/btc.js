@@ -98,6 +98,47 @@ APP.Actions.btc = {
 		})
 	},
 	createScript : function (data) {
+		console.log("Actions:BTC:CreateScript");
+		console.log(data);
+		const { secretHash, ownerPublicKey, recipientPublicKey, lockTime } = data
+		let bitcoin = APP.CORE.env.bitcoin;
+		const network = (
+			APP.CORE.isMainNet
+			? bitcoin.networks.bitcoin
+			: bitcoin.networks.testnet
+		);
+		
+		const script = bitcoin.script.compile([
+
+			bitcoin.opcodes.OP_RIPEMD160,
+			Buffer.from(secretHash, 'hex'),
+			bitcoin.opcodes.OP_EQUALVERIFY,
+
+			Buffer.from(recipientPublicKey, 'hex'),
+			bitcoin.opcodes.OP_EQUAL,
+			bitcoin.opcodes.OP_IF,
+
+			Buffer.from(recipientPublicKey, 'hex'),
+			bitcoin.opcodes.OP_CHECKSIG,
+
+			bitcoin.opcodes.OP_ELSE,
+
+			bitcoin.script.number.encode(lockTime),
+			bitcoin.opcodes.OP_CHECKLOCKTIMEVERIFY,
+			bitcoin.opcodes.OP_DROP,
+			Buffer.from(ownerPublicKey, 'hex'),
+			bitcoin.opcodes.OP_CHECKSIG,
+
+			bitcoin.opcodes.OP_ENDIF,
+		])
+
+		const scriptPubKey  = bitcoin.script.scriptHash.output.encode(bitcoin.crypto.hash160(script))
+		const scriptAddress = bitcoin.address.fromOutputScript(scriptPubKey, { network: network })
+		console.log(scriptAddress);
+		return {
+			scriptAddress,
+		}
+		/*
 		const { secretHash, ownerPublicKey, recipientPublicKey, lockTime } = data
 		let bitcoin = APP.CORE.env.bitcoin;
 		const network = (
@@ -136,6 +177,7 @@ APP.Actions.btc = {
 		return {
 			scriptAddress,
 		}
+		*/
 	},
 	send : function (from, to, amount, callback ) {
 		const privateKey = APP.CORE.services.auth.accounts.btc.getPrivateKey();

@@ -14,10 +14,9 @@ const config = {
 	},
 	ipfs: {
 		swarm: [
-			//'/dns4/discovery.libp2p.array.io/tcp/9091/wss/p2p-websocket-star/',
-			
+			'/dns4/discovery.libp2p.array.io/tcp/9091/wss/p2p-websocket-star/',
 			/* Crimea sanctions - only for dev */
-			'/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star',
+			//'/dns4/ws-star.discovery.libp2p.io/tcp/443/wss/p2p-websocket-star',
             //'/dns4/star.wpmix.net/tcp/443/wss/p2p-websocket-star',
 			
 		],
@@ -28,7 +27,7 @@ const config = {
 	},
 
 	eth: {
-		contract : '0x830aef165b900fa7dc6b219f062c5784f6436d67', // 0xdbC2395f753968a93465487022B0e5D8730633Ec
+		contract : '0x4356152f044e3a1ce1a57566b2e0bee57949c1b2', // 0xdbC2395f753968a93465487022B0e5D8730633Ec
 	},
 	tokens: {
 		swap: {
@@ -58,4 +57,9 @@ const config = {
 		etherscan: 'RHHFPNMAZMD6I4ZWBZBF6FA11CMW9AXZNM',
 		blocktrail: '1835368c0fa8e71907ca26f3c978ab742a7db42e',
 	},
+	currencies : [ "BTC", "ETH", "SWAP", "NOXON" ],
+	filter : {
+		buy : [ "ALL" ],
+		sell : [ "ALL" ]
+	}
 };

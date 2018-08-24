@@ -16,7 +16,8 @@
 		<script type="text/javascript" src="./libs/abi-lib-vanilla.js"></script>
 		<script type="text/javascript" src="./libs/bignumber.min.js"></script>
 		<script type="text/javascript" src="./lang/ru.js"></script>
-		<script type="text/javascript" src="./js/swap.core.js"></script>
+		<!-- <script type="text/javascript" src="./js/swap.core.js"></script> -->
+		<script type="text/javascript" src="./js/swap.core.old.js"></script>
 		<script type="text/javascript" src="./js/config.js"></script>
 		<script type="text/javascript" src="./js/ui.js"></script>
 		<script type="text/javascript" src="./js/app.js"></script>
@@ -27,6 +28,9 @@
 		<script type="text/javascript" src="./js/debug.js"></script>
 		<script type="text/javascript" src="./js/swap.js"></script>
 		<script type="text/javascript" src="./js/swap.view.btc2eth.js"></script>
+		<script type="text/javascript" src="./js/swap.view.eth2btc.js"></script>
+		<script type="text/javascript" src="./js/swap.view.btc2ethtoken.js"></script>
+		<script type="text/javascript" src="./js/swap.view.ethtoken2btc.js"></script>
 	</head>
 	<body>
 		<section class="-debug-panel-control">
@@ -157,6 +161,25 @@
 			</article>
 		</section>
 		<div id="active-swaps"></div>
+		<section class="-debug">
+			<header>Filter currency</header>
+			<table>
+				<thead>
+					<tr>
+						<td>Buy</td>
+						<td>Sell</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td data-target="filter-buy-currency">
+						</td>
+						<td data-target="filter-sell-currency">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
 		<section id="peer-orders">
 			<header><h1>Orders</h1></header>
 			<table id="peer-orders-list">

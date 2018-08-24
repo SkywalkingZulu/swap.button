@@ -53,8 +53,12 @@ window.swap_button_generator_cfg = {
 			title	: 'Etherium'
 		},
 		{
-			id		: 'ETHTOKEN',
+			id		: 'NOXON',
 			title	: 'ERC20:NOXON'
+		},
+		{
+			id		: 'SWAP',
+			title	: 'ERC20:SWAP'
 		}
 	],
 	default_pay : [ 'BTC' ],

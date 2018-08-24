@@ -1,9 +1,11 @@
 APP.Swap = function (orderID) {
 	console.log("Begin swap",orderID);
 	const order = APP.CORE.services.orders.getByKey(orderID);
-	const flowType = (order.isMy) ? 
+	
+	const flowType = (!order.isMy) ? 
 		order.buyCurrency+"2"+order.sellCurrency : 
 		order.sellCurrency+"2"+order.buyCurrency;
+	
 	const validOrderData = {
 		sellCurrency : (order.isMy) ? order.sellCurrency : order.buyCurrency,
 		buyCurrency : (order.isMy) ? order.buyCurrency : order.sellCurrency,
@@ -12,55 +14,57 @@ APP.Swap = function (orderID) {
 	};
 	console.log('valid order data',validOrderData);
 	console.log("Flow type:"+flowType);
+	
+	const until = (_step, swap) =>
+		new Promise(resolve => {
+			setInterval(
+				() => ( swap.flow.state.step >= _step )
+				? resolve() : null,
+			500)
+
+			swap.on('enter step', (step) => ( step >= _step ) ? resolve() : null)
+		});
+	  
 	const controlsRequest = APP.Help.getTempl(function () {
-		/*
-		{#tmpl-begin#}
+		/***
 		<div>
 			<a href="#" class="button" data-action="begin">[SEND REQUEST]</a>
 		</div>
 		<div>
 			<a href="#" class="button" data-action="close-window">[CLOSE]</a>
 		</div>
-		{#tmpl-end#}
-		*/
+		***/
 	} );
 	const controlsWaitAccept = APP.Help.getTempl(function () {
-		/*
-		{#tmpl-begin#}
+		/***
 		<div>
 			<a href="#" class="button">[WAIT ACCEPT]</a>
 		</div>
 		<div>
 			<a href="#" class="button" data-action="close-window">[CANCEL SWAP]</a>
 		</div>
-		{#tmpl-end#}
-		*/
+		***/
 	} );
 	const controlsDeclime = APP.Help.getTempl(function () {
-		/*
-		{#tmpl-begin#}
+		/***
 		<div>
 			<a href="#" class="button" data-action="close-window-silent">[YOUR REQUEST DECLIMED - CLOSE WINDOW]</a>
 		</div>
-		{#tmpl-end#}
-		*/
+		***/
 	} );
 	const controlsAccept = APP.Help.getTempl(function () {
-		/*
-		{#tmpl-begin#}
+		/***
 		<div>
 			<a href="#" class="button" data-action="begin">[BEGIN]</a>
 		</div>
 		<div>
 			<a href="#" class="button" data-action="close-window">[CLOSE]</a>
 		</div>
-		{#tmpl-end#}
-		*/
+		***/
 	} );
 	/* Check - is token flow? */
 	const accountInfo = APP.Help.getTempl(function () {
-		/*
-		{#tmpl-begin#}
+		/***
 		<article class="active-step" data-step="init">Initialization</article>
 		<article data-step="begin">
 			<div>
@@ -93,14 +97,12 @@ APP.Swap = function (orderID) {
 		<article data-step="wait-other-user">
 			<div>Wait other user press &quot;Begin&quot;</div>
 		</article>
-		{#tmpl-end#}
-		*/
+		***/
 	});
 	let view = APP.Help.getTempl(function() {
-		/*
-		{#tmpl-begin#}
+		/***
 		<section class="swap-holder" data-order-id="{#order.id#}">
-			<header>Not implemented view for swap direction 
+			<header>Swap
 				<b data-target="swap-current-step">0</b>
 				&nbsp;of&nbsp;
 				<b data-target="swap-total-steps">0</b>
@@ -110,89 +112,15 @@ APP.Swap = function (orderID) {
 			<article data-step="finish">
 				<div>Ready</div>
 				<div>
+					<a href="#" data-target="tx-link" target="_blank">tx link</a>
+				</div>
+				<div>
 					<a href="#" class="button" data-action="close-window-silent">[CLOSE]</a>
 				</div>
 			</article>
 		</section>
-		{#tmpl-end#}
-		*/
+		***/
 	});
-	/* View */
-	switch (flowType) {
-		case "BTC2ETH":
-			view = APP.Help.getTempl(function () {
-				/*
-				{#tmpl-begin#}
-				<section class="swap-holder" data-order-id="{#order.id#}">
-					<header>BTC to ETH swap 
-						<b data-target="swap-current-step">0</b>
-						&nbsp;of&nbsp;
-						<b data-target="swap-total-steps">0</b>
-					</header>
-					{#beginStep#}
-					<article data-step="2">Step 2</article>
-					<article data-step="3">Step 3</article>
-					<article data-step="4">Step 4</article>
-					<article data-step="5">Step 5</article>
-					<article data-step="6">Step 6</article>
-					<article data-step="7">Step 7</article>
-					<article data-step="8">Step 8</article>
-					<div data-target="step-info"></div>
-					<article data-step="finish">
-						<div>Ready</div>
-						<div>
-							<a href="#" data-target="tx-link" target="_blank">tx link</a>
-						</div>
-						<div>
-							<a href="#" class="button" data-action="close-window-silent">[CLOSE]</a>
-						</div>
-					</article>
-				</section>
-				{#tmpl-end#}
-				*/
-			});
-			break;
-		case "BTC2NOXON":
-			break;
-		case "BTC2SWAP":
-			break;
-		case "ETH2BTC":
-			view = APP.Help.getTempl(function () {
-				/*
-				{#tmpl-begin#}
-				<section class="swap-holder" data-order-id="{#order.id#}">
-					<header>ETH to BTC swap 
-						<b data-target="swap-current-step">0</b>
-						&nbsp;of&nbsp;
-						<b data-target="swap-total-steps">0</b>
-					</header>
-					{#beginStep#}
-					<article data-step="2">Step 2</article>
-					<article data-step="3">Step 3</article>
-					<article data-step="4">Step 4</article>
-					<article data-step="5">Step 5</article>
-					<article data-step="6">Step 6</article>
-					<article data-step="7">Step 7</article>
-					<div data-target="step-info"></div>
-					<article data-step="finish">
-						<div>Ready</div>
-						<div>
-							<a href="#" data-target="tx-link" target="_blank">tx link</a>
-						</div>
-						<div>
-							<a href="#" class="button" data-action="close-window-silent">[CLOSE]</a>
-						</div>
-					</article>
-				</section>
-				{#tmpl-end#}
-				*/
-			});
-			break;
-		case "NOXON2BTC":
-			break;
-		case "SWAP2BTC":
-			break;
-	};
 	
 	view.bind_var('validOrderData',validOrderData);
 	view.bind_var('order',order);
@@ -214,7 +142,13 @@ APP.Swap = function (orderID) {
 		$(me).find('[data-target="swap-total-steps"]').html(this.swap.flow.steps.length-1);
 		/* Swap logic */
 		$(me).find('>ARTICLE[data-step="wait-other-user"]').addClass('active-step');
-		const swap_state_update = function (values) {
+		/* Swap process info */
+		console.log('Append flow view type:'+swap.flow._flowName);
+		if (APP.SwapViews[swap.flow._flowName]!==undefined) {
+			me.updateView = APP.SwapViews[swap.flow._flowName];
+		};
+		
+		const swap_state_update = async function (values) {
 			console.log('swap state update',values);
 			const step = swap.flow.state.step;
 			if (me.prevStep!==step) {
@@ -222,7 +156,7 @@ APP.Swap = function (orderID) {
 				if (step===1) {
 					$(me).find('>ARTICLE[data-step="wait-other-user"]').addClass('active-step');
 				};
-				if ( step + 1 === swap.flow.steps.length ) {
+				if ( step + 1 >= swap.flow.steps.length ) {
 					$(me).find('>ARTICLE[data-step="finish"]').addClass('active-step');
 				} else {
 					$(me).find('>ARTICLE[data-step="'+step+'"]').addClass('active-step');
@@ -231,6 +165,7 @@ APP.Swap = function (orderID) {
 			};
 			console.log('enter step',swap.flow._flowName, step)
 			const flow = swap.flow;
+			
 			console.log(swap);
 			me.update_view();
 			switch (swap.flow._flowName) {
@@ -247,9 +182,15 @@ APP.Swap = function (orderID) {
 							console.log('------------------------');
 						}
 					}
-					if ( step === 2 ) {
-						swap.flow.submitSecret(APP.Help.getRandomKey(32));
+					
+					if ( step == 2 ) {
+						console.info('BTC2ETH Step 2');
+						console.info(swap.flow.state.isParticipantSigned);
+						console.info(swap.flow.state.secretHash);
+						
+						//swap.flow.submitSecret(APP.Help.getRandomKey(32));
 					};
+					
 					if ( step + 1 === swap.flow.steps.length ) {
 						console.log('[FINISHED] tx', swap.flow.state.ethSwapWithdrawTransactionHash);
 						let txLinkDom = $(me).find('A[data-target="tx-link"]');
@@ -265,9 +206,8 @@ APP.Swap = function (orderID) {
 				case "ETH2BTC":
 				case "NOXON2BTC":
 				case "SWAP2BTC":
-					if ( step === 1 ) swap.flow.sign();
-					if ( step === 3 ) swap.flow.verifyBtcScript();
-
+					//if ( step == 1 ) swap.flow.sign();
+					//if ( step == 3 ) swap.flow.verifyBtcScript();
 					if ( step + 1 === swap.flow.steps.length ) {
 						console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
 						let txLinkDom = $(me).find('A[data-target="tx-link"]');
@@ -287,7 +227,6 @@ APP.Swap = function (orderID) {
 				.append(me.updateView());
 		};
 		swap.on('state update', swap_state_update);
-		
 	});
 	view.bind_func('cancelSwap', function () {
 		console.log('cancel swap begin');
@@ -332,17 +271,66 @@ APP.Swap = function (orderID) {
 			me[0].begin();
 		}
 	} );
-
+	const signSwap = function (swap_holder) {
+		swap_holder.swap.flow.sign();
+	};
 	view.bind('ROOT','click', function (e) {
 		
 		const swap_holder = $(e.target).parents('.swap-holder')[0];
-		if (e.target===$(swap_holder).find('A.button[data-action="close-window-silent"]')[0]) {
+		const $button = (e.target.nodeName==='A') ? $(e.target) : $($(e.target).parents('A')[0]);
+		if (!$button.length) return;
+		if ($button.data('action')==='submit-secret') {
+			console.log("ACTION:submit-secret");
+			e.preventDefault();
+			//await until(2, swap_holder.swap);
+			swap_holder.swap.flow.submitSecret(APP.Help.getRandomKey(32));
+			//await until(3, swap_holder.swap);
+			return;
+		};
+		if ($button.data('action')==='sign') {
+			console.log("ACTION:sign");
+			console.log("isMeSigned: "+swap_holder.swap.flow.state.isMeSigned);
+			e.preventDefault();
+			signSwap(swap_holder);
+			return;
+		};
+		if ($button.data('action')==='confirm-btc-script') {
+			console.log("ACTION:confirm-btc-script");
+			e.preventDefault();
+			//await until(3, swap_holder.swap)
+			swap_holder.swap.flow.verifyBtcScript()
+			//await until(4, swap_holder.swap)
+			return;
+		};
+		if ($button.data('action')==='update-balance') {
+			console.log("ACTION:update-balance");
+			e.preventDefault();
+			//await until(3, swap_holder.swap)
+			swap_holder.swap.flow.syncBalance();
+			//await until(4, swap_holder.swap)
+			return;
+		};
+		if ($button.data('action')==='try-refund') {
+			console.log("ACTION:try-refund");
+			e.preventDefault();
+			swap_holder.swap.flow.tryRefund();
+			return;
+		};
+		if ($button.data('action')==='get-refund-tx-hex') {
+			console.log("ACTION:get-refund-tx-hex");
+			e.preventDefault();
+			if (swap_holder.swap.flow.btcScriptValues) {
+				swap_holder.swap.flow.getRefundTxHex()
+			};
+			return;
+		};
+		if ($button.data('action')==='close-window-silent') {
 			e.preventDefault();
 			const swap_holder = $(e.target).parents('.swap-holder')[0];
 			$(swap_holder).remove();
 			return;
 		};
-		if (e.target===$(swap_holder).find('A.button[data-action="close-window"]')[0]) {
+		if ($button.data('action')==='close-window') {
 			e.preventDefault();
 			if (confirm("Cancel swap begin?")) {
 				swap_holder.cancelSwap();
@@ -350,7 +338,7 @@ APP.Swap = function (orderID) {
 			};
 			return;
 		};
-		if (e.target===$(swap_holder).find('A.button[data-action="begin"]')[0]) {
+		if ($button.data('action')==='begin') {
 			e.preventDefault();
 			if (!order.isMy) {
 				$(swap_holder)
@@ -373,10 +361,7 @@ APP.Swap = function (orderID) {
 		};
 	} );
 	
-	/* Swap process info */
-	if (APP.SwapViews[flowType]!==undefined) {
-		view.bind_func('updateView', APP.SwapViews[flowType]);
-	};
+	
 	window.testswapview = view;
 	return view;
 };

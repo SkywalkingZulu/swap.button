@@ -1,4 +1,67 @@
-$(document).ready(function (){
+$(document).ready(function () {
+	/*
+	FILTER UI 
+	*/
+	(function () {
+		const filter_tmpl = APP.Help.getTempl( function () {
+			/***
+			<span class="-filter-currency">
+				<input type="checkbox" {#filter.checked#} id="filter-{#filter.direction#}-{#filter.type#}" data-direction="{#filter.direction#}" data-currency="{#filter.type#}" />
+				<label for="filter-{#filter.direction#}-{#filter.type#}">{#filter.type#}</label>
+			</span>
+			***/
+		} );
+		const holder_buy = $('[data-target="filter-buy-currency"]');
+		const holder_sell = $('[data-target="filter-sell-currency"]');
+		console.log(config.filter.buy);
+		console.log(config.filter.sell);
+		if (holder_buy.length && holder_sell.length) {
+			let buy_all = (config.filter.buy.indexOf('ALL')!==-1) ? true : false;
+			let sell_all = (config.filter.sell.indexOf('ALL')!==-1) ? true : false;
+			
+			APP.Help.eachF( config.currencies , function (i,currency) {
+				/* buy */
+				holder_buy.append(
+					filter_tmpl
+					.reset()
+					.setObject('filter', {
+						direction: 'BUY',
+						type : currency,
+						checked : (buy_all || (config.filter.buy.indexOf(currency)!==-1)) ? 'checked' : ''
+					})
+					.getDom()
+				);
+				/* sell */
+				holder_sell.append(
+					filter_tmpl
+					.reset()
+					.setObject('filter', {
+						direction: 'SELL',
+						type : currency,
+						checked : (sell_all || (config.filter.sell.indexOf(currency)!==-1)) ? 'checked' : ''
+					})
+					.getDom()
+				);
+			} );
+			$(document).delegate('[data-target="filter-buy-currency"] INPUT, [data-target="filter-sell-currency"] INPUT', 'change', function (e) {
+				const new_buy = [];
+				const new_sell = [];
+				APP.Help.eachF($('[data-target="filter-buy-currency"] INPUT:checked, [data-target="filter-sell-currency"] INPUT:checked'), function (i,input) {
+					(
+						($(input).data('direction')==='BUY') ?
+							new_buy : new_sell
+					).push ( $(input).data('currency') );
+				} );
+				config.filter = {
+					buy : new_buy,
+					sell : new_sell
+				};
+				$(window).trigger('ORDER>FILTER>CHANGE');
+			} );
+			
+		}
+	} )();
+	/* --- END FILTER UI --- */
 	/* Debug incoming request list  - not need in production */
 	(function () {
 		var _holder = $('TABLE#incoming-requests>TBODY');
@@ -141,10 +204,21 @@ $(document).ready(function (){
 		if (APP.getOrders().length>0) {
 			$.each( APP.getOrders() , function (i,order) {
 				if (!order.isMy) {
-					$('TABLE#peer-orders-list TBODY').append(
-						renderPeerOrder(order)
-					);
-					otherOrdersCount++;
+					/* filter check */
+					if (
+						(
+							(config.filter.buy.indexOf("ALL")!==-1)
+							&& (config.filter.sell.indexOf("ALL")!==-1)
+						) || (
+							(config.filter.buy.indexOf(order.sellCurrency)!==-1)
+							&& (config.filter.sell.indexOf(order.buyCurrency)!==-1)
+						)
+					) {
+						$('TABLE#peer-orders-list TBODY').append(
+							renderPeerOrder(order)
+						);
+						otherOrdersCount++;
+					}
 				}
 			} );
 		};
@@ -183,6 +257,9 @@ $(document).ready(function (){
 		renderPeerOrders();
 	});
 	$(window).bind("CORE>ORDERS>REMOVE", function (e) {
+		renderPeerOrders();
+	});
+	$(window).bind("ORDER>FILTER>CHANGE", function (e) {
 		renderPeerOrders();
 	});
 	/* ------------------------------------------- */

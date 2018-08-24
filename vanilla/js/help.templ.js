@@ -53,6 +53,14 @@ APP.Help.getTempl = function (id,html_source) {
 				tmpl_end_i = id.toString().indexOf(tmpl_end_s);
 				if ((tmpl_begin_i!=-1) && (tmpl_end_i!=-1)) {
 					ret._html = id.toString().substring(tmpl_begin_i+tmpl_begin_s.length,tmpl_end_i);
+				} else {
+					tmpl_begin_s = '/***';
+					tmpl_end_s = '***/';
+					tmpl_begin_i = id.toString().indexOf(tmpl_begin_s);
+					tmpl_end_i = id.toString().indexOf(tmpl_end_s);
+					if ((tmpl_begin_i!=-1) && (tmpl_end_i!=-1)) {
+						ret._html = id.toString().substring(tmpl_begin_i+tmpl_begin_s.length,tmpl_end_i);
+					}
 				}
 			}
 
@@ -90,14 +98,17 @@ APP.Help.getTempl = function (id,html_source) {
 			this._onRenderDom = [];
 			return this;
 		};
-		ret._setObject = function (prefix,obj) {
+		ret._setObject = function (prefix,obj,level) {
+			if (level>5) return;
 			var $this = this;
 			APP.Help.eachF(obj,function (k,value) {
-				if(value instanceof Object) {
-					$this._setObject(prefix+k+'.',value);
-				} else {
-					if (!(value instanceof Function)) {
-						$this._html = APP._p.templ_regs.set($this._html,prefix+k,value);
+				if (obj.hasOwnProperty(k)) {
+					if(value instanceof Object) {
+						$this._setObject(prefix+k+'.',value,level+1);
+					} else {
+						if (!(value instanceof Function)) {
+							$this._html = APP._p.templ_regs.set($this._html,prefix+k,value);
+						}
 					}
 				}
 			} );
@@ -116,7 +127,7 @@ APP.Help.getTempl = function (id,html_source) {
 			return this;
 		};
 		ret.setObject = function (prefix,obj) {
-			this._setObject(prefix+'.',obj);
+			this._setObject(prefix+'.',obj,0);
 			return this;
 		};
 		ret.setVar = function (name,value) {

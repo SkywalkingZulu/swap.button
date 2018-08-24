@@ -236,7 +236,7 @@ window._mc.wcDOMReady3 = wcDOMReady3;
 					close.href = "#";
 					holder.append(close);
 				var iframe = _mc.MakeFW(document.createElement("IFRAME"));
-					iframe.src = "https://swaponline.github.io/swap.button/swap/build/?param="+json+"#/swap.button/swap/build/";
+					iframe.src = "https://swaponline.github.io/swap.button/vanilla/?"+json;
 					iframe.border = 0;
 				
 					holdifr.append(iframe);
