@@ -129,7 +129,7 @@
 					this.clearHistory();
 				}
 			} else {
-				console.warning( "APP.SwapHistory loadHistory - no data - use default data -> clearHistory")
+				console.warn( "APP.SwapHistory loadHistory - no data - use default data -> clearHistory")
 				this.clearHistory();
 			}
 		},
