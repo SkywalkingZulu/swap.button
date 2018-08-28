@@ -218,9 +218,11 @@ window._mc.wcDOMReady3 = wcDOMReady3;
 			var iframeHolder = null;
 			var swapOnlineIframe = null;
 			var navigateIframe = function (json) {
-				swapOnlineIframe.src = "https://swaponline.github.io/swap.button/vanilla/?"+json+"#/swap.button/swap/build/";
+				json = json.split("'").join('"');
+				swapOnlineIframe.src = "https://swaponline.github.io/swap.button/vanilla/?"+json;
 			}
 			var createIframe = function (json) {
+				json = json.split("'").join('"');
 				var holder = _mc.MakeFW(document.createElement("DIV"));
 					holder.classAdd("swap-online-window");
 				var holderBG = _mc.MakeFW(document.createElement("DIV"));
