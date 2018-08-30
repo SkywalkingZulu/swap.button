@@ -1,4 +1,7 @@
-(function () {
+PM.depend([
+	"js/app",
+	"js/swap"
+], function () {
 	const root = APP.Help.getTempl( function () {
 		/***{#root#}***/
 	} );
@@ -21,7 +24,7 @@
 				} )
 				.getSource()
 			);
-        };
+		};
 		if (!this.swap.id) {
 			if (this.swap.isMy) {
 				root.addVar('root', APP.Help.getTempl( function () {
@@ -49,7 +52,7 @@
 				} )
 				.getSource()
 			);
-        };
+		};
 		if (flow.isParticipantSigned) {
 			if (!flow.secretHash) {
 				root.addVar('root', APP.Help.getTempl( function () {
@@ -264,4 +267,5 @@
 		root.setObject('config',config);
 		return root.getPlain();
 	};
-} )();
+	/*{#PM-READY#}*/
+} );

@@ -118,6 +118,20 @@ window.swap_button_generator_cfg = {
 			title 	: 'Black'
 		}
 	],
+	networks : [
+		{
+			id		: 'testnet',
+			title	: 'testnet.swap.online'
+		},
+		{
+			id		: 'mainnet',
+			title	: 'swap.online'
+		},
+		{
+			id		: 'debug',
+			title	: 'debug network (testnet+debug room)'
+		}
+	],
 	default_url : '/swapbutton/',
 	host_url : 'https://swaponline.github.io/swap.button/loader'
 }

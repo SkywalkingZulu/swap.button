@@ -1,4 +1,7 @@
-(function () {
+PM.depend([
+	"js/app",
+	"js/swap"
+], function () {
 	const root = APP.Help.getTempl( function () {
 		/***{#root#}***/
 	} );
@@ -21,7 +24,7 @@
 				} )
 				.getSource()
 			);
-        };
+		};
 		if (!this.swap.id) {
 			if (this.swap.isMy) {
 				root.addVar('root', APP.Help.getTempl( function () {
@@ -94,8 +97,8 @@
 			if (flow.secretHash) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>Bitcoin Script created and charged. Please check the information below</h3>
-                    <div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
+					<h3>Bitcoin Script created and charged. Please check the information below</h3>
+					<div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
 					***/
 					} )
 					.getSource()
@@ -104,18 +107,18 @@
 			if (flow.btcScriptCreatingTransactionHash) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <div>
-                        Script address:
+					<div>
+						Script address:
 						<strong>
-                            <a
-                              href="{#config.link.bitpay#}/tx/{#flow.btcScriptCreatingTransactionHash#}"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
+							<a
+							  href="{#config.link.bitpay#}/tx/{#flow.btcScriptCreatingTransactionHash#}"
+							  target="_blank"
+							  rel="noopener noreferrer"
+							>
 								{#flow.btcScriptCreatingTransactionHash#}
-                            </a>
+							</a>
 						</strong>
-                    </div>
+					</div>
 					***/
 					} )
 					.getSource()
@@ -168,15 +171,15 @@
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
 					<h3>Not enough money for this swap. Please fund the balance</h3>
-                    <div>
+					<div>
 						<div>Your balance: <strong>{#flow.balance#}</strong> {#swap.sellCurrency#}</div>
 						<div>Required balance: <strong>{#formated.swap.sellAmount#}</strong> {#swap.sellCurrency#}</div>
 						<div>Your address: {#swap.flow.myEthAddress#}</div>
 						<hr />
 						<span>Or fund to flow address {#flow.address#}</span>
-                    </div>
-                    <br />
-                    <a href="#" class="button" data-action="update-balance">Continue</a>
+					</div>
+					<br />
+					<a href="#" class="button" data-action="update-balance">Continue</a>
 					***/
 					} )
 					.getSource()
@@ -190,12 +193,12 @@
 					***/
 					} )
 					.getSource()
-                );
+				);
 			};
 			if (flow.step >= 5 || flow.isEthContractFunded) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>Creating Ethereum Contract. Please wait, it will take a while</h3>
+					<h3>Creating Ethereum Contract. Please wait, it will take a while</h3>
 					***/
 					} )
 					.getSource()
@@ -242,13 +245,13 @@
 					***/
 					} )
 					.getSource()
-                );
+				);
 			};
 			if (flow.step === 6 || flow.isEthWithdrawn) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>Waiting BTC Owner adds Secret Key to ETH Contact</h3>
-                    ***/
+					<h3>Waiting BTC Owner adds Secret Key to ETH Contact</h3>
+					***/
 					} )
 					.getSource()
 				);
@@ -260,7 +263,7 @@
 					***/
 					} )
 					.getSource()
-                );
+				);
 			};
 			if (flow.btcSwapWithdrawTransactionHash) {
 				root.addVar('root', APP.Help.getTempl( function () {
@@ -285,8 +288,8 @@
 			if (flow.isBtcWithdrawn) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>Money was transferred to your wallet. Check the balance.</h3>
-                    <h2>Thank you for using Swap.Online!</h2>
+					<h3>Money was transferred to your wallet. Check the balance.</h3>
+					<h2>Thank you for using Swap.Online!</h2>
 					***/
 					} )
 					.getSource()
@@ -336,4 +339,5 @@
 		root.setObject('config',config);
 		return root.getPlain();
 	};
-} )();
+	/*{#PM-READY#}*/
+} );

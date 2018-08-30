@@ -1,4 +1,7 @@
-(function () {
+PM.depend([
+	"js/app",
+	"js/swap"
+], function () {
 	const root = APP.Help.getTempl( function () {
 		/***{#root#}***/
 	} );
@@ -21,7 +24,7 @@
 				} )
 				.getSource()
 			);
-        };
+		};
 		if (!this.swap.id) {
 			if (this.swap.isMy) {
 				root.addVar('root', APP.Help.getTempl( function () {
@@ -61,7 +64,7 @@
 				} )
 				.getSource()
 			);
-            if (!flow.isSignFetching && !flow.isMeSigned) {
+			if (!flow.isSignFetching && !flow.isMeSigned) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
 					<a href="#" class="button" data-action="sign">Confirm</a>
@@ -70,10 +73,10 @@
 					.getSource()
 				);
 			}
-            if (flow.isSignFetching || flow.signTransactionHash) {
+			if (flow.isSignFetching || flow.signTransactionHash) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h4>Please wait. Confirmation processing</h4>
+					<h4>Please wait. Confirmation processing</h4>
 					***/
 					} )
 					.getSource()
@@ -81,7 +84,7 @@
 				if (flow.signTransactionHash) {
 					root.addVar('root', APP.Help.getTempl( function () {
 						/***
-                        <div>
+						<div>
 							Transaction:
 							<strong>
 								<a
@@ -92,7 +95,7 @@
 									{#flow.signTransactionHash#}
 								</a>
 							</strong>
-                        </div>
+						</div>
 						***/
 						} )
 						.getSource()
@@ -368,4 +371,5 @@ bitcoin.core.opcodes.OP_ENDIF,
 			APP.SwapViews[window.swap.core.constants.COINS[tokenName]+'2BTC'] = APP.SwapViews['ETHTOKEN2BTC'];
 		}
 	};
-} )();
+	/*{#PM-READY#}*/
+} );

@@ -14,7 +14,7 @@ class GenerateCode extends Component {
 		this.doSelect = this.doSelect.bind(this);
 	}
 	onClickGenerate() {
-		if (this.RootApp.checkCryptoError()) {
+		if (this.RootApp.checkErrors()) {
 			this.setState( { generated : false } );
 			return;
 		}
@@ -26,16 +26,13 @@ class GenerateCode extends Component {
 		} );
 	}
 	prepareJSCode(inCode) {
-		var json = {
-			from : this.RootApp.state.cryptos_from,
-			to : this.RootApp.state.cryptos_to,
-			theme : this.RootApp.state.themeStyle
-		}
-			json = [
+		var json = [
 				this.RootApp.state.cryptos_from,
 				this.RootApp.state.cryptos_to,
-				this.RootApp.state.themeStyle
-			]
+				this.RootApp.state.themeStyle,
+				this.RootApp.state.network,
+				this.RootApp.state.debug
+			];
 		json = JSON.stringify(json).split("\"").join("'");
 		
 		inCode = inCode.split(String.fromCharCode(9)).join("");

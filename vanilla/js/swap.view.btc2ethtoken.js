@@ -1,4 +1,7 @@
-(function () {
+PM.depend([
+	"js/app",
+	"js/swap"
+], function () {
 	const root = APP.Help.getTempl( function () {
 		/***{#root#}***/
 	} );
@@ -21,7 +24,7 @@
 				} )
 				.getSource()
 			);
-        };
+		};
 		if (!this.swap.id) {
 			if (this.swap.isMy) {
 				root.addVar('root', APP.Help.getTempl( function () {
@@ -80,35 +83,35 @@
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
 					<div>Save the secret key! Otherwise there will be a chance you loose your money!</div>
-                    <div>Secret Key: <strong>{#flow.secret#}</strong></div>
-                    <div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
+					<div>Secret Key: <strong>{#flow.secret#}</strong></div>
+					<div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
 					***/
 					} )
 					.getSource()
-                );
+				);
 			};
 			if (flow.step === 3 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>Not enough money for this swap. Please charge the balance</h3>
-                    <div>
+					<h3>Not enough money for this swap. Please charge the balance</h3>
+					<div>
 						<div>Your balance: <strong>{#flow.balance#}</strong> {#swap.sellCurrency#}</div>
 						<div>Required balance: <strong>{#formated.swap.sellAmount#}</strong> {#swap.sellCurrency#}</div>
 						<div>Your address: {#swap.flow.myBtcAddress#}</div>
 						<hr />
 						<span>Or charge flow address {#flow.address#}</span>
-                    </div>
+					</div>
 					<br />
 					<a href="#" class="button" data-action="update-balance">Continue</a>
 					***/
 					} )
 					.getSource()
-                );
+				);
 			};
 			if (flow.step === 3 && flow.isBalanceFetching) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <div>Checking balance..</div>
+					<div>Checking balance..</div>
 					***/
 					} )
 					.getSource()
@@ -117,7 +120,7 @@
 			if (flow.step === 4 || flow.btcScriptValues) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>Creating Bitcoin Script. Please wait, it will take a while</h3>
+					<h3>Creating Bitcoin Script. Please wait, it will take a while</h3>
 					***/
 					} )
 					.getSource()
@@ -125,7 +128,7 @@
 				if (flow.btcScriptCreatingTransactionHash) {
 					root.addVar('root', APP.Help.getTempl( function () {
 						/***
-                        <div>
+						<div>
 							Transaction:
 							<strong>
 								<a
@@ -136,7 +139,7 @@
 									{#flow.btcScriptCreatingTransactionHash#}
 								</a>
 							</strong>
-                        </div>
+						</div>
 						***/
 						} )
 						.getSource()
@@ -168,7 +171,7 @@
 							<code>
 								{#flow.refundTxHex#}
 							</code>
-                        </div>
+						</div>
 						***/
 						} )
 						.getSource()
@@ -178,7 +181,7 @@
 			if (flow.step === 5 || flow.isEthContractFunded) {
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
-                    <h3>ETH Owner received Bitcoin Script and Secret Hash. Waiting when he creates ETH Contract</h3>
+					<h3>ETH Owner received Bitcoin Script and Secret Hash. Waiting when he creates ETH Contract</h3>
 					***/
 					} )
 					.getSource()
@@ -211,7 +214,7 @@
 					***/
 					} )
 					.getSource()
-                );
+				);
 			};
 			if (flow.step === 6) {
 				root.addVar('root', APP.Help.getTempl( function () {
@@ -226,7 +229,7 @@
 				root.addVar('root', APP.Help.getTempl( function () {
 					/***
 					<h3>Money was transferred to your wallet. Check the balance.</h3>
-                    <h2>Thank you for using Swap.Online!</h2>
+					<h2>Thank you for using Swap.Online!</h2>
 					***/
 					} )
 					.getSource()
@@ -261,7 +264,7 @@
 					***/
 					} )
 					.getSource()
-                );
+				);
 			};
 		};
 		
@@ -281,4 +284,5 @@
 			APP.SwapViews['BTC2'+window.swap.core.constants.COINS[tokenName]] = APP.SwapViews['BTC2ETHTOKEN'];
 		}
 	};
-} )();
+	/*{#PM-READY#}*/
+} );

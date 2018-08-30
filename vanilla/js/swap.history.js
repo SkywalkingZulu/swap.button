@@ -1,8 +1,7 @@
 /***
-	Инстория сделок
+	РРЅСЃС‚РѕСЂРёСЏ СЃРґРµР»РѕРє
 ***/
-(function () {
-	
+PM.depend("js/app", function () {
 	APP.SwapHistory = {
 		_p : {
 			inited : false,
@@ -171,6 +170,9 @@
 			} );
 		}
 	};
-	APP.SwapHistory.init();
-	APP.SwapHistory.updateAllStatus();
-})();
+	APP.AfterInitCall ( function () {
+		APP.SwapHistory.init();
+		APP.SwapHistory.updateAllStatus();
+	} );
+	/*{#PM-READY#}*/
+} );

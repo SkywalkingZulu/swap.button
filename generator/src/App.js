@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import SelectButtonStyle from './SelectButtonStyle';
 import SelectTheme from './SelectTheme';
 import GenerateCode from './GenerateCode';
-//import CryptoSelect from './CryptoSelect';
 import CryptoMultySelect from './CryptoMultySelect';
-//import CryptoSwap from './CryptoSwap';
+import SelectNetwork from './SelectNetwork';
+import ShowDebug from './ShowDebug';
 
 class App extends Component {
 	constructor(props) {
@@ -13,10 +13,16 @@ class App extends Component {
 		this.props = props;
 		this.cryptos_from = React.createRef();
 		this.cryptos_to = React.createRef();
+		this.network = React.createRef();
+		this.debug = React.createRef();
+		
 		this.cfg = window.swap_button_generator_cfg;
+		
 		this.state = {
 			buttonStyle : 1,
 			themeStyle : 1,
+			network : 0,
+			debug : 1,
 			crypto_from : 0,
 			crypto_to : 0,
 			cryptos_from : this.cfg.default_pay,
@@ -35,13 +41,17 @@ class App extends Component {
 			crypto_to : _to
 		} );
 	}
-	checkCryptoError() {
+	checkErrors() {
 		if (!this.state.cryptos_from.length) {
 			this.cryptos_from.current.setState( { error : true } );
 			return true;
 		}
 		if (!this.state.cryptos_to.length) {
 			this.cryptos_to.current.setState( { error : true } );
+			return true;
+		}
+		if (!this.state.network) {
+			this.network.current.setState( { error : true } );
 			return true;
 		}
 		return false;
@@ -149,6 +159,16 @@ class App extends Component {
 					<div className="w3-container w3-padding-16 w3-half">
 						<label>Select popup window theme</label>
 						<SelectTheme App={this} />
+					</div>
+				</div>
+				<div className="w3-row">
+					<div className="w3-container w3-padding-16 w3-half">
+						<label>Select network</label>
+						<SelectNetwork ref={this.network} App={this} />
+					</div>
+					<div className="w3-container w3-padding-16 w3-half">
+						<label>Show debug panel</label>
+						<ShowDebug ref={this.debug} App={this} />
 					</div>
 				</div>
 				<GenerateCode App={this} />
