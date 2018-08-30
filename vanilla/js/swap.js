@@ -102,6 +102,7 @@ PM.depend("js/app", function () {
 					<b data-target="order-buy-amount">-</b>
 					<b data-target="order-buy-currency">-</b>
 				</div>
+				{#tokenBalance#}
 				<div data-target="controls">
 					{#controls#}
 				</div>
@@ -111,6 +112,13 @@ PM.depend("js/app", function () {
 			</article>
 			***/
 		});
+		const tokenBalance = APP.Help.getTempl( () => {
+			/***
+			<div>
+				You have <b data-target="user-auth-token-balance"></b> {#tokenName#}
+			</div>
+			***/
+		} );
 		let view = APP.Help.getTempl(function() {
 			/***
 			<section class="swap-holder" data-order-id="{#order.id#}">
@@ -140,6 +148,8 @@ PM.depend("js/app", function () {
 		
 		view.bind_func('update_view', function () { } );
 		view.bind_func('updateView', function () { return ''; } );
+		
+		
 		
 		
 		view.bind_func('begin', function () {
@@ -268,6 +278,14 @@ PM.depend("js/app", function () {
 			console.log('cancel swap begin');
 		} );
 		view.setVar('beginStep',accountInfo.getSource());
+		/* this is token swap ? if yes - add token balance field */
+		if (config.tokens[validOrderData.sellCurrency.toLowerCase()]
+			|| config.tokens[validOrderData.buyCurrency.toLowerCase()]
+		) {
+			let tokenName = (config.tokens[validOrderData.sellCurrency.toLowerCase()]) ? validOrderData.sellCurrency : validOrderData.buyCurrency;
+			view.addVar('tokenBalance',tokenBalance.getSource());
+			view.setVar('tokenName',tokenName);
+		};
 		if (!order.isMy) {
 			view.setVar('controls',controlsRequest.getSource());
 		};
@@ -280,6 +298,20 @@ PM.depend("js/app", function () {
 				const eth_address = APP.Actions.eth.getAddress();
 				const eth_amount = await APP.Actions.eth.getBalanceAsync();
 				
+				/* this is token swap */
+				if (config.tokens[me[0].validOrderData.sellCurrency.toLowerCase()]
+					|| config.tokens[me[0].validOrderData.buyCurrency.toLowerCase()]
+				) {
+					let tokenName = (config.tokens[me[0].validOrderData.sellCurrency.toLowerCase()]) ? 
+							me[0].validOrderData.sellCurrency : me[0].validOrderData.buyCurrency;
+					me.find('[data-target="user-auth-token-balance"]').html(
+						await APP.Actions.token.getBalance(
+							config.tokens[tokenName.toLowerCase()].address, 
+							tokenName, 
+							config.tokens[tokenName.toLowerCase()].decimals
+						)
+					);
+				};
 				me.find('[data-target="user-auth-btc-address"]').html(btc_address);
 				me.find('[data-target="user-auth-btc-balance"]').html(btc_amount);
 				me.find('[data-target="user-auth-eth-address"]').html(eth_address);
