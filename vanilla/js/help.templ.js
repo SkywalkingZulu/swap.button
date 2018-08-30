@@ -208,5 +208,15 @@ PM.depend("js/app", function () {
 			};
 		return ret;
 	};
+	APP.Help.getHTML = function ( tmpl ) {
+		tmpl_begin_s = '/***';
+		tmpl_end_s = '***/';
+		tmpl_begin_i = tmpl.toString().indexOf(tmpl_begin_s);
+		tmpl_end_i = tmpl.toString().indexOf(tmpl_end_s);
+		if ((tmpl_begin_i!=-1) && (tmpl_end_i!=-1)) {
+			return tmpl.toString().substring(tmpl_begin_i+tmpl_begin_s.length,tmpl_end_i);
+		};
+		return "[ERROR TEMPLATE FUNC]";
+	};
 	/*{#PM-READY#}*/
 } );

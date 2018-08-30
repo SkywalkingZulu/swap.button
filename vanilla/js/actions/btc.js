@@ -1,7 +1,36 @@
 PM.depend("js/app", function () {
 	APP.Actions.btc = {
-		login : function (privateKey, callback) {
-			/* todo */
+		login : (privateKey) => {
+			let keyPair
+
+			if (privateKey) {
+				const hash  = bitcoin.crypto.sha256(privateKey)
+				const d     = BigInteger.fromBuffer(hash)
+
+				keyPair     = new bitcoin.ECPair(d, null, { network: btc.network })
+			} else {
+				console.info('Created account Bitcoin ...')
+				keyPair     = bitcoin.ECPair.makeRandom({ network: btc.network })
+				privateKey  = keyPair.toWIF()
+			}
+
+			localStorage.setItem(APP.Keys.BTCPrivateKey, privateKey);
+
+			const account     = new bitcoin.ECPair.fromWIF(privateKey, btc.network) // eslint-disable-line
+			const address     = account.getAddress()
+			const publicKey   = account.getPublicKeyBuffer().toString('hex')
+
+			const data = {
+				account,
+				keyPair,
+				address,
+				privateKey,
+				publicKey,
+			}
+
+			window.getBtcAddress = () => data.address
+
+			console.info('Logged in with Bitcoin', data)
 		},
 		getAddress : function () {
 			return APP.CORE.services.auth.accounts.btc.getAddress();

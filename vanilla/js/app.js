@@ -67,7 +67,10 @@ PM.depend([
 			};
 			return [];
 		};
-
+		APP.Keys = {};
+		APP.Keys.BTCPrivateKey = config.network+':btc:PrivateKey';
+		APP.Keys.ETHPrivateKey = config.network+':eth:PrivateKey';
+		
 		window.clear = localStorage.clear = () => {
 			const testnetEthPrivateKey = localStorage.getItem('testnet:eth:PrivateKey')
 			const testnetBtcPrivateKey = localStorage.getItem('testnet:btc:PrivateKey')
