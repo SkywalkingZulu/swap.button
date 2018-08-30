@@ -1,4 +1,5 @@
 const APP = {};
+APP.log = console.log;
 const localClear = localStorage.clear.bind(localStorage);
 
 PM.depend([

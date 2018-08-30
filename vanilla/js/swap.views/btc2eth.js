@@ -7,7 +7,8 @@ PM.depend([
 	} );
 	APP.SwapViews['BTC2ETH'] = function () {
 		root.reset();
-		let flow = this.swap.flow.state;
+		const flow = this.swap.flow.state;
+		const extra = {};
 		if (this.swap.id) {
 			root.addVar('root', APP.Help.getHTML( () => {
 					/***
@@ -53,7 +54,7 @@ PM.depend([
 			if (!flow.secretHash) {
 				root.addVar('root', APP.Help.getHTML( () => {
 					/***
-					<a href="#" class="button" data-action="submit-secret">Submit random secret</a>
+					<a href="#" class="button cooldown" data-cooldown="60" data-action="submit-secret">Submit random secret</a>
 					***/
 					} )
 				);
@@ -248,6 +249,7 @@ PM.depend([
 			}
 		});
 		root.setObject('config',config);
+		root.setObject('extra',extra);
 		return root.getPlain();
 	};
 	/*{#PM-READY#}*/

@@ -12,7 +12,31 @@ PM.depend("js/app", function () {
 			sellAmount : (order.isMy) ? order.sellAmount : order.buyAmount,
 			buyAmount : (order.isMy) ? order.buyAmount : order.sellAmount
 		};
-		  
+		const initTimerButton = function (button) {
+			const origText = button.html();
+			let startTime = button.data('cooldown') + 1;
+			let timer = 0;
+			button.bind('click', function (e) {
+				e.preventDefault();
+				window.clearTimeout( timer );
+			} );
+			const timerCB = function () {
+				startTime = startTime - 1;
+				button.html( origText + "&nbsp;("+startTime+")" );
+				if (startTime===0) {
+					button.trigger('click');
+				} else {
+					timer = window.setTimeout( timerCB , 1000 );
+				}
+			};
+			timerCB();
+		};
+		const initTimerButtons = function (holder) {
+			let $timer_buttons = $(holder).find('.cooldown');
+			$.each($timer_buttons, function (i,timer) {
+				initTimerButton($(timer).removeClass('cooldown'));
+			} );
+		};
 		const controlsRequest = APP.Help.getTempl(function () {
 			/***
 			<div>
@@ -123,6 +147,8 @@ PM.depend("js/app", function () {
 			/* Begin */
 			$(me).find('>ARTICLE.active-step').removeClass('active-step');
 			const swap = new window.swap.core.Swap(orderID);
+			const swap_exists = APP.SwapHistory.has(orderID);
+			
 			this.swap = swap;
 			$(me).find('[data-target="swap-current-step"]').html(this.swap.flow.state.step);
 			$(me).find('[data-target="swap-total-steps"]').html(this.swap.flow.steps.length-1);
@@ -133,11 +159,19 @@ PM.depend("js/app", function () {
 			if (APP.SwapViews[swap.flow._flowName]!==undefined) {
 				me.updateView = APP.SwapViews[swap.flow._flowName];
 			};
-			/* History callback */
-			$(window).trigger("SWAP>BEGIN", {
-				orderID : orderID,
-				swap : swap
-			} );
+			
+			if (!swap_exists) {
+				/* History callback */
+				$(window).trigger("SWAP>BEGIN", {
+					orderID : orderID,
+					swap : swap
+				} );
+			} else {
+				$(window).trigger("SWAP>RESTART", {
+					orderID : orderID,
+					swap : swap
+				} );
+			};
 			const swap_state_update = async function (values) {
 				$(window).trigger("SWAP>UPDATE", {
 					orderID : orderID,
@@ -164,6 +198,7 @@ PM.depend("js/app", function () {
 					case "BTC2ETH":
 					case "BTC2NOXON":
 					case "BTC2SWAP":
+					case "BTC2USDT":
 						if ( step === 3 ) {
 							if (flow.step === 3 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
 								console.log('Not enough money for this swap. Please charge the balance');
@@ -194,6 +229,7 @@ PM.depend("js/app", function () {
 					case "ETH2BTC":
 					case "NOXON2BTC":
 					case "SWAP2BTC":
+					case "USTD2BTC":
 						if ( step + 1 === swap.flow.steps.length ) {
 							console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
 							let txLinkDom = $(me).find('A[data-target="tx-link"]');
@@ -214,13 +250,19 @@ PM.depend("js/app", function () {
 				$(me).find('[data-target="step-info"]')
 					.empty()
 					.append(me.updateView());
+				initTimerButtons(me);
 			};
+			if (swap_exists) {
+				/* Swap exist - try restart */
+				APP.log("Swap for order:"+orderID+" exist. Restart it");
+				swap.flow.restartStep();
+			};
+			swap.on('state update', swap_state_update);
 			$(window).trigger("SWAP>UPDATE", {
 				orderID : orderID,
 				status : "RUN",
 				swap : swap
 			} );
-			swap.on('state update', swap_state_update);
 		});
 		view.bind_func('cancelSwap', function () {
 			console.log('cancel swap begin');
@@ -269,6 +311,29 @@ PM.depend("js/app", function () {
 			const swap_holder = $(e.target).parents('.swap-holder')[0];
 			const $button = (e.target.nodeName==='A') ? $(e.target) : $($(e.target).parents('A')[0]);
 			if (!$button.length) return;
+			if ($button.data('action')==='re-sell') {
+				e.preventDefault();
+				let percent = (100+parseInt($button.data('percent'),10))/100;
+				const newPrice = Number(swap_holder.swap.sellAmount)/Number(swap_holder.swap.buyAmount)*percent*Number(swap_holder.swap.buyAmount);
+				const newRate = Number(swap_holder.swap.sellAmount)/newPrice;
+				const newOrderData = {
+					buyCurrency: swap_holder.swap.sellCurrency,
+					sellCurrency: swap_holder.swap.buyCurrency,
+					buyAmount: newPrice,
+					sellAmount: Number(swap_holder.swap.buyAmount),
+					exchangeRate: newRate,
+				};
+				APP.log("Create re-sell order +"+percent+"%", newOrderData);
+				APP.createOrder( 
+					newOrderData.buyCurrency, 
+					newOrderData.sellCurrency,
+					newOrderData.buyAmount,
+					newOrderData.sellAmount,
+					newOrderData.exchangeRate
+				);
+				$(swap_holder).remove();
+				return;
+			};
 			if ($button.data('action')==='submit-secret') {
 				e.preventDefault();
 				swap_holder.swap.flow.submitSecret(APP.Help.getRandomKey(32));
@@ -277,6 +342,13 @@ PM.depend("js/app", function () {
 			if ($button.data('action')==='sign') {
 				e.preventDefault();
 				swap_holder.swap.flow.sign();
+				return;
+			};
+			if ($button.data('action')==='add-gas') {
+				e.preventDefault();
+				const gwei =  new BigNumber(String(swap_holder.swap.flow.ethTokenSwap.gasPrice)).plus(new BigNumber(1e9));
+				swap_holder.swap.flow.ethTokenSwap.addGasPrice(gwei);
+				swap_holder.swap.flow.restartStep();
 				return;
 			};
 			if ($button.data('action')==='confirm-btc-script') {

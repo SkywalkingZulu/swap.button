@@ -8,6 +8,7 @@ PM.depend([
 	APP.SwapViews['ETHTOKEN2BTC'] = function () {
 		root.reset();
 		const flow = this.swap.flow.state;
+		const extra = {};
 		if (this.swap.id) {
 			root.addVar('root', APP.Help.getHTML( () => {
 					/***
@@ -62,7 +63,7 @@ PM.depend([
 			if (!flow.isSignFetching && !flow.isMeSigned) {
 				root.addVar('root', APP.Help.getHTML( () => {
 					/***
-					<a href="#" class="button" data-action="sign">Confirm</a>
+					<a href="#" class="button cooldown" data-cooldown="10" data-action="sign">Confirm</a>
 					***/
 					} )
 				);
@@ -180,7 +181,7 @@ bitcoin.core.opcodes.OP_ENDIF,
 				if (flow.step === 3) {
 					root.addVar('root', APP.Help.getHTML( () => {
 						/***
-						<a href="#" class="button" data-action="confirm-btc-script">Everything is OK. Continue</a>
+						<a href="#" class="button cooldown" data-cooldown="60" data-action="confirm-btc-script">Everything is OK. Continue</a>
 						***/
 						} )
 					);
@@ -337,6 +338,7 @@ bitcoin.core.opcodes.OP_ENDIF,
 			}
 		});
 		root.setObject('config',config);
+		root.setObject('extra',extra);
 		return root.getPlain();
 	};
 	for (var tokenName in config.tokens) {

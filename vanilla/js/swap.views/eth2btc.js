@@ -8,6 +8,7 @@ PM.depend([
 	APP.SwapViews['ETH2BTC'] = function () {
 		root.reset();
 		const flow = this.swap.flow.state;
+		const extra = {};
 		if (this.swap.id) {
 			root.addVar('root', APP.Help.getHTML( () => {
 					/***
@@ -53,7 +54,7 @@ PM.depend([
 			root.addVar('root', APP.Help.getHTML( () => {
 				/***
 				<div>Confirmation of the transaction is necessary for crediting the reputation. If a user does not bring the deal to the end he gets a negative reputation.</div>
-				<a href="#" class="button" data-action="sign">Sign</a>
+				<a href="#" class="button cooldown" data-cooldown="10" data-action="sign">Sign</a>
 				***/
 				} )
 			);
@@ -151,7 +152,7 @@ PM.depend([
 				if (flow.step === 3) {
 					root.addVar('root', APP.Help.getHTML( () => {
 						/***
-						<a href="#" class="button" data-action="confirm-btc-script">Everything is OK. Continue</a>
+						<a href="#" class="button cooldown" data-cooldown="60" data-action="confirm-btc-script">Everything is OK. Continue</a>
 						***/
 						} )
 					);
@@ -316,6 +317,7 @@ PM.depend([
 			}
 		});
 		root.setObject('config',config);
+		root.setObject('extra',extra);
 		return root.getPlain();
 	};
 	/*{#PM-READY#}*/

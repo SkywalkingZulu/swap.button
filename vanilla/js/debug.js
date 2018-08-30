@@ -242,6 +242,25 @@ PM.depend("js/app", function () {
 				console.info("Order requests list changed");
 				console.log(list);
 			} );
+			/* console log toggle */
+			( function () {
+				const originalLog = console.log;
+				const originalInfo = console.info;
+				const originalWarn = console.warn;
+				
+				$('#disable-console-log').bind('change', function (e) {
+					if ($('#disable-console-log').prop('checked')) {
+						console.log = function () {};
+						console.info = function () {};
+						console.warn = function () {};
+						console.clear();
+					} else {
+						console.log = originalLog;
+						console.info = originalInfo;
+						console.warn = originalWarn;
+					}
+				} );
+			} )();
 			console.info("DEBUG TESTS END --------------------------------");
 		} );
 	} );
