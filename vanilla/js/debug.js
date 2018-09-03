@@ -33,17 +33,40 @@ PM.depend("js/app", function () {
 					p.addClass('-opened');
 				}
 			} );
-			$('SECTION#debug-add-order INPUT[type="submit"]').bind('click', function (e) {
-				APP.createOrder(
-					$('SECTION#debug-add-order INPUT[data-target="buyC"]').val(),
-					$('SECTION#debug-add-order INPUT[data-target="sellC"]').val(),
-					$('SECTION#debug-add-order INPUT[data-target="buyA"]').val(),
-					$('SECTION#debug-add-order INPUT[data-target="sellA"]').val(),
-					$('SECTION#debug-add-order INPUT[data-target="rate"]').val()
-				);
-				$(window).trigger("CORE>ORDERS>CREATE");
-			} );
-			
+			/* Add order */
+			(function () {
+				const inputBuyCurency = $('SECTION#debug-add-order SELECT[data-target="buyC"]');
+				const inputSellCurency = $('SECTION#debug-add-order SELECT[data-target="sellC"]')
+				const tmplTokenOption = APP.Help.getTempl( () => { /***
+					<option value="{#token.key#}">{#token.name#}</option>
+				***/ } );
+				for (let tokenName in config.tokens) {
+					if (config.tokens[tokenName].inited) {
+						tmplTokenOption
+							.reset()
+							.setObject( 'token', {
+								key : tokenName,
+								name : tokenName.toUpperCase()
+							} );
+						inputBuyCurency.append( 
+							tmplTokenOption.getPlain()
+						);
+						inputSellCurency.append( 
+							tmplTokenOption.getPlain()
+						);
+					}
+				}
+				$('SECTION#debug-add-order INPUT[type="submit"]').bind('click', function (e) {
+					APP.createOrder(
+						$('SECTION#debug-add-order SELECT[data-target="buyC"]').val(),
+						$('SECTION#debug-add-order SELECT[data-target="sellC"]').val(),
+						$('SECTION#debug-add-order INPUT[data-target="buyA"]').val(),
+						$('SECTION#debug-add-order INPUT[data-target="sellA"]').val(),
+						$('SECTION#debug-add-order INPUT[data-target="rate"]').val()
+					);
+					$(window).trigger("CORE>ORDERS>CREATE");
+				} );
+			} )();
 			/* Account info */
 			(function () {
 				const update_info = function () {

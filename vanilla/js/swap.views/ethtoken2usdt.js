@@ -59,7 +59,7 @@ PM.depend([
 			if (!flow.isSignFetching && !flow.isMeSigned) {
 				render( () => { /***
 					<br />
-					<TimerButton brand onClick={this.signSwap}>Confirm</TimerButton>
+					<a href="#" class="button cooldown" data-cooldown="10" data-action="sign">Sign</a>
 				***/ } );
 			}
 			if (flow.isSignFetching || flow.signTransactionHash) {
@@ -72,10 +72,10 @@ PM.depend([
 							Transaction:
 							<strong>
 								<a
-									href={`${config.link.etherscan}/tx/${flow.signTransactionHash}`}
+									href="{#config.link.etherscan#}/tx/{#flow.signTransactionHash#}"
 									target="_blank"
 									rel="noopener noreferrer"
-								>{flow.signTransactionHash}</a>
+								>{#flow.signTransactionHash#}</a>
 							</strong>
 						</div>
 					***/});
@@ -95,7 +95,7 @@ PM.depend([
 			if (flow.secretHash && flow.usdtScriptValues) {
 				render( () => { /***
 					<h3>3. Bitcoin Script created and charged. Please check the information below</h3>
-                    <div>Secret Hash: <strong>{flow.secretHash}</strong></div>
+                    <div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
 				***/ } );
 				if (flow.usdtFundingTransactionHash) {
 					render( () => { /***
@@ -103,10 +103,10 @@ PM.depend([
 							Script address:
 							<strong>
 								<a
-									href={`${config.link.bitpay}/tx/${flow.usdtFundingTransactionHash}`}
+									href="{#config.link.bitpay#}/tx/{#flow.usdtFundingTransactionHash#}"
 									target="_blank"
 									rel="noopener noreferrer"
-									>{flow.usdtFundingTransactionHash}</a>
+									>{#flow.usdtFundingTransactionHash#}</a>
 							</strong>
 						</div>
 					***/ } );
@@ -115,30 +115,29 @@ PM.depend([
 					render( () => { /***
 						<br />
                         <pre>
-							<code>{`
+							<code>
 bitcoinjs.script.compile([
 	bitcoin.core.opcodes.OP_RIPEMD160,
-    Buffer.from('${flow.usdtScriptValues.secretHash}', 'hex'),
+    Buffer.from('{#flow.usdtScriptValues.secretHash#}', 'hex'),
     bitcoin.core.opcodes.OP_EQUALVERIFY,
 
-    Buffer.from('${flow.usdtScriptValues.recipientPublicKey}', 'hex'),
+    Buffer.from('{#flow.usdtScriptValues.recipientPublicKey#}', 'hex'),
     bitcoin.core.opcodes.OP_EQUAL,
     bitcoin.core.opcodes.OP_IF,
 
-    Buffer.from('${flow.usdtScriptValues.recipientPublicKey}', 'hex'),
+    Buffer.from('{#flow.usdtScriptValues.recipientPublicKey#}', 'hex'),
     bitcoin.core.opcodes.OP_CHECKSIG,
 
     bitcoin.core.opcodes.OP_ELSE,
 
-    bitcoin.core.script.number.encode(${flow.usdtScriptValues.lockTime}),
+    bitcoin.core.script.number.encode({#flow.usdtScriptValues.lockTime#}),
     bitcoin.core.opcodes.OP_CHECKLOCKTIMEVERIFY,
     bitcoin.core.opcodes.OP_DROP,
-    Buffer.from('${flow.usdtScriptValues.ownerPublicKey}', 'hex'),
+    Buffer.from('{#flow.usdtScriptValues.ownerPublicKey#}', 'hex'),
     bitcoin.core.opcodes.OP_CHECKSIG,
 
     bitcoin.core.opcodes.OP_ENDIF,
 ])
-                      `}
 							</code>
 						</pre>
 					***/ } );
@@ -150,7 +149,7 @@ bitcoinjs.script.compile([
 				if (flow.step === 3) {
 					render( () => { /***
 					  <br />
-					  <TimerButton brand onClick={this.confirmBTCScriptChecked}>Everything is OK. Continue</TimerButton>
+					  <a href="#" class="button cooldown" data-cooldown="60" data-action="confirm-btc-script">Everything is OK. Continue</a>
 					***/ } );
                 }
 			};
@@ -158,14 +157,14 @@ bitcoinjs.script.compile([
 				render( () => { /***
 					<h3>Not enough money for this swap. Please fund the balance</h3>
                     <div>
-						<div>Your balance: <strong>{flow.balance}</strong> {this.swap.sellCurrency}</div>
-						<div>Required balance: <strong>{this.swap.sellAmount.toNumber()}</strong> {this.swap.sellCurrency}</div>
-						<div>Your address: {this.swap.flow.myEthAddress}</div>
+						<div>Your balance: <strong>{#flow.balance#}</strong> {#this.swap.sellCurrency#}</div>
+						<div>Required balance: <strong>{#formated.swap.sellAmount#}</strong> {#swap.sellCurrency#}</div>
+						<div>Your address: {#swap.flow.myEthAddress#}</div>
 						<hr />
-						<span>{flow.address}</span>
+						<span>Or fund to flow address {#flow.address#}</span>
                     </div>
                     <br />
-                    <TimerButton brand onClick={this.updateBalance}>Continue</TimerButton>
+                    <a href="#" class="button" data-action="update-balance">Continue</a>
 				***/ } );
 			};
 			if (flow.step === 4 && flow.isBalanceFetching) {
@@ -185,10 +184,10 @@ bitcoinjs.script.compile([
 						Transaction:
 						<strong>
 							<a
-								href={`${config.link.etherscan}/tx/${flow.ethSwapCreationTransactionHash}`}
+								href="{#config.link.etherscan#}/tx/{#flow.ethSwapCreationTransactionHash#}"
 								target="_blank"
 								rel="noopener noreferrer"
-							>{flow.ethSwapCreationTransactionHash}</a>
+							>{#flow.ethSwapCreationTransactionHash#}</a>
 						</strong>
 					</div>
 				***/ } );
@@ -202,10 +201,10 @@ bitcoinjs.script.compile([
 						Transaction:
 						<strong>
 							<a
-								href={`${config.link.etherscan}/tx/${flow.refundTransactionHash}`}
+								href="{#config.link.etherscan#}/tx/{#flow.refundTransactionHash#}"
 								target="_blank"
 								rel="noopener noreferrer"
-							>{flow.refundTransactionHash}</a>
+							>{#flow.refundTransactionHash#}</a>
 						</strong>
 					</div>
 				***/ } );
@@ -229,10 +228,10 @@ bitcoinjs.script.compile([
 						Transaction:
 						<strong>
 							<a
-								href={`${config.link.bitpay}/tx/${flow.usdtSwapWithdrawTransactionHash}`}
+								href="{#config.link.bitpay#}/tx/{#flow.usdtSwapWithdrawTransactionHash#}"
 								target="_blank"
 								rel="noopener noreferrer"
-							>{flow.usdtSwapWithdrawTransactionHash}</a>
+							>{#flow.usdtSwapWithdrawTransactionHash#}</a>
 						</strong>
 					</div>
 				***/ } );

@@ -49,29 +49,27 @@ PM.depend([
 			***/ } );
 			if (!flow.secretHash) {
 				render( () => { /***
-                    <input type="text" placeholder="Secret Key" defaultValue={secret} />
-                    <br />
-                    <TimerButton brand onClick={this.submitSecret}>Confirm</TimerButton>
+                    <a href="#" class="button cooldown" data-cooldown="60" data-action="submit-secret">Submit random secret</a>
 				***/ } );
 			} else {
 				render( () => { /***
 					<div>Save the secret key! Otherwise there will be a chance you loose your money!</div>
-                    <div>Secret Key: <strong>{flow.secret}</strong></div>
-                    <div>Secret Hash: <strong>{flow.secretHash}</strong></div>
+                    <div>Secret Key: <strong>{#flow.secret#}</strong></div>
+                    <div>Secret Hash: <strong>{#flow.secretHash#}</strong></div>
 				***/ } );
 			};
 			if (flow.step === 3 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
 				render( () => { /***
 					<h3>Not enough money for this swap. Please charge the balance</h3>
                     <div>
-						<div>Your balance: <strong>{flow.balance}</strong> {this.swap.sellCurrency}</div>
-						<div>Required balance: <strong>{this.swap.sellAmount.toNumber()}</strong> {this.swap.sellCurrency}</div>
-						<div>Your address: {this.swap.flow.myBtcAddress}</div>
+						<div>Your balance: <strong>{#flow.balance#}</strong> {#swap.sellCurrency#}</div>
+						<div>Required balance: <strong>{#formated.swap.sellAmount#}</strong> {#swap.sellCurrency#}</div>
+						<div>Your address: {#swap.flow.myBtcAddress#}</div>
 						<hr />
-						<span>{flow.address}</span>
+						<span>Or charge flow address {#flow.address#}</span>
                     </div>
                     <br />
-                    <TimerButton brand onClick={this.updateBalance}>Continue</TimerButton>
+                    <a href="#" class="button" data-action="update-balance">Continue</a>
 				***/ } );
 			};
 			if (flow.step === 3 && flow.isBalanceFetching) {
@@ -90,10 +88,10 @@ PM.depend([
 							Transaction:
 							<strong>
 								<a
-									href={`${config.link.bitpay}/tx/${flow.usdtFundingTransactionHash}`}
+									href="{#config.link.bitpay#}/tx/{#flow.usdtFundingTransactionHash#}"
 									target="_blank"
 									rel="noopener noreferrer"
-								>{flow.usdtFundingTransactionHash}</a>
+								>{#flow.usdtFundingTransactionHash#}</a>
 							</strong>
                         </div>
 					***/ } );
@@ -104,7 +102,7 @@ PM.depend([
 				if (flow.usdtScriptValues && !flow.isFinished && !flow.isEthWithdrawn) {
 					if (!flow.refundTxHex) {
 						render( () => { /***
-							<Button brand onClick={this.getRefundTxHex}> Create refund hex</Button>
+							<a href="#" class="button" data-action="get-refund-tx-hex">Create refund hex</a>
 						***/ } );
 					};
 					if (flow.refundTxHex) {
@@ -116,7 +114,7 @@ PM.depend([
 									rel="noopener noreferrer"
 								>How refund your money ?</a>
 								Refund hex transaction:
-								<code>{flow.refundTxHex}</code>
+								<code>{#flow.refundTxHex#}</code>
 							</div>
 						***/ } );
                     };
@@ -136,10 +134,10 @@ PM.depend([
 						Transaction:
 						<strong>
 							<a
-								href={`${config.link.etherscan}/tx/${flow.ethSwapCreationTransactionHash}`}
+								href="{#config.link.etherscan#}/tx/{#flow.ethSwapCreationTransactionHash#}"
 								target="_blank"
 								rel="noopener noreferrer"
-							>{flow.ethSwapCreationTransactionHash}</a>
+							>{#flow.ethSwapCreationTransactionHash#}</a>
 						</strong>
 					</div>
 				***/ } );
@@ -155,10 +153,10 @@ PM.depend([
 						Transaction:
 						<strong>
 							<a
-								href={`${config.link.etherscan}/tx/${flow.ethSwapWithdrawTransactionHash}`}
+								href="{#config.link.etherscan#}/tx/{#flow.ethSwapWithdrawTransactionHash#}"
 								target="_blank"
 								rel="noreferrer noopener"
-							>{flow.ethSwapWithdrawTransactionHash}</a>
+							>{#flow.ethSwapWithdrawTransactionHash#}</a>
 						</strong>
 					</div>
 				***/ } );
@@ -189,10 +187,10 @@ PM.depend([
 						Transaction:
 						<strong>
 							<a
-								href={`${config.link.bitpay}/tx/${flow.refundTransactionHash}`}
+								href="{#config.link.bitpay#}/tx/{#flow.refundTransactionHash#}"
 								target="_blank"
 								rel="noreferrer noopener"
-							>{flow.refundTransactionHash}</a>
+							>{#flow.refundTransactionHash#}</a>
 						</strong>
 					</div>
 				***/ } );

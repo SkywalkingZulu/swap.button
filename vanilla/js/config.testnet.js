@@ -39,7 +39,7 @@ const config = {
 		jot: {
 			address: '0x9070e2fDb61887c234D841c95D1709288EBbB9a0',
 			decimals: 18,
-		},
+		}
 	},
 	link: {
 		bitpay: 'https://test-insight.swap.online/insight',

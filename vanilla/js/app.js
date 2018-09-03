@@ -8,7 +8,13 @@ PM.depend([
 	/* configuration load */
 	console.info("Swap.Core loaded - init main configuration");
 	let config_file = "js/config";
-	let cfg_params = [];
+	let cfg_params = [
+		["ALL"],	/* buy */
+		["ALL"],	/* sell */
+		1,			/* style */
+		"debug",	/* network */
+		1			/* debug panel */
+	];
 	/* Init filter and other params from generator */
 	if (document.location.search) {
 		try {
@@ -28,6 +34,9 @@ PM.depend([
 				if (cfg_params[3]=='mainnet') {
 					config_file = "js/config.mainnet";
 				};
+				if (cfg_params[3].indexOf("custom.")!==false) {
+					config_file = "js/config."+cfg_params[3];
+				}
 			}
 		} catch (e) {
 			console.log(e);
@@ -128,7 +137,12 @@ PM.depend([
 				];
 				/* Add swaps and flows from config for tokens */
 				for (let tokenName in config.tokens) {
+					if (config.tokens[tokenName].erc20) {
+						/* auto add this token to core */
+						window.swap.core.constants.COINS[tokenName] = tokenName.toUpperCase();
+					};
 					if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+						
 						/* swap */
 						swaps.push(
 							new window.swap.core.swaps.EthTokenSwap({
@@ -144,6 +158,9 @@ PM.depend([
 						/* flows */
 						flows.push(window.swap.core.flows.ETHTOKEN2BTC(window.swap.core.constants.COINS[tokenName]));
 						flows.push(window.swap.core.flows.BTC2ETHTOKEN(window.swap.core.constants.COINS[tokenName]));
+						
+						config.tokens[tokenName].inited = true;
+						
 					}
 				};
 				try {

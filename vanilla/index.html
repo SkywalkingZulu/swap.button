@@ -81,11 +81,21 @@
 			<header>Debug panel - add order</header>
 			<article>
 				<label>Buy currency</label>
-				<input type="text" data-target="buyC" value="eth" />
+				<!--<input type="text" data-target="buyC" value="eth" />-->
+				<select type="text" data-target="buyC">
+					<option value="eth" selected>ETH</option>
+					<option value="btc">BTC</option>
+					<!--<option value="USDT">USDT</option>-->
+				</select>
 				<label>Buy amount</label>
 				<input type="text" data-target="buyA" value="0.01" />
 				<label>Sell currency</label>
-				<input type="text" data-target="sellC" value="btc" />
+				<!--<input type="text" data-target="sellC" value="btc" />-->
+				<select type="text" data-target="sellC">
+					<option value="eth">ETH</option>
+					<option value="btc" selected>BTC</option>
+					<!--<option value="USDT">USDT</option>-->
+				</select>
 				<label>Sell amount</label>
 				<input type="text" data-target="sellA" value="0.01" />
 				<label>Rate</label>

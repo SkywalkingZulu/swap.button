@@ -1,10 +1,10 @@
 const config = {
-	network : 'mainnet',
+	network : 'testnet',
 	services: {
 		web3: {
-			provider: 'https://mainnet.infura.io/5lcMmHUURYg8F20GLGSr',
+			provider: 'https://ropsten.infura.io/JCnK5ifEPH9qcQkX0Ahl',
 			rate: 0.1,
-			gas: 1e5,
+			gas: 2e6,
 			gasPrice: '20000000000',
 		},
 		eos: {
@@ -19,25 +19,25 @@ const config = {
 		server: 'discovery.libp2p.array.io',
 	},
 	token: {
-		contract: '0x85F806b0df30709886C22ed1be338d2c647Abd6B',
+		contract: '0xc87C2668F05803F60EF75b176eea0CCE80D0009C',
 	},
 	eth: {
-		contract : '0x843FcaAeb0Cce5FFaf272F5F2ddFFf3603F9c2A0',
+		contract : '0x4356152f044e3a1ce1a57566b2e0bee57949c1b2', // 0xdbC2395f753968a93465487022B0e5D8730633Ec
 	},
 	eos: {
 		contract: 'swaponline42',
 	},
 	tokens: {
 		swap: {
-			address: '0x14a52cf6B4F68431bd5D9524E4fcD6F41ce4ADe9',
+			address: '0xbaa3fa2ed111f3e8488c21861ea7b7dbb5a7b121',
 			decimals: 18,
 		},
 		noxon: {
-			address: '0x9E4AD79049282F942c1b4c9b418F0357A0637017',
+			address: '0x60c205722c6c797c725a996cf9cca11291f90749',
 			decimals: 0,
 		},
 		jot: {
-			address: '0xdb455c71c1bc2de4e80ca451184041ef32054001',
+			address: '0x9070e2fDb61887c234D841c95D1709288EBbB9a0',
 			decimals: 18,
 		},
 		syc2: {
@@ -47,15 +47,14 @@ const config = {
 		}
 	},
 	link: {
-		bitpay: 'https://insight.bitpay.com',
-		etherscan: 'https://etherscan.io',
-		eos: '',
-		omniexplorer: 'https://www.omniexplorer.info',
+		bitpay: 'https://test-insight.swap.online/insight',
+		etherscan: 'https://ropsten.etherscan.io',
+		eos: 'http://jungle.cryptolions.io/#accountInfo',
 	},
 	api: {
-		blocktrail: 'https://api.blocktrail.com/v1/BTC',
-		bitpay: 'https://insight.bitpay.com/api',
-		etherscan: 'https://api.etherscan.io/api',
+		blocktrail: 'https://api.blocktrail.com/v1/tBTC',
+		bitpay: 'https://test-insight.swap.online/insight-api',//'https://test-insight.bitpay.com/api',
+		etherscan: 'https://ropsten.etherscan.io/api',
 	},
 	apiKeys: {
 		etherscan: 'RHHFPNMAZMD6I4ZWBZBF6FA11CMW9AXZNM',

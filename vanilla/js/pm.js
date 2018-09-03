@@ -150,11 +150,11 @@ var PackManager = function (work_dir) {
 	this.loaded = new Object();
 	this.loaded_ready = new Object();
 	this.packs = new Object();
-	this.debug = true;
+	this.debug = false;
     this.use_cache = false;
     this.debug_host = 'localhost';
-    
 	this._private = new Object();
+	this._private.logInclude = true;
 	this._private.xmlhttps = new Array();
 	
     this.hasPack = function (name) {
@@ -397,6 +397,10 @@ var PackManager = function (work_dir) {
                         js_text = js_text+";PM.register('"+name+"');"
                     }
 					js_text = '/*'+_this.work_dir+name+'.js'+'*/' + js_text;
+					if (_this._private.logInclude) {
+						js_text = "\r\n" + js_text;
+						js_text = "console.info('Included: "+_this.work_dir+name+".js');\r\n" + js_text;
+					};
 					try {
 						var tt = document.createTextNode(js_text);
 						js.appendChild(tt);
@@ -512,7 +516,7 @@ var PackManager = function (work_dir) {
         _next_load();
     };
 	this.depend = function (name,func_ready) {
-        var _debug = true;
+        var _debug = false;
         var _start = _this._private.microtime(true);
         if (_debug) {
             _this._private.log('PM.depend start:'+name);
@@ -529,7 +533,7 @@ var PackManager = function (work_dir) {
         } else {
             
             if (_this.loaded[name]===undefined) {
-                _this.load(name,_ready);
+				_this.load(name, _ready);
             } else {
                 _ready();
             }
