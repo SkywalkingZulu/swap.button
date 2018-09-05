@@ -19,15 +19,16 @@ const config = {
 		server: 'discovery.libp2p.array.io',
 	},
 	token: {
-		contract: '0xc87C2668F05803F60EF75b176eea0CCE80D0009C',
+		contract: '0xcb11573fc41600841F471916Adb5Cec53f6C11EF',//'0xc87C2668F05803F60EF75b176eea0CCE80D0009C',
 	},
 	eth: {
-		contract : '0x4356152f044e3a1ce1a57566b2e0bee57949c1b2', // 0xdbC2395f753968a93465487022B0e5D8730633Ec
+		contract : '0xdae019fada74fbb6015028271d4bb4a8da96afb0',//'0x4356152f044e3a1ce1a57566b2e0bee57949c1b2', // 0xdbC2395f753968a93465487022B0e5D8730633Ec
 	},
 	eos: {
 		contract: 'swaponline42',
 	},
 	tokens: {
+		/*
 		swap: {
 			address: '0xbaa3fa2ed111f3e8488c21861ea7b7dbb5a7b121',
 			decimals: 18,
@@ -40,8 +41,9 @@ const config = {
 			address: '0x9070e2fDb61887c234D841c95D1709288EBbB9a0',
 			decimals: 18,
 		},
+		*/
 		syc2: {
-			address: '0x49feeF410293261c04F1d14600Ba427F8eED8723',
+			address: '0x49feef410293261c04f1d14600ba427f8eed8723',
 			decimals: 2,
 			erc20: true
 		}

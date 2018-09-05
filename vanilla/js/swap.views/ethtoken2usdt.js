@@ -271,10 +271,12 @@ bitcoinjs.script.compile([
 		root.setObject('extra',extra);
 		return root.getPlain();
 	};
-	for (var tokenName in config.tokens) {
-		if (window.swap.core.constants.COINS[tokenName]!==undefined) {
-			APP.SwapViews[window.swap.core.constants.COINS[tokenName]+'2USDT'] = APP.SwapViews['ETHTOKEN2USDT'];
-		}
-	};
+	APP.AfterInitCall( () => {
+		for (var tokenName in config.tokens) {
+			if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+				APP.SwapViews[window.swap.core.constants.COINS[tokenName]+'2USDT'] = APP.SwapViews['ETHTOKEN2USDT'];
+			}
+		};
+	} );
 	/*{#PM-READY#}*/
 } );

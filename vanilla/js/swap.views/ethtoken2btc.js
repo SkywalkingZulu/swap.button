@@ -341,10 +341,12 @@ bitcoin.core.opcodes.OP_ENDIF,
 		root.setObject('extra',extra);
 		return root.getPlain();
 	};
-	for (var tokenName in config.tokens) {
-		if (window.swap.core.constants.COINS[tokenName]!==undefined) {
-			APP.SwapViews[window.swap.core.constants.COINS[tokenName]+'2BTC'] = APP.SwapViews['ETHTOKEN2BTC'];
-		}
-	};
+	APP.AfterInitCall( () => {
+		for (var tokenName in config.tokens) {
+			if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+				APP.SwapViews[window.swap.core.constants.COINS[tokenName]+'2BTC'] = APP.SwapViews['ETHTOKEN2BTC'];
+			}
+		};
+	} );
 	/*{#PM-READY#}*/
 } );

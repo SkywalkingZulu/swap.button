@@ -156,6 +156,7 @@ PM.depend([
 							}),
 						);
 						/* flows */
+						console.log(window.swap.core.constants.COINS[tokenName]);
 						flows.push(window.swap.core.flows.ETHTOKEN2BTC(window.swap.core.constants.COINS[tokenName]));
 						flows.push(window.swap.core.flows.BTC2ETHTOKEN(window.swap.core.constants.COINS[tokenName]));
 						
@@ -208,6 +209,7 @@ PM.depend([
 						APP._p.AfterInitFuncs[i]();
 					}
 				}
+				$(window).trigger("AppLoaded");
 			} );
 		};
 

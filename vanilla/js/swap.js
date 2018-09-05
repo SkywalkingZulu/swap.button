@@ -1,7 +1,26 @@
 PM.depend("js/app", function () {
 	APP.Swap = function (orderID) {
 		const order = APP.CORE.services.orders.getByKey(orderID);
+		const btcDirections = [];
+		const ethDirections = [];
 		
+		/* 
+			Добавляем направления, для того чтобы каждый раз не дописывать новые токены
+			Берем все из конфигурации
+		*/
+		btcDirections.push( "BTC2ETH" );	/* Обмен не относящийся к токенам */
+		ethDirections.push( "ETH2BTC" );
+		
+		APP.AfterInitCall( () => {
+			for (var tokenName in config.tokens) {
+				if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+					btcDirections.push ( "BTC2"+window.swap.core.constants.COINS[tokenName] );
+					btcDirections.push ( "USDT2"+window.swap.core.constants.COINS[tokenName] );
+					ethDirections.push ( window.swap.core.constants.COINS[tokenName] + "2BTC" );
+					ethDirections.push ( window.swap.core.constants.COINS[tokenName] + "2USDT" );
+				}
+			}
+		} );
 		const flowType = (!order.isMy) ? 
 			order.buyCurrency+"2"+order.sellCurrency : 
 			order.sellCurrency+"2"+order.buyCurrency;
@@ -204,58 +223,51 @@ PM.depend("js/app", function () {
 				const flow = swap.flow;
 				
 				me.update_view();
-				switch (swap.flow._flowName) {
-					case "BTC2ETH":
-					case "BTC2NOXON":
-					case "BTC2SWAP":
-					case "BTC2USDT":
-						if ( step === 3 ) {
-							if (flow.step === 3 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
-								console.log('Not enough money for this swap. Please charge the balance');
-								console.log('Your balance: '+flow.balance+' '+swap.sellCurrency);
-								console.log('Required balance: '+swap.sellAmount.toNumber()+' '+swap.sellCurrency);
-								console.log('Your address: '+swap.flow.myBtcAddress);
-								console.log(flow.address);
-								console.log('------------------------');
-							}
+				console.log(swap.flow._flowName);
+				if (btcDirections.indexOf(swap.flow._flowName)!==-1) {
+					if ( step === 3 ) {
+						if (flow.step === 3 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
+							console.log('Not enough money for this swap. Please charge the balance');
+							console.log('Your balance: '+flow.balance+' '+swap.sellCurrency);
+							console.log('Required balance: '+swap.sellAmount.toNumber()+' '+swap.sellCurrency);
+							console.log('Your address: '+swap.flow.myBtcAddress);
+							console.log(flow.address);
+							console.log('------------------------');
 						}
-						
-						if ( step + 1 === swap.flow.steps.length ) {
-							console.log('[FINISHED] tx', swap.flow.state.ethSwapWithdrawTransactionHash);
-							let txLinkDom = $(me).find('A[data-target="tx-link"]');
-							const txLink = config.link.etherscan+"/tx/"+swap.flow.state.ethSwapWithdrawTransactionHash;
-							txLinkDom.attr('href',txLink);
-							txLinkDom.html(txLink);
-							$(window).trigger("SWAP>FINISHED", {
-								orderID : orderID,
-								swap : swap
-							} );
-							if (me.order.isMy) {
-								APP.CORE.services.orders.remove(me.order.id);
-								$(window).trigger("CORE>ORDERS>REMOVEMY");
-							}
-						};
-						break;;
-					case "ETH2BTC":
-					case "NOXON2BTC":
-					case "SWAP2BTC":
-					case "USTD2BTC":
-						if ( step + 1 === swap.flow.steps.length ) {
-							console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
-							let txLinkDom = $(me).find('A[data-target="tx-link"]');
-							const txLink = config.link.bitpay+"/tx/"+swap.flow.state.btcSwapWithdrawTransactionHash;
-							txLinkDom.attr('href',txLink);
-							txLinkDom.html(txLink);
-							$(window).trigger("SWAP>FINISHED", {
-								orderID : orderID,
-								swap : swap
-							} );
-							if (me.order.isMy) {
-								APP.CORE.services.orders.remove(me.order.id);
-								$(window).trigger("CORE>ORDERS>REMOVEMY");
-							}
-						};
-						break;
+					}
+					
+					if ( step + 1 === swap.flow.steps.length ) {
+						console.log('[FINISHED] tx', swap.flow.state.ethSwapWithdrawTransactionHash);
+						let txLinkDom = $(me).find('A[data-target="tx-link"]');
+						const txLink = config.link.etherscan+"/tx/"+swap.flow.state.ethSwapWithdrawTransactionHash;
+						txLinkDom.attr('href',txLink);
+						txLinkDom.html(txLink);
+						$(window).trigger("SWAP>FINISHED", {
+							orderID : orderID,
+							swap : swap
+						} );
+						if (me.order.isMy) {
+							APP.CORE.services.orders.remove(me.order.id);
+							$(window).trigger("CORE>ORDERS>REMOVEMY");
+						}
+					};
+				};
+				if (ethDirections.indexOf(swap.flow._flowName)!==-1) {
+					if ( step + 1 === swap.flow.steps.length ) {
+						console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
+						let txLinkDom = $(me).find('A[data-target="tx-link"]');
+						const txLink = config.link.bitpay+"/tx/"+swap.flow.state.btcSwapWithdrawTransactionHash;
+						txLinkDom.attr('href',txLink);
+						txLinkDom.html(txLink);
+						$(window).trigger("SWAP>FINISHED", {
+							orderID : orderID,
+							swap : swap
+						} );
+						if (me.order.isMy) {
+							APP.CORE.services.orders.remove(me.order.id);
+							$(window).trigger("CORE>ORDERS>REMOVEMY");
+						}
+					};
 				};
 				$(me).find('[data-target="step-info"]')
 					.empty()

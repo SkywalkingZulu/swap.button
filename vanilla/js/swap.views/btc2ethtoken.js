@@ -282,10 +282,12 @@ PM.depend([
 		root.setObject('extra',extra);
 		return root.getPlain();
 	};
-	for (var tokenName in config.tokens) {
-		if (window.swap.core.constants.COINS[tokenName]!==undefined) {
-			APP.SwapViews['BTC2'+window.swap.core.constants.COINS[tokenName]] = APP.SwapViews['BTC2ETHTOKEN'];
-		}
-	};
+	APP.AfterInitCall( () => {
+		for (var tokenName in config.tokens) {
+			if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+				APP.SwapViews['BTC2'+window.swap.core.constants.COINS[tokenName]] = APP.SwapViews['BTC2ETHTOKEN'];
+			}
+		};
+	} );
 	/*{#PM-READY#}*/
 } );

@@ -208,10 +208,12 @@ PM.depend([
 		root.setObject('extra',extra);
 		return root.getPlain();
 	};
-	for (var tokenName in config.tokens) {
-		if (window.swap.core.constants.COINS[tokenName]!==undefined) {
-			APP.SwapViews["USDT2"+window.swap.core.constants.COINS[tokenName]] = APP.SwapViews['USDT2ETHTOKEN'];
-		}
-	};
+	APP.AfterInitCall( () => {
+		for (var tokenName in config.tokens) {
+			if (window.swap.core.constants.COINS[tokenName]!==undefined) {
+				APP.SwapViews["USDT2"+window.swap.core.constants.COINS[tokenName]] = APP.SwapViews['USDT2ETHTOKEN'];
+			}
+		};
+	} );
 	/*{#PM-READY#}*/
 } );

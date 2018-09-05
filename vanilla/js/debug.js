@@ -114,6 +114,23 @@ PM.depend("js/app", function () {
 						APP.Help.ApplyData('#debug-account [data-target="eth-amount"]',amount);
 					} );
 				});
+				$(document).delegate('#debug-account [data-target="refresh-token"]', 'click', async function (e) {
+					e.preventDefault();
+					const prnt = $($(e.target).parents('.-token-balance')[0]);
+					const target = prnt.find('[data-target="token-amount"]');
+					const tokenName = prnt.data('config');
+					target.html("...");
+					if (config.tokens[tokenName]) {
+						const token_data = config.tokens[tokenName];
+						target.html(
+							await APP.Actions.token.getBalance(
+								token_data.address,
+								tokenName,
+								token_data.decimals
+							)
+						);
+					}
+				});
 				$(document).delegate('#debug-account INPUT[type="submit"]','click', function (e) {
 					e.preventDefault();
 					localStorage.setItem(config.network+":eth:PrivateKey",

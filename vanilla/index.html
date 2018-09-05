@@ -17,6 +17,9 @@
 		<script type="text/javascript" src="./libs/bignumber.min.js"></script>
 		<script type="text/javascript" src="./js/pm.js"></script>
 		<script type="text/javascript">
+			$(window).bind("AppLoaded", function (e) {
+				$('BODY').addClass('-app-loaded');
+			});
 			var PM = PM || new PackManager("./");
 			PM.depend([], function () {
 				console.log("PM - app loaded - start it");
@@ -32,6 +35,9 @@
 		</script>
 	</head>
 	<body>
+		<div class="-loader">
+			<b>Please wait... loading</b>
+		</div>
 		<section class="-debug-panel-control">
 			<input type="checkbox" id="show-debug-panel" />
 			<label for="show-debug-panel">Show debug panels</label>
@@ -61,7 +67,7 @@
 							<h3>{#name#}&nbsp;({#configName#})</h3>
 							<label>Amount</label>
 							<strong data-target="token-amount">{#balance#}</strong>
-							<a href="#" data-target="refresh-token" data-token="SWAP">[Refresh]</a>
+							<a href="#" data-target="refresh-token" data-token="{#name#}">[Refresh]</a>
 						</div>
 					</div>
 				</div>
@@ -209,6 +215,9 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr class="-ipfs-wait">
+						<td colspan="6">Wait connection to IPFS</td>
+					</tr>
 					<tr class="-template" data-template="empty">
 						<td colspan="6">Order list is empty</td>
 					</tr>
