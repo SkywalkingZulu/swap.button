@@ -193,6 +193,7 @@ PM.depend( [
 					const result = APP.Swap(buyFormDom[0].botOrderData.id);
 					const swapDom = result.getDom();
 					$('#active-swaps').append(swapDom);
+					buyFormDom.remove();
 				} );
 				buyForm.bind('[data-action="retry-step"]','click', function (e) {
 					e.preventDefault();

@@ -376,6 +376,7 @@ PM.depend("js/app", function () {
 					newOrderData.exchangeRate
 				);
 				$(swap_holder).remove();
+				$(window).trigger("CORE>ORDERS>CREATE");
 				return;
 			};
 			if ($button.data('action')==='submit-secret') {
