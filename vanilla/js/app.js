@@ -270,6 +270,16 @@ PM.depend([
 			} );
 			return p;
 		};
+		APP.BeginSwap = function (orderID) {
+			const result = APP.Swap(orderID);
+			const swapDom = result.getDom();
+			$('#active-swaps').append(swapDom);
+			return swapDOM;
+		};
+		APP.removeMyOrder = function (orderID) {
+			APP.CORE.services.orders.remove(orderID);
+			$(window).trigger("CORE>ORDERS>REMOVEMY", orderID );
+		};
 		/* --- Create new Order .... Its need for debug ... users of buy button cannot create orders */
 		APP.createOrder = function ( buyCurrency, sellCurrency, buyAmount, sellAmount, exchangeRate) {
 			const data = {
@@ -279,9 +289,7 @@ PM.depend([
 				sellAmount: Number(sellAmount),
 				exchangeRate: Number(exchangeRate),
 			};
-			APP.CORE.services.orders.create(data);
-
-			return 'Order create'
+			return APP.CORE.services.orders.create(data);
 		};
 		/* New request broadcast */
 		/* TO-DO - not work with multiline request on one order... need fixs in future (this is ok for debug) */
@@ -415,6 +423,11 @@ PM.depend([
 				t.html(data);
 			}
 		};
+		APP.Help.getRandomID = function () {
+			APP.Help.getRandomIDCounter = APP.Help.getRandomIDCounter || 0;
+			APP.Help.getRandomIDCounter++;
+			return 'u' + (new Date()).getTime()+APP.Help.getRandomIDCounter;
+		};
 		APP.Help.getRandomKey = function (n) {
 			var crypto = (self.crypto || self.msCrypto), QUOTA = 65536;
 			var a = new Uint8Array(n);
@@ -428,7 +441,20 @@ PM.depend([
 			});
 			return ret.join('');
 		};
-
+		APP.Help.AppendStyle = function(css_text) {
+			if ($.isFunction(css_text)) {
+				var tmpl_begin_s = '/***';
+				var tmpl_end_s = '***/';
+				var tmpl_begin_i = css_text.toString().indexOf(tmpl_begin_s);
+				var tmpl_end_i = css_text.toString().indexOf(tmpl_end_s);
+				if ((tmpl_begin_i!=-1) && (tmpl_end_i!=-1)) {
+					css_text = css_text.toString().substring(tmpl_begin_i+tmpl_begin_s.length,tmpl_end_i);
+				};
+			};
+			var _dom = $('<style type="text/css"></style>');
+				$(document.head).append(_dom);
+				_dom.html(css_text);
+		};
 		
 		console.info("App loaded");
 		/*{#PM-READY#}*/

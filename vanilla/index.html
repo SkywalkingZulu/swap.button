@@ -30,6 +30,16 @@
 				"js/debug",
 			], function () {
 				console.log("PM - all modules loaded");
+				APP.AfterInitCall( () => {
+					/* User orders UI */
+					PM.depend( 'js/ui.user.orders', () => {
+						console.info("User orders tab loaded");
+					} );
+					/* Invoise list UI */
+					PM.depend( 'js/ui.user.incoming', () => {
+						console.log("User incoming requests tab loaded");
+					} );
+				} );
 				APP.Start();
 			} );
 		</script>
@@ -197,43 +207,50 @@
 				</tbody>
 			</table>
 		</section>
-		<section id="peer-orders">
-			<header><h1>Orders</h1></header>
-			<table id="peer-orders-list">
-				<thead>
-					<tr>
-						<td colspan="2">Buy</td>
-						<td colspan="2">Sell</td>
-						<td rowspan="2">Rate</td>
-						<td rowspan="2">Actions</td>
-					</tr>
-					<tr>
-						<td>Currency</td>
-						<td>Amount</td>
-						<td>Currency</td>
-						<td>Amount</td>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="-ipfs-wait">
-						<td colspan="6">Wait connection to IPFS</td>
-					</tr>
-					<tr class="-template" data-template="empty">
-						<td colspan="6">Order list is empty</td>
-					</tr>
-					<tr class="-order-row -template" data-target="id" data-id="%id%" data-template="row">
-						<td data-target="sellC">%sellC%</td>
-						<td data-target="sellA">%sellA%</td>
-						<td data-target="buyC">%buyC%</td>
-						<td data-target="buyA">%buyA%</td>
-						<td data-target="rate">%rate%</td>
-						<td>
-							<a href="#" data-id="%id%" data-target="id" data-action="cancel-request">Wait confirm</a>
-							<a href="#" data-id="%id%" data-target="id" data-action="begin-swap">SWAP</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
+		<div id="tabs-holder">
+			<header></header>
+			<div>
+			</div>
+		</div>
+		<div style="display: none">
+			<section id="peer-orders">
+				<header><h1>Orders</h1></header>
+				<table id="peer-orders-list">
+					<thead>
+						<tr>
+							<td colspan="2">Buy</td>
+							<td colspan="2">Sell</td>
+							<td rowspan="2">Rate</td>
+							<td rowspan="2">Actions</td>
+						</tr>
+						<tr>
+							<td>Currency</td>
+							<td>Amount</td>
+							<td>Currency</td>
+							<td>Amount</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="-ipfs-wait">
+							<td colspan="6">Wait connection to IPFS</td>
+						</tr>
+						<tr class="-template" data-template="empty">
+							<td colspan="6">Order list is empty</td>
+						</tr>
+						<tr class="-order-row -template" data-target="id" data-id="%id%" data-template="row">
+							<td data-target="sellC">%sellC%</td>
+							<td data-target="sellA">%sellA%</td>
+							<td data-target="buyC">%buyC%</td>
+							<td data-target="buyA">%buyA%</td>
+							<td data-target="rate">%rate%</td>
+							<td>
+								<a href="#" data-id="%id%" data-target="id" data-action="cancel-request">Wait confirm</a>
+								<a href="#" data-id="%id%" data-target="id" data-action="begin-swap">SWAP</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
+		</div>
 	</body>
 </html>

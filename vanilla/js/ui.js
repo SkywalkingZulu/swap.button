@@ -1,6 +1,7 @@
 PM.depend("js/app", function() {
 	APP.AfterInitCall( function () {
 		$(document).ready(function () {
+			
 			/*
 			FILTER UI 
 			*/
@@ -225,8 +226,7 @@ PM.depend("js/app", function() {
 			$(document).delegate('[data-action="remove-order"]', 'click', function (e) {
 				e.preventDefault();
 				if (confirm("Remove this order?")) {
-					APP.CORE.services.orders.remove($(e.target).data('id'));
-					renderMyOrders();
+					APP.removeMyOrder($(e.target).data('id'));
 				}
 			} );
 			$(window).bind("IPFS>CONNECT", function (e, peer) {
@@ -278,13 +278,16 @@ PM.depend("js/app", function() {
 					const order = APP.CORE.services.orders.getByKey(orderID);
 					if (order!==null && order.isMy) {
 						order.acceptRequest(peerID);
-						const result = APP.Swap(orderID);
-						const swapDom = result.getDom();
-						$('#active-swaps').append(swapDom);
+						let swapDOM = APP.BeginSwap(orderID);
 						window.swapDomTest = swapDom;
-						window.swapTestProcessor = result;
 					};
 				}
+			} );
+			
+			
+			/* Orders in tab */
+			PM.depend( 'js/ui.tabs', function () {
+				APP.UI.Tabs.add('Orders', $('#peer-orders'));
 			} );
 		} );
 	} );
