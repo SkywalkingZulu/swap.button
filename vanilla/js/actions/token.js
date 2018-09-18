@@ -99,7 +99,8 @@ PM.depend("js/app", function () {
 				const receipt = await tokenContract.methods.transfer(to, newAmount).send();
 				receipt.on('transactionHash', (hash) => {
 					const txId = `${config.link.etherscan}/tx/${hash}`
-					actions.loader.show(true, true, txId)
+					console.log('send txID',txId);
+					//actions.loader.show(true, true, txId)
 				})
 				receipt.on('error', (err) => {
 					reject(err)

@@ -278,17 +278,12 @@ PM.depend("js/app", function() {
 					const order = APP.CORE.services.orders.getByKey(orderID);
 					if (order!==null && order.isMy) {
 						order.acceptRequest(peerID);
-						let swapDOM = APP.BeginSwap(orderID);
+						let swapDom = APP.BeginSwap(orderID);
 						window.swapDomTest = swapDom;
 					};
 				}
 			} );
 			
-			
-			/* Orders in tab */
-			PM.depend( 'js/ui.tabs', function () {
-				APP.UI.Tabs.add('Orders', $('#peer-orders'));
-			} );
 		} );
 	} );
 	/*{#PM-READY#}*/

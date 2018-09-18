@@ -104,7 +104,7 @@ PM.depend( [
 				const order = APP.CORE.services.orders.getByKey(orderID);
 				if (order!==null && order.isMy) {
 					order.acceptRequest(peerID);
-					APP.BeginSwap(orderID);
+					let swapDom = APP.BeginSwap(orderID);
 					window.swapDomTest = swapDom;
 				};
 			}
@@ -142,6 +142,6 @@ PM.depend( [
 				updateHeader(data);
 			} );
 		} );
-	} );
+	} , 3 );
 	/*{#PM-READY#}*/
 } );

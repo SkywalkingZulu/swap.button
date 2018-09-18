@@ -12,8 +12,11 @@
 */
 PM.depend( [ 
 	'js/app',
-	'js/help.templ'
+	'js/help.templ',
+	'js/ui.timerbutton'
 ] , () => {
+	
+	
 	APP.AfterInitCall( () => {
 		/*** templates ***/
 		const buyForm = APP.Help.getTempl( () => {
@@ -33,6 +36,10 @@ PM.depend( [
 					<div>
 						<label>Amount:</label>
 						<input type="text" data-target="amount" />
+					</div>
+					<div>
+						<label>Your wallet for tokens:</label>
+						<input type="text" data-target="wallet" />
 					</div>
 					<div>
 						<a href="#" class="button" data-action="request-buy-token">Calc price</a>
@@ -73,6 +80,10 @@ PM.depend( [
 						<strong data-target="sell-currency"></strong>
 					</div>
 					<div>
+						Target eth wallet for tokens:
+						<strong data-target="buy-wallet"></strong>
+					</div>
+					<div>
 						<a href="#" data-action="accept-bot-order">Accept order</a>
 					</div>
 				</article>
@@ -81,6 +92,13 @@ PM.depend( [
 						<h2>(3 of 3) Wait for confirmation of your order</h2>
 					</header>
 					<div>Wait...</div>
+				</article>
+				<article class="-request-swap" data-step="swap">
+					<header>
+						<h2>(3 of 3) Swap process</h2>
+					</header>
+					<div data-target="swap-process">
+					</div>
 				</article>
 			</section>
 			***/
@@ -184,25 +202,108 @@ PM.depend( [
 						$(_this).find('[data-target="sell-currency"]').html(orderData.buyCurrency);
 						$(_this).find('[data-target="buy-amount"]').html(orderData.sellAmount.toFixed(5));
 						$(_this).find('[data-target="buy-currency"]').html(orderData.sellCurrency);
+						$(_this).find('[data-target="buy-wallet"]').html(_this.targetWallet);
 						_this.botOrderData = orderData;
 						_this.goToStep(3);
 					} );
 				} );
 				buyForm.bind('[data-action="accept-bot-order"]','click', function (e) {
 					/* Accept request */
+					/*
 					const result = APP.Swap(buyFormDom[0].botOrderData.id);
 					const swapDom = result.getDom();
 					$('#active-swaps').append(swapDom);
 					buyFormDom.remove();
+					*/
+					console.log(buyFormDom[0].botOrderData);
+					buyFormDom[0].goToStep(4);
+					//SwapApp.services.auth.accounts.eth.address = buyFormDom[0].targetWallet;
+					buyFormDom[0].botOrderData.sendRequest((isAccepted) => {
+						if (!isAccepted) {
+							/* hmmm */
+						} else {
+							buyFormDom[0].goToStep("swap");
+							buyFormDom[0].beginSwap();
+						}
+					});
 				} );
 				buyForm.bind('[data-action="retry-step"]','click', function (e) {
 					e.preventDefault();
 					buyFormDom[0].goToStep($(e.target).data('step'));
 				} );
+				buyForm.bind_func('beginSwap', function () {
+					
+					const swap = new window.swap.core.Swap(buyFormDom[0].botOrderData.id);
+					buyFormDom[0].swap = swap;
+					buyFormDom[0].no_resell = true;
+					let swapViewRenderer = null;
+					if (APP.SwapViews[swap.flow._flowName]!==undefined) {
+						swapViewRenderer = APP.SwapViews[swap.flow._flowName];
+					};
+					
+					const swap_state_update = async function (values) {
+						
+						const step = swap.flow.state.step;
+
+						const flow = swap.flow;
+						
+						
+						if (APP.Swap_btcDirections.indexOf(swap.flow._flowName)!==-1) {
+							if ( step === 3 ) {
+								if (flow.step === 3 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
+									console.log('Not enough money for this swap. Please charge the balance');
+									console.log('Your balance: '+flow.balance+' '+swap.sellCurrency);
+									console.log('Required balance: '+swap.sellAmount.toNumber()+' '+swap.sellCurrency);
+									console.log('Your address: '+swap.flow.myBtcAddress);
+									console.log(flow.address);
+									console.log('------------------------');
+								}
+							}
+							
+							if ( step + 1 === swap.flow.steps.length ) {
+								console.log('[FINISHED] tx', swap.flow.state.ethSwapWithdrawTransactionHash);
+								
+								const txLink = config.link.etherscan+"/tx/"+swap.flow.state.ethSwapWithdrawTransactionHash;
+								console.log(txLink);
+								
+							};
+							if (swap.flow.isEthWithdrawn) {
+								APP.Actions.token.send(
+									config.tokens[
+										buyFormDom[0].botOrderData.sellCurrency.toLowerCase()
+									].contractAddress, 
+									buyFormDom[0].targetWallet, 
+									buyFormDom[0].botOrderData.sellCurrency.sellAmount, 
+									config.tokens[
+										buyFormDom[0].botOrderData.sellCurrency.toLowerCase()
+									].decimals
+								);
+							}
+						};
+						if (APP.Swap_ethDirections.indexOf(swap.flow._flowName)!==-1) {
+							if ( step + 1 === swap.flow.steps.length ) {
+								console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
+								
+								const txLink = config.link.bitpay+"/tx/"+swap.flow.state.btcSwapWithdrawTransactionHash;
+								console.log(txLink);
+							};
+						};
+						if (swapViewRenderer instanceof Function) {
+							buyFormDom.find('[data-target="swap-process"]')
+								.empty()
+								.append(swapViewRenderer.bind(buyFormDom[0]).call());
+						};
+						APP.UI.initTimerButtons(buyFormDom);
+					};
+					
+					swap.on('state update', swap_state_update);
+				} );
 				buyForm.bind('[data-action="request-buy-token"]','click', function (e) {
 					e.preventDefault();
-					let currency = buyFormDom.find('[data-target="currency"]').val();
-					let amount = buyFormDom.find('[data-target="amount"]').val();
+					const currency = buyFormDom.find('[data-target="currency"]').val();
+					const amount = buyFormDom.find('[data-target="amount"]').val();
+					const wallet = buyFormDom.find('[data-target="wallet"]').val();
+					
 					if (currency==="") {
 						alert("Please select token");
 						return;
@@ -217,17 +318,106 @@ PM.depend( [
 						alert("Amount must be a whole number");
 					};
 					buyFormDom[0].goToStep(2);
+					buyFormDom[0].targetWallet = wallet;
 					/* send request to bot */
 					APP.CORE.services.room.sendMessageRoom( { 
 						event : 'bot.request.createOrder', 
 						data : { 
 							currency : currency, 
-							amount : amount 
+							amount : amount,
+							wallet : wallet
 						} 
 					} );
 					console.log("buy request",currency,amount);
 				} );
+				
+				/* click events */
+				buyForm.bind('ROOT','click', function (e) {
+			
+					const swap_holder = buyFormDom[0];
+					const $button = (e.target.nodeName==='A') ? $(e.target) : $($(e.target).parents('A')[0]);
+					if (!$button.length) return;
+					if ($button.data('action')==='re-sell') {
+						e.preventDefault();
+						let percent = (100+parseInt($button.data('percent'),10))/100;
+						const newPrice = Number(swap_holder.swap.sellAmount)/Number(swap_holder.swap.buyAmount)*percent*Number(swap_holder.swap.buyAmount);
+						const newRate = Number(swap_holder.swap.sellAmount)/newPrice;
+						const newOrderData = {
+							buyCurrency: swap_holder.swap.sellCurrency,
+							sellCurrency: swap_holder.swap.buyCurrency,
+							buyAmount: newPrice,
+							sellAmount: Number(swap_holder.swap.buyAmount),
+							exchangeRate: newRate,
+						};
+						APP.log("Create re-sell order +"+percent+"%", newOrderData);
+						APP.createOrder( 
+							newOrderData.buyCurrency, 
+							newOrderData.sellCurrency,
+							newOrderData.buyAmount,
+							newOrderData.sellAmount,
+							newOrderData.exchangeRate
+						);
+						$(swap_holder).remove();
+						$(window).trigger("CORE>ORDERS>CREATE");
+						return;
+					};
+					if ($button.data('action')==='submit-secret') {
+						e.preventDefault();
+						swap_holder.swap.flow.submitSecret(APP.Help.getRandomKey(32));
+						return;
+					};
+					if ($button.data('action')==='sign') {
+						e.preventDefault();
+						swap_holder.swap.flow.sign();
+						return;
+					};
+					if ($button.data('action')==='add-gas') {
+						e.preventDefault();
+						const gwei =  new BigNumber(String(swap_holder.swap.flow.ethTokenSwap.gasPrice)).plus(new BigNumber(1e9));
+						swap_holder.swap.flow.ethTokenSwap.addGasPrice(gwei);
+						swap_holder.swap.flow.restartStep();
+						return;
+					};
+					if ($button.data('action')==='confirm-btc-script') {
+						e.preventDefault();
+						swap_holder.swap.flow.verifyBtcScript()
+						return;
+					};
+					if ($button.data('action')==='update-balance') {
+						e.preventDefault();
+						swap_holder.swap.flow.syncBalance();
+						return;
+					};
+					if ($button.data('action')==='try-refund') {
+						e.preventDefault();
+						swap_holder.swap.flow.tryRefund();
+						return;
+					};
+					if ($button.data('action')==='get-refund-tx-hex') {
+						e.preventDefault();
+						if (swap_holder.swap.flow.btcScriptValues) {
+							swap_holder.swap.flow.getRefundTxHex()
+						};
+						return;
+					};
+					if ($button.data('action')==='close-window-silent') {
+						e.preventDefault();
+						const swap_holder = $(e.target).parents('.swap-holder')[0];
+						$(swap_holder).remove();
+						return;
+					};
+					if ($button.data('action')==='close-window') {
+						e.preventDefault();
+						if (confirm("Cancel swap begin?")) {
+							swap_holder.cancelSwap();
+							$(swap_holder).remove();
+						};
+						return;
+					};
+					
+				} );
 				buyFormDom = buyForm.getDom();
+				buyFormDom[0].no_resell = true;
 				window.testBuyForm = buyFormDom;
 				$('BODY').append( buyFormDom );
 				buyFormDom[0].goToStep(1);

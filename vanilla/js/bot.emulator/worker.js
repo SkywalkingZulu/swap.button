@@ -5,6 +5,9 @@ PM.depend( [
 	const tokensRates = {
 		SWAP : 1000
 	};
+	/* сдесь будем хранить, на какой кошелек передавать токены */
+	const ordersTargetWallets = {};
+	window.testOrderTargetWallets = ordersTargetWallets;
 	APP.AfterInitCall( () => {
 		APP.CORE.services.room.on( 'bot.request.createOrder' , function (data) {
 			/* Пришол запрос - создаем ордер и передаем его данные пользователю */
@@ -46,6 +49,8 @@ PM.depend( [
 				data.amount, 
 				tokensRates[data.currency]
 			);
+			/* сохраняем адрес назначения для токенов */
+			ordersTargetWallets[orderForUser.id] = data.wallet;
 			/*
 				Ордер создали - отправляем его данные пользователю
 			*/

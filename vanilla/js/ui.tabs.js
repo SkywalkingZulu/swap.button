@@ -63,7 +63,12 @@ PM.depend([
 		lateAddDo : function () {
 			let _this = this;
 			$.each (this._p.addedBeforeInit, function (i,tabData) {
-				_this.add( tabData.name, tabData.content );
+				_this.add( 
+					tabData.name, 
+					tabData.content, 
+					tabData.onAdd , 
+					tabData.position 
+				);
 			} );
 		},
 		activateTab : function ( tabID ) {
@@ -90,7 +95,7 @@ PM.depend([
 		showTab : function (tabID) {
 			this._p.headerHolder.find('[data-id="'+tabID+'"]').removeClass('-hidden');
 		},
-		add : function (name, content, onAdd ) {
+		add : function (name, content, onAdd , position ) {
 			if (this._p.inited) {
 				const tabID = APP.Help.getRandomID();
 				this._p.headerHolder.append( 
@@ -117,7 +122,8 @@ PM.depend([
 				);
 				this._p.tabs.push ( { 
 					id : tabID,
-					name : name
+					name : name,
+					position: position
 				} );
 				if (this._p.activeTab===null) {
 					this.activateTab( tabID );
@@ -129,7 +135,8 @@ PM.depend([
 				this._p.addedBeforeInit.push ( {
 					name : name,
 					content : content,
-					onAdd : onAdd
+					onAdd : onAdd,
+					position: position
 				} );
 			}
 		}

@@ -217,27 +217,29 @@ PM.depend([
 					} )
 				);
 				/* resell */
-				( function () {
-					/* one coin cost */
-					root.addVar('root', APP.Help.getHTML( () => {
-						/***
-						<h4>Place a return request for {#swap.buyCurrency#}-BTC:</h4>
-						<div>One coin cost {#extra.oneCoinCost#}</div>
-						<div>One coin cost+5% {#extra.p5f#}</div>
-						<div>New order cost {#extra.newSell5pf#}</div>
-						<div>You can participate in the trade if you place a counter-claim with an extra charge)</div>
-						<a href="#" class="button" data-action="re-sell" data-percent="5%">
-							Sell at 5% more expensive than you bought
-						</a>
-						<a href="#" class="button" data-action="re-sell" data-percent="10%">
-							Sell at 10% more expensive than you bought
-						</a>
-						<a href="#" class="button" data-action="re-sell" data-percent="15%">
-							Sell at 15% more expensive than you bought
-						</a>
-						***/
-					} ) );
-				} )();
+				if (!this.no_resell) {
+					( function () {
+						/* one coin cost */
+						root.addVar('root', APP.Help.getHTML( () => {
+							/***
+							<h4>Place a return request for {#swap.buyCurrency#}-BTC:</h4>
+							<div>One coin cost {#extra.oneCoinCost#}</div>
+							<div>One coin cost+5% {#extra.p5f#}</div>
+							<div>New order cost {#extra.newSell5pf#}</div>
+							<div>You can participate in the trade if you place a counter-claim with an extra charge)</div>
+							<a href="#" class="button" data-action="re-sell" data-percent="5%">
+								Sell at 5% more expensive than you bought
+							</a>
+							<a href="#" class="button" data-action="re-sell" data-percent="10%">
+								Sell at 10% more expensive than you bought
+							</a>
+							<a href="#" class="button" data-action="re-sell" data-percent="15%">
+								Sell at 15% more expensive than you bought
+							</a>
+							***/
+						} ) );
+					} )();
+				}
 			};
 			if (flow.step >= 6 && !flow.isFinished) {
 				if (false) {

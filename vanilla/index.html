@@ -31,14 +31,38 @@
 			], function () {
 				console.log("PM - all modules loaded");
 				APP.AfterInitCall( () => {
-					/* User orders UI */
-					PM.depend( 'js/ui.user.orders', () => {
-						console.info("User orders tab loaded");
-					} );
-					/* Invoise list UI */
-					PM.depend( 'js/ui.user.incoming', () => {
-						console.log("User incoming requests tab loaded");
-					} );
+					if (APP.getMode()=="bot") {
+						PM.depend('js/bot.emulator/worker', function (e) {
+							console.log( 'bot connected' );
+							/* User orders UI */
+							PM.depend( 'js/ui.user.orders', () => {
+								console.info("User orders tab loaded");
+							} );
+							/* Invoise list UI */
+							PM.depend( 'js/ui.user.incoming', () => {
+								console.log("User incoming requests tab loaded");
+							} );
+						} );
+					};
+					if (APP.getMode()=="orderbook") {
+						/* Orders in tab */
+						PM.depend( 'js/ui.tabs', function () {
+							APP.UI.Tabs.add('Orders', $('#peer-orders'), null, 1);
+						} );
+						/* User orders UI */
+						PM.depend( 'js/ui.user.orders', () => {
+							console.info("User orders tab loaded");
+						} );
+						/* Invoise list UI */
+						PM.depend( 'js/ui.user.incoming', () => {
+							console.log("User incoming requests tab loaded");
+						} );
+					};
+					if (APP.getMode()=="buyrequest") {
+						PM.depend( 'js/ui.requestTokens', function () { 
+							console.log("Buy request button loaded");
+						} );
+					};
 				} );
 				APP.Start();
 			} );

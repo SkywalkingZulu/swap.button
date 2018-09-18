@@ -19,7 +19,8 @@ const config = {
 		server: 'discovery.libp2p.array.io',
 	},
 	token: {
-		contract: '0xc87C2668F05803F60EF75b176eea0CCE80D0009C',
+		/* contract with set target wallet function */
+		contract: '0xef8b64c66a61ce4ed0d53d86def12ce22fdffccb',//'0xc87C2668F05803F60EF75b176eea0CCE80D0009C',
 	},
 	eth: {
 		contract : '0x4356152f044e3a1ce1a57566b2e0bee57949c1b2', // 0xdbC2395f753968a93465487022B0e5D8730633Ec

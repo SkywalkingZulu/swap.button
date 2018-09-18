@@ -8,12 +8,14 @@ PM.depend([
 	/* configuration load */
 	console.info("Swap.Core loaded - init main configuration");
 	let config_file = "js/config";
+	let app_mode = "orderbook";
 	let cfg_params = [
 		["ALL"],	/* buy */
 		["ALL"],	/* sell */
 		1,			/* style */
 		"debug",	/* network */
-		1			/* debug panel */
+		1,			/* debug panel */
+		"orderbook",/* mode [orderbook|buyrequest] */
 	];
 	/* Init filter and other params from generator */
 	if (document.location.search) {
@@ -21,7 +23,7 @@ PM.depend([
 			cfg_params = document.location.search.split("?")[1];
 			cfg_params = JSON.parse(decodeURIComponent(cfg_params));
 			if ((cfg_params instanceof Array) 
-				&& (cfg_params.length==5)
+				&& (cfg_params.length>=5)
 				&& (cfg_params[0] instanceof Array)
 				&& (cfg_params[0].length>0)
 				&& (cfg_params[1] instanceof Array)
@@ -37,6 +39,14 @@ PM.depend([
 				if (cfg_params[3].indexOf("custom.")!==false) {
 					config_file = "js/config."+cfg_params[3];
 				}
+				if (cfg_params.length>5) {
+					if (cfg_params[5]=="buyrequest") {
+						app_mode = "buyrequest";
+					};
+					if (cfg_params[5]=="bot") {
+						app_mode = "bot";
+					}
+				}
 			}
 		} catch (e) {
 			console.log(e);
@@ -49,6 +59,7 @@ PM.depend([
 		config.filter.sell = cfg_params[1];
 		
 		APP._p = {};
+		APP._p.mode = app_mode;
 		APP._p.DependWorkModules = [
 			"js/help.templ",
 			"js/actions",
@@ -56,8 +67,15 @@ PM.depend([
 			"js/swap.views",
 			"js/swap.history"
 		];
+		
+		APP.Swap_btcDirections = [ "BTC2ETH" ];
+		APP.Swap_ethDirections = [ "ETH2BTC" ];
+		
 		APP._p.AfterInitFuncs = [];
 		APP._p.AppIsInitedAndStarted = false;
+		
+		APP.getMode = function () { return APP._p.mode; };
+		
 		APP.AfterInitCall = function (func) {
 			if (APP._p.AppIsInitedAndStarted) {
 				if (func instanceof Function) {
@@ -116,6 +134,11 @@ PM.depend([
 						)
 					);
 				console.log('Web3 inited');
+				const authData = new window.swap.core.auth({
+					eth: localStorage.getItem(config.network+":eth:PrivateKey"),//'0xe8e73c3f411bce5ea0fe7fdd5da0b456488aa763f4bc638ca5f4a7d5ff55c01f', // or pass private key here
+					btc: localStorage.getItem(config.network+":btc:PrivateKey")//'cTD1xQMqG19968ZLetmHb9NJr5oaJBotbcRwvcaYZuJThvYEDEr9',
+				});
+				console.log("Auth data ready");
 				/* Initial swaps */
 				const swaps = [
 					new window.swap.core.swaps.EthSwap({
@@ -136,6 +159,7 @@ PM.depend([
 					window.swap.core.flows.BTC2ETH
 				];
 				/* Add swaps and flows from config for tokens */
+				
 				for (let tokenName in config.tokens) {
 					if (config.tokens[tokenName].erc20) {
 						/* auto add this token to core */
@@ -149,7 +173,8 @@ PM.depend([
 								name: window.swap.core.constants.COINS[tokenName],
 								address: (config.tokens[tokenName].contract!==undefined) ? config.tokens[tokenName].contract : config.token.contract,
 								decimals: config.tokens[tokenName].decimals,
-								abi: [{ 'constant':false, 'inputs':[{ 'name':'_secret', 'type':'bytes32' }, { 'name':'_ownerAddress', 'type':'address' }], 'name':'withdraw', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'getSecret', 'outputs':[{ 'name':'', 'type':'bytes32' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_ratingContractAddress', 'type':'address' }], 'name':'setReputationAddress', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'', 'type':'address' }, { 'name':'', 'type':'address' }], 'name':'participantSigns', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'owner', 'outputs':[{ 'name':'', 'type':'address' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_ownerAddress', 'type':'address' }], 'name':'abort', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'', 'type':'address' }, { 'name':'', 'type':'address' }], 'name':'swaps', 'outputs':[{ 'name':'token', 'type':'address' }, { 'name':'secret', 'type':'bytes32' }, { 'name':'secretHash', 'type':'bytes20' }, { 'name':'createdAt', 'type':'uint256' }, { 'name':'balance', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_secretHash', 'type':'bytes20' }, { 'name':'_participantAddress', 'type':'address' }, { 'name':'_value', 'type':'uint256' }, { 'name':'_token', 'type':'address' }], 'name':'createSwap', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_ownerAddress', 'type':'address' }], 'name':'checkSign', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'close', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'ratingContractAddress', 'outputs':[{ 'name':'', 'type':'address' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'sign', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_ownerAddress', 'type':'address' }], 'name':'getBalance', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'refund', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'inputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'constructor' }, { 'anonymous':false, 'inputs':[], 'name':'Sign', 'type':'event' }, { 'anonymous':false, 'inputs':[{ 'indexed':false, 'name':'createdAt', 'type':'uint256' }], 'name':'CreateSwap', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Withdraw', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Close', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Refund', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Abort', 'type':'event' }],
+								//abi: [{ 'constant':false, 'inputs':[{ 'name':'_secret', 'type':'bytes32' }, { 'name':'_ownerAddress', 'type':'address' }], 'name':'withdraw', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'getSecret', 'outputs':[{ 'name':'', 'type':'bytes32' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_ratingContractAddress', 'type':'address' }], 'name':'setReputationAddress', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'', 'type':'address' }, { 'name':'', 'type':'address' }], 'name':'participantSigns', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'owner', 'outputs':[{ 'name':'', 'type':'address' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_ownerAddress', 'type':'address' }], 'name':'abort', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'', 'type':'address' }, { 'name':'', 'type':'address' }], 'name':'swaps', 'outputs':[{ 'name':'token', 'type':'address' }, { 'name':'secret', 'type':'bytes32' }, { 'name':'secretHash', 'type':'bytes20' }, { 'name':'createdAt', 'type':'uint256' }, { 'name':'balance', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_secretHash', 'type':'bytes20' }, { 'name':'_participantAddress', 'type':'address' }, { 'name':'_value', 'type':'uint256' }, { 'name':'_token', 'type':'address' }], 'name':'createSwap', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_ownerAddress', 'type':'address' }], 'name':'checkSign', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'close', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'ratingContractAddress', 'outputs':[{ 'name':'', 'type':'address' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'sign', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_ownerAddress', 'type':'address' }], 'name':'getBalance', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_participantAddress', 'type':'address' }], 'name':'refund', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'inputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'constructor' }, { 'anonymous':false, 'inputs':[], 'name':'Sign', 'type':'event' }, { 'anonymous':false, 'inputs':[{ 'indexed':false, 'name':'createdAt', 'type':'uint256' }], 'name':'CreateSwap', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Withdraw', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Close', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Refund', 'type':'event' }, { 'anonymous':false, 'inputs':[], 'name':'Abort', 'type':'event' }],
+								abi: [{"constant":false,"inputs":[{"name":"_secret","type":"bytes32"},{"name":"_ownerAddress","type":"address"}],"name":"withdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_participantAddress","type":"address"}],"name":"getSecret","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"participantAddress","type":"address"},{"name":"newTargetWallet","type":"address"}],"name":"setTargetWallet","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"},{"name":"","type":"address"}],"name":"swaps","outputs":[{"name":"token","type":"address"},{"name":"targetWallet","type":"address"},{"name":"secret","type":"bytes32"},{"name":"secretHash","type":"bytes20"},{"name":"createdAt","type":"uint256"},{"name":"balance","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_secretHash","type":"bytes20"},{"name":"_participantAddress","type":"address"},{"name":"_value","type":"uint256"},{"name":"_token","type":"address"}],"name":"createSwap","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_ownerAddress","type":"address"}],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_participantAddress","type":"address"}],"name":"refund","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"createdAt","type":"uint256"}],"name":"CreateSwap","type":"event"},{"anonymous":false,"inputs":[],"name":"Withdraw","type":"event"},{"anonymous":false,"inputs":[],"name":"Refund","type":"event"}],
 								tokenAddress: config.tokens[tokenName].address,
 								tokenAbi: [{ 'constant':true, 'inputs':[], 'name':'name', 'outputs':[{ 'name':'', 'type':'string' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_spender', 'type':'address' }, { 'name':'_amount', 'type':'uint256' }], 'name':'approve', 'outputs':[{ 'name':'success', 'type':'bool' }], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'totalSupply', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_from', 'type':'address' }, { 'name':'_to', 'type':'address' }, { 'name':'_amount', 'type':'uint256' }], 'name':'transferFrom', 'outputs':[{ 'name':'success', 'type':'bool' }], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'getBurnPrice', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'decimals', 'outputs':[{ 'name':'', 'type':'uint8' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'manager', 'outputs':[{ 'name':'', 'type':'address' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'unlockEmission', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_owner', 'type':'address' }], 'name':'balanceOf', 'outputs':[{ 'name':'balance', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'emissionlocked', 'outputs':[{ 'name':'', 'type':'bool' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'acceptOwnership', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'lockEmission', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'owner', 'outputs':[{ 'name':'', 'type':'address' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'symbol', 'outputs':[{ 'name':'', 'type':'string' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'burnAll', 'outputs':[{ 'name':'', 'type':'bool' }], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_newManager', 'type':'address' }], 'name':'changeManager', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_newOwner', 'type':'address' }], 'name':'changeOwner', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'_to', 'type':'address' }, { 'name':'_amount', 'type':'uint256' }], 'name':'transfer', 'outputs':[{ 'name':'success', 'type':'bool' }], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'emissionPrice', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'addToReserve', 'outputs':[{ 'name':'', 'type':'bool' }], 'payable':true, 'stateMutability':'payable', 'type':'function' }, { 'constant':true, 'inputs':[], 'name':'burnPrice', 'outputs':[{ 'name':'', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[{ 'name':'tokenAddress', 'type':'address' }, { 'name':'amount', 'type':'uint256' }], 'name':'transferAnyERC20Token', 'outputs':[{ 'name':'success', 'type':'bool' }], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'constant':true, 'inputs':[{ 'name':'_owner', 'type':'address' }, { 'name':'_spender', 'type':'address' }], 'name':'allowance', 'outputs':[{ 'name':'remaining', 'type':'uint256' }], 'payable':false, 'stateMutability':'view', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'NoxonInit', 'outputs':[{ 'name':'', 'type':'bool' }], 'payable':true, 'stateMutability':'payable', 'type':'function' }, { 'constant':false, 'inputs':[], 'name':'acceptManagership', 'outputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'function' }, { 'inputs':[], 'payable':false, 'stateMutability':'nonpayable', 'type':'constructor' }, { 'payable':true, 'stateMutability':'payable', 'type':'fallback' }, { 'anonymous':false, 'inputs':[{ 'indexed':true, 'name':'buyer', 'type':'address' }, { 'indexed':false, 'name':'ethers', 'type':'uint256' }, { 'indexed':false, 'name':'_emissionedPrice', 'type':'uint256' }, { 'indexed':false, 'name':'amountOfTokens', 'type':'uint256' }], 'name':'TokenBought', 'type':'event' }, { 'anonymous':false, 'inputs':[{ 'indexed':true, 'name':'buyer', 'type':'address' }, { 'indexed':false, 'name':'ethers', 'type':'uint256' }, { 'indexed':false, 'name':'_burnedPrice', 'type':'uint256' }, { 'indexed':false, 'name':'amountOfTokens', 'type':'uint256' }], 'name':'TokenBurned', 'type':'event' }, { 'anonymous':false, 'inputs':[{ 'indexed':false, 'name':'etherReserved', 'type':'uint256' }], 'name':'EtherReserved', 'type':'event' }, { 'anonymous':false, 'inputs':[{ 'indexed':true, 'name':'_from', 'type':'address' }, { 'indexed':true, 'name':'_to', 'type':'address' }, { 'indexed':false, 'name':'_value', 'type':'uint256' }], 'name':'Transfer', 'type':'event' }, { 'anonymous':false, 'inputs':[{ 'indexed':true, 'name':'_owner', 'type':'address' }, { 'indexed':true, 'name':'_spender', 'type':'address' }, { 'indexed':false, 'name':'_value', 'type':'uint256' }], 'name':'Approval', 'type':'event' }],
 								fetchBalance: (address) => APP.Actions.token.fetchBalance(address, config.tokens[tokenName].address, config.tokens[tokenName].decimals),
@@ -162,6 +187,10 @@ PM.depend([
 						
 						config.tokens[tokenName].inited = true;
 						
+						APP.Swap_btcDirections.push ( "BTC2"+window.swap.core.constants.COINS[tokenName] );
+						APP.Swap_btcDirections.push ( "USDT2"+window.swap.core.constants.COINS[tokenName] );
+						APP.Swap_ethDirections.push ( window.swap.core.constants.COINS[tokenName] + "2BTC" );
+						APP.Swap_ethDirections.push ( window.swap.core.constants.COINS[tokenName] + "2USDT" );
 					}
 				};
 				try {
@@ -175,10 +204,7 @@ PM.depend([
 							storage: window.localStorage,
 						},
 						services: [
-							new window.swap.core.auth({
-								eth: localStorage.getItem(config.network+":eth:PrivateKey"),//'0xe8e73c3f411bce5ea0fe7fdd5da0b456488aa763f4bc638ca5f4a7d5ff55c01f', // or pass private key here
-								btc: localStorage.getItem(config.network+":btc:PrivateKey")//'cTD1xQMqG19968ZLetmHb9NJr5oaJBotbcRwvcaYZuJThvYEDEr9',
-							}),
+							authData,
 							new window.swap.core.room({
 								repo: 'client/ipfs/data',
 								EXPERIMENTAL: {
@@ -274,7 +300,7 @@ PM.depend([
 			const result = APP.Swap(orderID);
 			const swapDom = result.getDom();
 			$('#active-swaps').append(swapDom);
-			return swapDOM;
+			return swapDom;
 		};
 		APP.removeMyOrder = function (orderID) {
 			APP.CORE.services.orders.remove(orderID);

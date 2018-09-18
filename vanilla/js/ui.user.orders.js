@@ -96,6 +96,6 @@ PM.depend( [
 			renderMyOrders();
 		});
 		renderMyOrders();
-	} );
+	}, 2 );
 	/*{#PM-READY#}*/
 });

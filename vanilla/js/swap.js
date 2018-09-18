@@ -1,26 +1,10 @@
-PM.depend("js/app", function () {
+PM.depend([
+	"js/app",
+	"js/ui.timerbutton"
+], function () {
 	APP.Swap = function (orderID) {
 		const order = APP.CORE.services.orders.getByKey(orderID);
-		const btcDirections = [];
-		const ethDirections = [];
-		
-		/* 
-			Добавляем направления, для того чтобы каждый раз не дописывать новые токены
-			Берем все из конфигурации
-		*/
-		btcDirections.push( "BTC2ETH" );	/* Обмен не относящийся к токенам */
-		ethDirections.push( "ETH2BTC" );
-		
-		APP.AfterInitCall( () => {
-			for (var tokenName in config.tokens) {
-				if (window.swap.core.constants.COINS[tokenName]!==undefined) {
-					btcDirections.push ( "BTC2"+window.swap.core.constants.COINS[tokenName] );
-					btcDirections.push ( "USDT2"+window.swap.core.constants.COINS[tokenName] );
-					ethDirections.push ( window.swap.core.constants.COINS[tokenName] + "2BTC" );
-					ethDirections.push ( window.swap.core.constants.COINS[tokenName] + "2USDT" );
-				}
-			}
-		} );
+
 		const flowType = (!order.isMy) ? 
 			order.buyCurrency+"2"+order.sellCurrency : 
 			order.sellCurrency+"2"+order.buyCurrency;
@@ -31,31 +15,7 @@ PM.depend("js/app", function () {
 			sellAmount : (order.isMy) ? order.sellAmount : order.buyAmount,
 			buyAmount : (order.isMy) ? order.buyAmount : order.sellAmount
 		};
-		const initTimerButton = function (button) {
-			const origText = button.html();
-			let startTime = button.data('cooldown') + 1;
-			let timer = 0;
-			button.bind('click', function (e) {
-				e.preventDefault();
-				window.clearTimeout( timer );
-			} );
-			const timerCB = function () {
-				startTime = startTime - 1;
-				button.html( origText + "&nbsp;("+startTime+")" );
-				if (startTime===0) {
-					button.trigger('click');
-				} else {
-					timer = window.setTimeout( timerCB , 1000 );
-				}
-			};
-			timerCB();
-		};
-		const initTimerButtons = function (holder) {
-			let $timer_buttons = $(holder).find('.cooldown');
-			$.each($timer_buttons, function (i,timer) {
-				initTimerButton($(timer).removeClass('cooldown'));
-			} );
-		};
+		
 		const controlsRequest = APP.Help.getTempl(function () {
 			/***
 			<div>
@@ -177,6 +137,13 @@ PM.depend("js/app", function () {
 			$(me).find('>ARTICLE.active-step').removeClass('active-step');
 			const swap = new window.swap.core.Swap(orderID);
 			const swap_exists = APP.SwapHistory.has(orderID);
+			/* test for bot target wallet */
+			
+			if ((window.testOrderTargetWallets)
+				&& (window.testOrderTargetWallets[orderID]!==undefined)
+			) {
+				swap.flow.setEthAddress(window.testOrderTargetWallets[orderID]);
+			};
 			
 			this.swap = swap;
 			$(me).find('[data-target="swap-current-step"]').html(this.swap.flow.state.step);
@@ -224,7 +191,7 @@ PM.depend("js/app", function () {
 				
 				me.update_view();
 				console.log(swap.flow._flowName);
-				if (btcDirections.indexOf(swap.flow._flowName)!==-1) {
+				if (APP.Swap_btcDirections.indexOf(swap.flow._flowName)!==-1) {
 					if ( step === 3 ) {
 						if (flow.step === 3 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
 							console.log('Not enough money for this swap. Please charge the balance');
@@ -252,7 +219,7 @@ PM.depend("js/app", function () {
 						}
 					};
 				};
-				if (ethDirections.indexOf(swap.flow._flowName)!==-1) {
+				if (APP.Swap_ethDirections.indexOf(swap.flow._flowName)!==-1) {
 					if ( step + 1 === swap.flow.steps.length ) {
 						console.log('[FINISHED] tx', swap.flow.state.btcSwapWithdrawTransactionHash);
 						let txLinkDom = $(me).find('A[data-target="tx-link"]');
@@ -272,7 +239,7 @@ PM.depend("js/app", function () {
 				$(me).find('[data-target="step-info"]')
 					.empty()
 					.append(me.updateView());
-				initTimerButtons(me);
+				APP.UI.initTimerButtons(me);
 			};
 			if (swap_exists) {
 				/* Swap exist - try restart */
