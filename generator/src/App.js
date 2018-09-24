@@ -6,6 +6,7 @@ import GenerateCode from './GenerateCode';
 import CryptoMultySelect from './CryptoMultySelect';
 import SelectNetwork from './SelectNetwork';
 import ShowDebug from './ShowDebug';
+import SelectMode from './SelectMode';
 
 class App extends Component {
 	constructor(props) {
@@ -15,6 +16,7 @@ class App extends Component {
 		this.cryptos_to = React.createRef();
 		this.network = React.createRef();
 		this.debug = React.createRef();
+    this.mode = React.createRef();
 		
 		this.cfg = window.swap_button_generator_cfg;
 		
@@ -26,7 +28,8 @@ class App extends Component {
 			crypto_from : 0,
 			crypto_to : 0,
 			cryptos_from : this.cfg.default_pay,
-			cryptos_to : this.cfg.default_recive
+			cryptos_to : this.cfg.default_recive,
+      mode : 'orderbook'
 		}
 		
 	}
@@ -54,6 +57,9 @@ class App extends Component {
 			this.network.current.setState( { error : true } );
 			return true;
 		}
+    if (!this.state.mode) {
+      this.mode.current.setState( { error : true } );
+    }
 		return false;
 	}
 	addCrypto(side,key) {
@@ -171,6 +177,12 @@ class App extends Component {
 						<ShowDebug ref={this.debug} App={this} />
 					</div>
 				</div>
+        <div className="w3-row">
+          <div className="w3-container w3-padding-16 w3-half">
+            <label>Select mode</label>
+            <SelectMode ref={this.mode} App={this} />
+          </div>
+        </div>
 				<GenerateCode App={this} />
 			</div>
 		);

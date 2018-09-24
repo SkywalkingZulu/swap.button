@@ -27,12 +27,13 @@ class GenerateCode extends Component {
 	}
 	prepareJSCode(inCode) {
 		var json = [
-				this.RootApp.state.cryptos_from,
-				this.RootApp.state.cryptos_to,
-				this.RootApp.state.themeStyle,
-				this.RootApp.state.network,
-				this.RootApp.state.debug
-			];
+      this.RootApp.state.cryptos_from,
+      this.RootApp.state.cryptos_to,
+      this.RootApp.state.themeStyle,
+      this.RootApp.state.network,
+      this.RootApp.state.debug,
+      this.RootApp.state.mode
+    ];
 		json = JSON.stringify(json).split("\"").join("'");
 		
 		inCode = inCode.split(String.fromCharCode(9)).join("");

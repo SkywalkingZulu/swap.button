@@ -234,7 +234,11 @@ PM.depend( [
 				buyForm.bind_func('beginSwap', function () {
 					
 					const swap = new window.swap.core.Swap(buyFormDom[0].botOrderData.id);
+					
+					swap.flow.allowFundBTCDirectly = true;
+          swap.flow.noGasMode_Send();
 					buyFormDom[0].swap = swap;
+					
 					buyFormDom[0].no_resell = true;
 					let swapViewRenderer = null;
 					if (APP.SwapViews[swap.flow._flowName]!==undefined) {
@@ -383,6 +387,10 @@ PM.depend( [
 						swap_holder.swap.flow.verifyBtcScript()
 						return;
 					};
+					if ($button.data('action')==='check-script-balance') {
+						e.preventDefault();
+						swap_holder.swap.flow.checkScriptBalance();
+					}
 					if ($button.data('action')==='update-balance') {
 						e.preventDefault();
 						swap_holder.swap.flow.syncBalance();

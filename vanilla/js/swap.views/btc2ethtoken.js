@@ -115,6 +115,35 @@ PM.depend([
 					***/
 					} )
 				);
+			}
+			if (flow.step === 4 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
+				if (flow.scriptData && flow.scriptData.scriptAddress) {
+					root.addVar('root', APP.Help.getHTML( () => {
+						/***
+						<h3>Please charge BTC script</h3>
+						<div>
+							<div>Required balance: <strong>{#formated.swap.sellAmountWithFee#} ({#formated.swap.sellAmount#} + fee (0.00015)) </strong> {#swap.sellCurrency#}</div>
+							<div>Script address: {#flow.scriptData.scriptAddress#}</div>
+							<div>Current script balance:</div>
+							<div>{#flow.scriptBalance#} BTC (+{#flow.scriptUnspendBlance#} unspend BTC)</div>
+							<hr />
+						</div>
+						<br />
+						<a href="#" class="button" data-action="check-script-balance">Check BTC script balance and continue</a>
+						***/
+						} )
+					);
+				}
+			}
+			if (flow.step === 4 && flow.isBalanceFetching) {
+				root.addVar('root', APP.Help.getHTML( () => {
+					/***
+					<div>Checking BTC script balance..</div>
+					***/
+					} )
+				);
+			};
+			if (flow.step === 4 || flow.btcScriptValues) {
 				if (flow.btcScriptCreatingTransactionHash) {
 					root.addVar('root', APP.Help.getHTML( () => {
 						/***
@@ -135,7 +164,7 @@ PM.depend([
 					);
 				};
 			};
-			if (flow.btcScriptValues && !flow.isFinished && !flow.isEthWithdrawn) {
+			if (flow.btcScriptValues && flow.isBalanceEnough && !flow.isFinished && !flow.isEthWithdrawn) {
 				if (!flow.refundTxHex) {
 					root.addVar('root', APP.Help.getHTML( () => {
 						/***
@@ -277,6 +306,7 @@ PM.depend([
 		root.setObject('formated', {
 			swap : {
 				sellAmount : this.swap.sellAmount.toNumber(),
+				sellAmountWithFee : this.swap.sellAmount.toNumber()+0.00015,
 				buyAmount : this.swap.buyAmount.toNumber()
 			}
 		});

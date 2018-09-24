@@ -1,48 +1,47 @@
 window.swap_button_generator_cfg = {
 	button_code : (function () {
-			const button_code = function () {
-				/*<<<<
-				<script type="text/javascript">
-				(function() {
-					if (!window.swapbutton_init) {
-						window.swapbutton_init = true;
-						
-						const head = document.getElementsByTagName("HEAD")[0];
-						window.head = head;
-						
-						var include = function (tag,attrs) {
-							var node = document.createElement(tag);
-							for (var k in attrs) {
-								if (attrs.hasOwnProperty(k)) {
-									node[k] = attrs[k];
-								}
-							};
-							head.appendChild(node);
-						};
-						include("LINK",{
-							href : "{%host_url%}/button/style{%button_style%}.css",
-							type : "text/css",
-							rel : "stylesheet"
-						});
-						include("SCRIPT", {
-							type : "text/javascript",
-							src : "{%host_url%}/button.js"
-						});
-					};
-					document.write("<a href=\"#\" data-json=\"{%json%}\" class=\"swap-online-button\">Swap.Online</a>");
-				}) ();
-				</script>
-				>>>>*/
-				
-			};
-			var templ = button_code.toString();
-			const begin_char = "/*<<<<";
-            const begin = templ.indexOf('/*<<<<');
-            const end = templ.indexOf('>>>>*/');
-			templ = templ.substring(begin+begin_char.length,end);
-            return templ;
-			
-				})(),
+    const button_code = function () {
+      /*<<<<
+      <script type="text/javascript">
+      (function() {
+        if (!window.swapbutton_init) {
+          window.swapbutton_init = true;
+          
+          const head = document.getElementsByTagName("HEAD")[0];
+          window.head = head;
+          
+          var include = function (tag,attrs) {
+            var node = document.createElement(tag);
+            for (var k in attrs) {
+              if (attrs.hasOwnProperty(k)) {
+                node[k] = attrs[k];
+              }
+            };
+            head.appendChild(node);
+          };
+          include("LINK",{
+            href : "{%host_url%}/button/style{%button_style%}.css",
+            type : "text/css",
+            rel : "stylesheet"
+          });
+          include("SCRIPT", {
+            type : "text/javascript",
+            src : "{%host_url%}/button.js"
+          });
+        };
+        document.write("<a href=\"#\" data-json=\"{%json%}\" class=\"swap-online-button\">Swap.Online</a>");
+      }) ();
+      </script>
+      >>>>*/
+      
+    };
+    var templ = button_code.toString();
+    const begin_char = "/*<<<<";
+    const begin = templ.indexOf('/*<<<<');
+    const end = templ.indexOf('>>>>*/');
+    templ = templ.substring(begin+begin_char.length,end);
+    return templ;
+  })(),
 	cryptos : [
 		{
 			id		: 'BTC',
@@ -118,6 +117,20 @@ window.swap_button_generator_cfg = {
 			title 	: 'Black'
 		}
 	],
+  modes : [
+    {
+      id : 'orderbook',
+      title : 'Order book'
+    },
+    {
+      id : 'buyrequest',
+      title : 'Buy request'
+    },
+    {
+      id : 'bot',
+      title : 'Seller bot (emulator)'
+    }
+  ],
 	networks : [
 		{
 			id		: 'testnet',
