@@ -68,7 +68,7 @@ PM.depend([
 			if (!flow.secretHash) {
 				root.addVar('root', APP.Help.getHTML( () => {
 					/***
-					<a href="#" class="button cooldown" data-cooldown="60" data-action="submit-secret">Submit random secret</a>
+					<a href="#" class="button cooldown" data-cooldown="30" data-action="submit-secret">Submit random secret</a>
 					***/
 					} )
 				);

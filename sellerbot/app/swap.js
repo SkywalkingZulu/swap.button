@@ -24,7 +24,7 @@ const swapLogic = function (orderID) {
     //swap.flow.setEthAddress(window.testOrderTargetWallets[orderID]);
   };
   
-  const swap_state_update = async function (values) {
+  const swap_state_update = function (values) {
     const step = swap.flow.state.step;
     const flow = swap.flow;
     console.log("Step ",step);
@@ -43,6 +43,14 @@ const swapLogic = function (orderID) {
 
       if ( step + 1 === swap.flow.steps.length ) {
         console.log('[FINISHED]')
+        if (!swap.flow.state.isBtcWithdrawn) {
+          console.log("BTC not withdrawed");
+          console.log("May be secret go to us too late.... retry");
+          if (swap.flow.state.secret) {
+            swap.flow.setState( { step : 7 } );
+            swap.flow.goStep(7);
+          }
+        }
         //console.log( swap.flow.state );
       }
     } catch (e) {
