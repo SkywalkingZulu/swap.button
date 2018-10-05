@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
 	network : 'testnet',
 	services: {
 		web3: {
