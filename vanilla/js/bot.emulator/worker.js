@@ -1,18 +1,18 @@
 PM.depend( [ 
 	'js/app'
 ] , () => {
-	/* Курс токенов */
+	/* В СѓСЂСЃ С‚РѕРєРµРЅРѕРІ */
 	const tokensRates = {
 		SWAP : 1000
 	};
-	/* сдесь будем хранить, на какой кошелек передавать токены */
+	/* СЃРґРµСЃСЊ Р±СѓРґРµРј С…СЂР°РЅРёС‚СЊ, РЅР° РєР°РєРѕР№ РєРѕС€РµР»РµРє РїРµСЂРµРґР°РІР°С‚СЊ С‚РѕРєРµРЅС‹ */
 	const ordersTargetWallets = {};
 	window.testOrderTargetWallets = ordersTargetWallets;
 	APP.AfterInitCall( () => {
 		APP.CORE.services.room.on( 'bot.request.createOrder' , function (data) {
-			/* Пришол запрос - создаем ордер и передаем его данные пользователю */
+			/* С•СЂРёС€РѕР» Р·Р°РїСЂРѕСЃ - СЃРѕР·РґР°РµРј РѕСЂРґРµСЂ Рё РїРµСЂРµРґР°РµРј РµРіРѕ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ */
 			if ((tokensRates[data.currency]===undefined)) {
-				/* такие токены не продаем */
+				/* С‚Р°РєРёРµ С‚РѕРєРµРЅС‹ РЅРµ РїСЂРѕРґР°РµРј */
 				APP.CORE.services.room.sendMessagePeer(
 					data.fromPeer,
 					{
@@ -24,7 +24,7 @@ PM.depend( [
 				);
 				return;
 			};
-			/* Проверим, если ли у бота такое количество токенов */
+			/* С•СЂРѕРІРµСЂРёРј, РµСЃР»Рё Р»Рё Сѓ Р±РѕС‚Р° С‚Р°РєРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРєРµРЅРѕРІ */
 			if (false) {
 				APP.CORE.services.room.sendMessagePeer(
 					data.fromPeer,
@@ -32,15 +32,15 @@ PM.depend( [
 						event : 'bot.request.declime',
 						data : {
 							message : 'no token yet',
-							amount: 1000			/* Сколько есть в наличии у бота */
+							amount: 1000			/* вЂ”РєРѕР»СЊРєРѕ РµСЃС‚СЊ РІ РЅР°Р»РёС‡РёРё Сѓ Р±РѕС‚Р° */
 						}
 					}
 				);
 			};
 			let btcAmount = data.amount / tokensRates[data.currency];
 			/*
-			Создаем ордер и передаем его айди пользователю
-				P.S. В боте нужно запоминать их и удалять по истечению таймаута
+			вЂ”РѕР·РґР°РµРј РѕСЂРґРµСЂ Рё РїРµСЂРµРґР°РµРј РµРіРѕ Р°Р№РґРё РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
+				P.S. В¬ Р±РѕС‚Рµ РЅСѓР¶РЅРѕ Р·Р°РїРѕРјРёРЅР°С‚СЊ РёС… Рё СѓРґР°Р»В¤С‚СЊ РїРѕ РёСЃС‚РµС‡РµРЅРёСЋ С‚Р°Р№РјР°СѓС‚Р°
 			*/
 			const orderForUser = APP.createOrder( 
 				"BTC", 
@@ -49,10 +49,10 @@ PM.depend( [
 				data.amount, 
 				tokensRates[data.currency]
 			);
-			/* сохраняем адрес назначения для токенов */
+			/* СЃРѕС…СЂР°РЅВ¤РµРј Р°РґСЂРµСЃ РЅР°Р·РЅР°С‡РµРЅРёВ¤ РґР»В¤ С‚РѕРєРµРЅРѕРІ */
 			ordersTargetWallets[orderForUser.id] = data.wallet;
 			/*
-				Ордер создали - отправляем его данные пользователю
+				СњСЂРґРµСЂ СЃРѕР·РґР°Р»Рё - РѕС‚РїСЂР°РІР»В¤РµРј РµРіРѕ РґР°РЅРЅС‹Рµ РїРѕР»СЊР·РѕРІР°С‚РµР»СЋ
 			*/
 			console.log(orderForUser);
 			APP.CORE.services.room.sendMessagePeer(

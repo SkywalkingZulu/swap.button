@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
 	network : 'testnet',
 	services: {
 		web3: {
@@ -61,5 +61,8 @@ const config = {
 	filter : {
 		buy : [ "ALL" ],
 		sell : [ "ALL" ]
-	}
+	},
+  tokensRates : {
+    SWAP : 1000
+  }
 };

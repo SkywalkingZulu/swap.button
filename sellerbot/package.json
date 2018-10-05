@@ -1,0 +1,32 @@
+{
+  "name": "sellerbot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "babel-node index.js run"
+  },
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "commander": "^2.18.0",
+    "human-standard-token-abi": "^2.0.0",
+    "ipfs": "github:DaoCasino/js-ipfs#dc-patch-2",
+    "ipfs-pubsub-room": "github:DaoCasino/ipfs-pubsub-room#dc-patch-1",
+    "node-localstorage": "^1.3.1",
+    "request-promise-native": "^1.0.5"
+  },
+  "devDependencies": {
+    "@nimiq/core": "^1.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "bignumber.js": "^7.2.1",
+    "bitcoinjs-lib": "^3.3.2",
+    "web3": "1.0.0-beta.34"
+  }
+}

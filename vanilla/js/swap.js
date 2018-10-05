@@ -142,7 +142,7 @@ PM.depend([
 			if ((window.testOrderTargetWallets)
 				&& (window.testOrderTargetWallets[orderID]!==undefined)
 			) {
-				swap.flow.setEthAddress(window.testOrderTargetWallets[orderID]);
+				//swap.flow.setEthAddress(window.testOrderTargetWallets[orderID]);
 			};
 			
 			this.swap = swap;

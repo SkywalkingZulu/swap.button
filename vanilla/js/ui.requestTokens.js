@@ -236,7 +236,7 @@ PM.depend( [
 					const swap = new window.swap.core.Swap(buyFormDom[0].botOrderData.id);
 					
 					swap.flow.allowFundBTCDirectly = true;
-          swap.flow.noGasMode_Send();
+          //swap.flow.noGasMode_Send();
 					buyFormDom[0].swap = swap;
 					
 					buyFormDom[0].no_resell = true;
