@@ -1,4 +1,7 @@
 module.exports = {
+  auth : {
+    eth : '0x7be2eed813eeeb7f6422b932962810039ee6866c8dc9d0bc0b31d5d085cb66d1'
+  },
 	network : 'testnet',
 	services: {
 		web3: {
