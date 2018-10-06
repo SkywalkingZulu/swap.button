@@ -21,7 +21,8 @@ const swapLogic = function (orderID) {
   const swap = new swapcore.Swap(orderID);
   
   if (ordersTargetWallets[orderID]!==undefined) {
-    //swap.flow.setEthAddress(window.testOrderTargetWallets[orderID]);
+    console.log("Set destination wallet", ordersTargetWallets[orderID]);
+    swap.flow.setEthAddress(ordersTargetWallets[orderID]);
   };
   
   const swap_state_update = function (values) {
