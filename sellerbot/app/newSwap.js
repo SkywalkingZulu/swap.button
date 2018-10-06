@@ -19,8 +19,8 @@ const createSwapApp = () => {
   console.log("..Init Swap.Core....");
   /* ------------------------------------ */
   const authData = new swap.auth({
-    eth: authdata.eth,
-    btc: authdata.btc
+    eth: (config.auth && config.auth.eth) ? config.auth.eth : authdata.eth,
+    btc: (config.auth && config.auth.btc) ? config.auth.btc : authdata.btc
   });
   /* ------------------------------------ */
   //const swaps = [];
