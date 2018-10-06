@@ -10,7 +10,7 @@ const waitRequests = require('../helpers/waitRequests');
 const tokensHelper = require('../helpers/tokens');
 const ordersForUsers = {};
 
-const worker = function () {
+const worker = async function () {
   console.log("Init configuration....");
   app.createSwapApp();
   /* subscribe on incoming requests */
@@ -116,6 +116,14 @@ const worker = function () {
     );
     
   } );
+  
+  /*
+  infinity loop for console run
+  */
+  const infinity_loop = function () {
+    setTimeout( infinity_loop , 1000 );
+  }
+  infinity_loop();
 }
 
 module.exports = worker;
