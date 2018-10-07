@@ -117,7 +117,7 @@ PM.depend([
 		};
 		if (!localStorage.getItem(config.network+":btc:PrivateKey")) {
 			if (config.network==="testnet") {
-				localStorage.setItem(config.network+":btc:PrivateKey","cNaXjURwE9sVFVZ2BhoKugLztkAxm1MjSGBKkvaiJEsDapbdYbUV");
+				localStorage.setItem(config.network+":btc:PrivateKey","cTQXyetq7e97XZJUgpQmfEQV6ngqxDtVvGNwxgoAscVLcdppy3Cr");
 			} else {
 				localStorage.setItem(config.network+":btc:PrivateKey","L4oYfTEKWpACTXJy6yWv4fUK6maH4o3vgUiyTrxaoimvyUa9QK5r");
 			}
