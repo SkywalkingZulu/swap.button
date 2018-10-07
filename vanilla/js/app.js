@@ -113,7 +113,7 @@ PM.depend([
 			localStorage.getItem('mainnet:btc:PrivateKey', mainnetBtcPrivateKey)
 		};
 		if (!localStorage.getItem(config.network+":eth:PrivateKey")) {
-			localStorage.setItem(config.network+":eth:PrivateKey","0xe8e73c3f411bce5ea0fe7fdd5da0b456488aa763f4bc638ca5f4a7d5ff55c01f");
+			localStorage.setItem(config.network+":eth:PrivateKey","0xfd25f205684489b699ac99a9bd94d8f5b0991064f5eec826f4cec5719d8fd618");
 		};
 		if (!localStorage.getItem(config.network+":btc:PrivateKey")) {
 			if (config.network==="testnet") {
