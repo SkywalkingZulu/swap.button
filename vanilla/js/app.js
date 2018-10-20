@@ -381,11 +381,7 @@ PM.depend([
 					}
 				);
 			};
-			/*
-			APP.CORE.services.room.on('request swap', function (data) { 
-				onTimer();
-			} );
-			*/
+
 			$(window).bind("IPFS>CONNECT" , function (e) {
 				window.setTimeout( onTimer, onTimerTimeout );
 				

@@ -1,7 +1,15 @@
 PM.depend("js/app", function() {
 	APP.AfterInitCall( function () {
 		$(document).ready(function () {
-			
+			/* IPFS status */
+      (function () {
+        $(window).bind("IPFS>DISCONNECT", function (e) {
+          $('BODY').removeClass('-ipfs-connected');
+        } );
+        $(window).bind("IPFS>CONNECT", function (e) {
+          $('BODY').addClass('-ipfs-connected');
+        } );
+      } )();
 			/*
 			FILTER UI 
 			*/

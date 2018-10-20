@@ -119,21 +119,29 @@ TABLE#peer-orders-list TBODY TR.-is-requested [data-action="cancel-request"] {
 SPAN.-filter-currency LABEL {
 	display: inline-block !important;
 }
-BODY>DIV.-loader {
+BODY>DIV.-loader,
+BODY>DIV.-ipfs-loader {
 	position: fixed;
-    z-index: 10000;
-    top: 0px;
-    left: 0px;
-    background: #EFEFEF;
-    bottom: 0px;
-    right: 0px;
+  z-index: 10010;
+  top: 0px;
+  left: 0px;
+  background: #EFEFEF;
+  bottom: 0px;
+  right: 0px;
 }
-BODY>DIV.-loader>B {
+BODY>DIV.-loader>B,
+BODY>DIV.-ipfs-loader>B {
 	position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+BODY>DIV.-ipfs-loader {
+  z-index: 10000;
 }
 BODY.-app-loaded>DIV.-loader {
 	display: none;
+}
+BODY.-ipfs-connected>DIV.-ipfs-loader {
+  display: none;
 }
