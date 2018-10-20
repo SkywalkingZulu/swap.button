@@ -71,7 +71,7 @@ contract EthTokenToSmthSwaps {
 
     swaps[msg.sender][_participantAddress] = Swap(
       _token,
-	  _participantAddress,
+      _participantAddress,
       bytes32(0),
       _secretHash,
       now,
@@ -80,18 +80,32 @@ contract EthTokenToSmthSwaps {
 
     CreateSwap(now);
   }
+  // ETH Owner creates Swap with secretHash and targetWallet
+  // ETH Owner make token deposit
+  function createSwapTarget(bytes20 _secretHash, address _participantAddress, address _targetWallet, uint256 _value, address _token) public {
+    require(_value > 0);
+    require(swaps[msg.sender][_participantAddress].balance == uint256(0));
+    require(ERC20(_token).transferFrom(msg.sender, this, _value));
 
+    swaps[msg.sender][_participantAddress] = Swap(
+      _token,
+      _targetWallet,
+      bytes32(0),
+      _secretHash,
+      now,
+      _value
+    );
+
+    CreateSwap(now);
+  }
   function getBalance(address _ownerAddress) public view returns (uint256) {
     return swaps[_ownerAddress][msg.sender].balance;
   }
 
   event Withdraw();
-  // Set target wallet
-  function setTargetWallet(address participantAddress, address newTargetWallet) public returns (address) {
-    Swap memory swap = swaps[msg.sender][participantAddress];
-
-	swaps[msg.sender][participantAddress].targetWallet = newTargetWallet;
-	return swaps[msg.sender][participantAddress].targetWallet;
+  // Get target wallet (buyer check)
+  function getTargetWallet(address tokenOwnerAddress) public returns (address) {
+      return swaps[tokenOwnerAddress][msg.sender].targetWallet;
   }
   // BTC Owner withdraw money and adds secret key to swap
   // BTC Owner receive +1 reputation
