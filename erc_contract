@@ -71,7 +71,7 @@ contract EthTokenToSmthSwaps {
 
     swaps[msg.sender][_participantAddress] = Swap(
       _token,
-      _participantAddress,
+	  _participantAddress,
       bytes32(0),
       _secretHash,
       now,
@@ -89,7 +89,7 @@ contract EthTokenToSmthSwaps {
 
     swaps[msg.sender][_participantAddress] = Swap(
       _token,
-      _targetWallet,
+	  _targetWallet,
       bytes32(0),
       _secretHash,
       now,
