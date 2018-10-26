@@ -1,4 +1,5 @@
 import config from '../config';
+import configName from '../config.name';
 import web3 from '../helpers/web3'
 import bitcoin from 'bitcoinjs-lib'
 import abi from 'human-standard-token-abi'
@@ -90,7 +91,7 @@ const createSwapApp = () => {
       services: [
         authData,
         new swap.room({
-          repo: 'client/ipfs/data',
+          repo: 'client/ipfs/data/'+configName,
           EXPERIMENTAL: {
             pubsub: true,
           },

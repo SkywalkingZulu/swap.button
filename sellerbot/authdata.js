@@ -2,6 +2,6 @@
 WARNING - VERY SECRET DATA
 */
 module.exports = {
-  eth : '0x8c5ef3641e852dbe7f49ac69a096b3185238a61190fc76cb2c22c2cef9c340d6',
+  eth : '0xfd25f205684489b699ac99a9bd94d8f5b0991064f5eec826f4cec5719d8fd618',
   btc : 'cTD1xQMqG19968ZLetmHb9NJr5oaJBotbcRwvcaYZuJThvYEDEr9'
 }

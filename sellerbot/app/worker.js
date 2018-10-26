@@ -52,6 +52,8 @@ const worker = async function () {
     /* Incoming request */
     if ((tokensRates[data.currency]===undefined)) {
       /* Not supported token | We are not sell this token */
+      /*
+        // Not actual in multi-thread mode 
       swap.app.services.room.sendMessagePeer(
         data.fromPeer,
         {
@@ -61,6 +63,7 @@ const worker = async function () {
           }
         }
       );
+      */
       return;
     };
     /* Check balance of tokens */
@@ -71,6 +74,8 @@ const worker = async function () {
     );
     console.log("Aviable balance: ",aviableBalance);
     if (aviableBalance<data.amount) {
+      /*
+        // Not actual in multi-thread mode
       swap.app.services.room.sendMessagePeer(
         data.fromPeer,
         {
@@ -81,6 +86,7 @@ const worker = async function () {
           }
         }
       );
+      */
       return;
     };
     let btcAmount = data.amount / tokensRates[data.currency];
@@ -114,6 +120,17 @@ const worker = async function () {
         }
       }
     );
+    
+    swap.app.services.room.sendMessagePeer(
+      data.fromPeer,
+      {
+        event : 'bot.request.incoming',
+        data : {
+          orderID : orderForUser.id
+        }
+      }
+    );
+    
     
   } );
   

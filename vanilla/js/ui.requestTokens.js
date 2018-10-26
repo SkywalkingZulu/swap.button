@@ -65,6 +65,23 @@ PM.depend( [
 						<div><a href="#" data-action="retry-step" data-step="1">Retry</a></div>
 					</header>
 				</article>
+        <article class="-request-incoming" data-step="3.1">
+          <header>
+            <h2>(2 of 3) Confirm profitable order</h2>
+          </header>
+          <div>
+						You want buy 
+						<strong data-target="buy-amount"></strong>
+						<strong data-target="buy-currency"></strong>
+					</div>
+          <div>
+						Target eth wallet for tokens:
+						<strong data-target="buy-wallet"></strong>
+					</div>
+          <div class="-wait-incoming-order"><b>Waiting incoming orders</b></div>
+          <ul class="-incoming-orders">
+          </ul>
+        </article>
 				<article class="-request-confirm" data-step="3">
 					<header>
 						<h2>(2 of 3) Confirm order</h2>
@@ -103,6 +120,16 @@ PM.depend( [
 			</section>
 			***/
 		} );
+    const incomingOrderTemp = APP.Help.getTempl( () => {
+      /***
+      <li data-order-id="{#order.id#}" data-fixed-price="{#order.buyAmountFixed#}">
+        <div>Order ID:<b>{#order.id#}</b></div>
+        <div>Seller: <b>{#order.owner.eth.address#}</b></div>
+        <div>Price: <b>{#order.buyAmountFixed#}</b></div>
+        <div><a href="#" class="-button" data-action="accept-incoming-order" data-id="{#order.id#}">Accept order</a></div>
+      </li>
+      ***/
+    } );
 		const tokenControlSelect = APP.Help.getTempl( () => {
 			/***
 			<select data-target="currency">{#tokens#}</select>
@@ -192,45 +219,41 @@ PM.depend( [
 								break;
 						}
 					} );
-					/* Обработка принятия запроса */
-					APP.CORE.services.room.on( 'bot.request.accept' , function (data) {
-						console.log('Bot accept request');
-						console.log(data);
-						const orderData = APP.CORE.services.orders.getByKey( data.orderID );
+          /* Обработка сформированого ордера - много-ордерность */
+          APP.CORE.services.room.on( 'bot.request.incoming', function (data) {
+            console.log('Bot incoming order');
+            const orderData = APP.CORE.services.orders.getByKey( data.orderID );
 						console.log(orderData);
-						$(_this).find('[data-target="sell-amount"]').html(orderData.buyAmount.toFixed(5));
-						$(_this).find('[data-target="sell-currency"]').html(orderData.buyCurrency);
-						$(_this).find('[data-target="buy-amount"]').html(orderData.sellAmount.toFixed(5));
-						$(_this).find('[data-target="buy-currency"]').html(orderData.sellCurrency);
-						$(_this).find('[data-target="buy-wallet"]').html(_this.targetWallet);
-						_this.botOrderData = orderData;
-						_this.goToStep(3);
-					} );
+            orderData.buyAmountFixed = orderData.buyAmount.toFixed(5);
+            const orderSortPosition = orderData.buyAmountFixed;
+            
+            $(_this).find('.-wait-incoming-order').hide();
+            const orderDom = incomingOrderTemp
+              .reset()
+              .setObject( 'order', orderData )
+              .getDom();
+              
+            let orderRendered = false;
+            let appendBefore = null;
+            $.each($(_this).find('.-incoming-orders>LI'), function (i,li) {
+              if (orderSortPosition<parseFloat($(li).data('fixed-price'))) {
+                appendBefore = $(li);
+                orderRendered = true;
+              }
+            } );
+            if (!orderRendered) {
+              $(_this).find('.-incoming-orders').append( orderDom );
+            } else {
+              appendBefore.before( orderDom );
+            }
+          } );
 				} );
-				buyForm.bind('[data-action="accept-bot-order"]','click', function (e) {
-					/* Accept request */
-					/*
-					const result = APP.Swap(buyFormDom[0].botOrderData.id);
-					const swapDom = result.getDom();
-					$('#active-swaps').append(swapDom);
-					buyFormDom.remove();
-					*/
-					console.log(buyFormDom[0].botOrderData);
-					buyFormDom[0].goToStep(4);
-					//SwapApp.services.auth.accounts.eth.address = buyFormDom[0].targetWallet;
-					buyFormDom[0].botOrderData.sendRequest((isAccepted) => {
-						if (!isAccepted) {
-							/* hmmm */
-						} else {
-							buyFormDom[0].goToStep("swap");
-							buyFormDom[0].beginSwap();
-						}
-					});
-				} );
+				
 				buyForm.bind('[data-action="retry-step"]','click', function (e) {
 					e.preventDefault();
 					buyFormDom[0].goToStep($(e.target).data('step'));
 				} );
+        
 				buyForm.bind_func('beginSwap', function () {
 					
 					const swap = new window.swap.core.Swap(buyFormDom[0].botOrderData.id);
@@ -238,7 +261,7 @@ PM.depend( [
 					swap.flow.allowFundBTCDirectly = true;
           //swap.flow.noGasMode_Send();
 					buyFormDom[0].swap = swap;
-					
+					buyFormDom[0].swap.flow.setEthAddress(buyFormDom[0].targetWallet);
 					buyFormDom[0].no_resell = true;
 					let swapViewRenderer = null;
 					if (APP.SwapViews[swap.flow._flowName]!==undefined) {
@@ -271,18 +294,6 @@ PM.depend( [
 								console.log(txLink);
 								
 							};
-							if (swap.flow.isEthWithdrawn) {
-								APP.Actions.token.send(
-									config.tokens[
-										buyFormDom[0].botOrderData.sellCurrency.toLowerCase()
-									].contractAddress, 
-									buyFormDom[0].targetWallet, 
-									buyFormDom[0].botOrderData.sellCurrency.sellAmount, 
-									config.tokens[
-										buyFormDom[0].botOrderData.sellCurrency.toLowerCase()
-									].decimals
-								);
-							}
 						};
 						if (APP.Swap_ethDirections.indexOf(swap.flow._flowName)!==-1) {
 							if ( step + 1 === swap.flow.steps.length ) {
@@ -321,7 +332,17 @@ PM.depend( [
 					} catch (e) {
 						alert("Amount must be a whole number");
 					};
-					buyFormDom[0].goToStep(2);
+          
+          if (wallet==="") {
+            alert("Enter wallet");
+            return;
+          }
+          
+          buyFormDom.find('[data-target="buy-amount"]').html(amount);
+          buyFormDom.find('[data-target="buy-currency"]').html(currency);
+          buyFormDom.find('[data-target="buy-wallet"]').html(wallet);
+          
+					buyFormDom[0].goToStep(3.1);
 					buyFormDom[0].targetWallet = wallet;
 					/* send request to bot */
 					APP.CORE.services.room.sendMessageRoom( { 
@@ -332,6 +353,7 @@ PM.depend( [
 							wallet : wallet
 						} 
 					} );
+          
 					console.log("buy request",currency,amount);
 				} );
 				
@@ -341,6 +363,23 @@ PM.depend( [
 					const swap_holder = buyFormDom[0];
 					const $button = (e.target.nodeName==='A') ? $(e.target) : $($(e.target).parents('A')[0]);
 					if (!$button.length) return;
+          if ($button.data('action')==='accept-incoming-order') {
+            e.preventDefault();
+            const orderData = APP.CORE.services.orders.getByKey( $(e.target).data('id') );
+            if (orderData) {
+              buyFormDom[0].botOrderData = orderData;
+              buyFormDom[0].goToStep(4);
+              buyFormDom[0].botOrderData.sendRequest((isAccepted) => {
+                if (!isAccepted) {
+                  /* hmmm */
+                } else {
+                  buyFormDom[0].goToStep("swap");
+                  buyFormDom[0].beginSwap();
+                }
+              });
+            }
+            return;
+          };
 					if ($button.data('action')==='re-sell') {
 						e.preventDefault();
 						let percent = (100+parseInt($button.data('percent'),10))/100;

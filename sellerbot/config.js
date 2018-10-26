@@ -1,8 +1,6 @@
 const fs = require('fs'); 
-let config = 'default';
-if (process.argv[3]!==undefined) {
-  config = process.argv[3];
-};
+import config from './config.name';
+
 if (fs.existsSync('./configs/'+config+'.js')) {
   const config_data = require('./configs/'+config+'.js');
   module.exports = config_data;
