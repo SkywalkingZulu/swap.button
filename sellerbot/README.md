@@ -1,2 +1,14 @@
-# Swap Online Seller Bot
-Код бота, который отвечает на запросы кнопки в режиме Buy Request - продает токены
+marketmaker bot for swap.button
+
+# install
+```
+git clone https://github.com/swaponline/swap.button.git
+cd swap.button/sellerbot
+npm i
+```
+
+edit swap.button/sellerbot/default.js
+
+```
+npm run start
+```
