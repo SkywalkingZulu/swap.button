@@ -5,6 +5,14 @@ PM.depend([
 	const root = APP.Help.getTempl( function () {
 		/***{#root#}***/
 	} );
+  const addressQRCore = APP.Help.getTempl( () => {
+    /***
+    <div class="-qr-code">
+      <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin:{#address#}?&amount={#amount#}"
+          title="Scan and fund {#address#} amount {#amount#}" />
+    </div>
+    ***/
+  } );
 	APP.SwapViews['BTC2ETHTOKEN'] = function () {
 		root.reset();
 		const flow = this.swap.flow.state;
@@ -126,7 +134,12 @@ PM.depend([
 							<div>Script address: {#flow.scriptData.scriptAddress#}</div>
 							<div>Current script balance:</div>
 							<div>{#flow.scriptBalance#} BTC (+{#flow.scriptUnspendBlance#} unspend BTC)</div>
+              <div class="-qr-code">
+                <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin:{#flow.scriptData.scriptAddress#}?&amount={#formated.swap.sellAmountWithFee#}"
+                    title="Scan and fund {#flow.scriptData.scriptAddress#} amount {#formated.swap.sellAmountWithFee#}" />
+              </div>
 							<hr />
+              
 						</div>
 						<br />
 						<a href="#" class="button" data-action="check-script-balance">Check BTC script balance and continue</a>

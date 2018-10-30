@@ -73,7 +73,7 @@ const worker = async function () {
       config.tokens[data.currency.toLowerCase()].decimals
     );
     console.log("Aviable balance: ",aviableBalance);
-    if (aviableBalance<data.amount) {
+    if (aviableBalance<data.amount && !data.sell) {
       /*
         // Not actual in multi-thread mode
       swap.app.services.room.sendMessagePeer(
@@ -89,48 +89,77 @@ const worker = async function () {
       */
       return;
     };
-    let btcAmount = data.amount / tokensRates[data.currency];
-    console.log("BTC cost:", btcAmount);
-    /*
-      Create order for user
-    */
-    const orderData = {
-      buyCurrency: "BTC",
-      sellCurrency: data.currency,
-      buyAmount: Number(btcAmount),
-      sellAmount: Number(data.amount),
-      exchangeRate: Number(tokensRates[data.currency]),
-    };
-    const orderForUser = swap.app.services.orders.create(orderData);
     
-    ordersForUsers[data.fromPeer] = ordersForUsers[data.fromPeer] || new Array();
-    ordersForUsers[data.fromPeer].push(orderForUser.id);
+    /* user sell btc - calc amount of tokens */
     
-    /* Save target address for tokens */
-    ordersTargetWallets[orderForUser.id] = data.wallet;
-    /*
-      Send order id to user
-    */
-    swap.app.services.room.sendMessagePeer(
-      data.fromPeer,
-      {
-        event : 'bot.request.accept',
-        data : {
-          orderID : orderForUser.id
+    let orderForUser = null;
+    
+    if (data.sell) {
+      let tokenAmount = data.amount * tokensRates[data.currency];
+      /* round to number */
+      console.log(tokenAmount);
+      tokenAmount = parseInt(tokenAmount,10);
+      console.log("Token amount:", tokenAmount);
+      const btcAmount = tokenAmount / tokensRates[data.currency];
+      console.log("Rounded btc price:",btcAmount);
+      if (aviableBalance<tokenAmount) {
+        console.log("Skip");
+        return;
+      };
+      const orderData = {
+        buyCurrency: "BTC",
+        sellCurrency: data.currency,
+        buyAmount: Number(btcAmount),
+        sellAmount: Number(tokenAmount),
+        exchangeRate: Number(tokensRates[data.currency]),
+      };
+      console.log(orderData);
+      orderForUser = swap.app.services.orders.create(orderData);
+    } else {
+      let btcAmount = data.amount / tokensRates[data.currency];
+      console.log("BTC cost:", btcAmount);
+      /*
+        Create order for user
+      */
+      const orderData = {
+        buyCurrency: "BTC",
+        sellCurrency: data.currency,
+        buyAmount: Number(btcAmount),
+        sellAmount: Number(data.amount),
+        exchangeRate: Number(tokensRates[data.currency]),
+      };
+      orderForUser = swap.app.services.orders.create(orderData);
+      
+    }
+    if (orderForUser) {
+      ordersForUsers[data.fromPeer] = ordersForUsers[data.fromPeer] || new Array();
+      ordersForUsers[data.fromPeer].push(orderForUser.id);
+      
+      /* Save target address for tokens */
+      ordersTargetWallets[orderForUser.id] = data.wallet;
+      /*
+        Send order id to user
+      */
+      swap.app.services.room.sendMessagePeer(
+        data.fromPeer,
+        {
+          event : 'bot.request.accept',
+          data : {
+            orderID : orderForUser.id
+          }
         }
-      }
-    );
-    
-    swap.app.services.room.sendMessagePeer(
-      data.fromPeer,
-      {
-        event : 'bot.request.incoming',
-        data : {
-          orderID : orderForUser.id
+      );
+      
+      swap.app.services.room.sendMessagePeer(
+        data.fromPeer,
+        {
+          event : 'bot.request.incoming',
+          data : {
+            orderID : orderForUser.id
+          }
         }
-      }
-    );
-    
+      );
+    }
     
   } );
   

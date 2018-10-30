@@ -111,6 +111,8 @@ PM.depend([
 			localStorage.getItem('testnet:btc:PrivateKey', testnetBtcPrivateKey)
 			localStorage.getItem('mainnet:eth:PrivateKey', mainnetEthPrivateKey)
 			localStorage.getItem('mainnet:btc:PrivateKey', mainnetBtcPrivateKey)
+      
+      
 		};
 		if (!localStorage.getItem(config.network+":eth:PrivateKey")) {
 			localStorage.setItem(config.network+":eth:PrivateKey","0xfd25f205684489b699ac99a9bd94d8f5b0991064f5eec826f4cec5719d8fd618");
@@ -119,7 +121,7 @@ PM.depend([
 			if (config.network==="testnet") {
 				localStorage.setItem(config.network+":btc:PrivateKey","cTQXyetq7e97XZJUgpQmfEQV6ngqxDtVvGNwxgoAscVLcdppy3Cr");
 			} else {
-				localStorage.setItem(config.network+":btc:PrivateKey","L4oYfTEKWpACTXJy6yWv4fUK6maH4o3vgUiyTrxaoimvyUa9QK5r");
+				localStorage.setItem(config.network+":btc:PrivateKey","Kwo3UuaoDVSGZ5cgs7n6TTgdTKHry2E14zLhksgG9bQ8hFgX8jcu");
 			}
 		};
 
@@ -135,7 +137,8 @@ PM.depend([
 					);
 				console.log('Web3 inited');
 				const authData = new window.swap.core.auth({
-					eth: localStorage.getItem(config.network+":eth:PrivateKey"),//'0xe8e73c3f411bce5ea0fe7fdd5da0b456488aa763f4bc638ca5f4a7d5ff55c01f', // or pass private key here
+					//eth: localStorage.getItem(config.network+":eth:PrivateKey"),//'0xe8e73c3f411bce5ea0fe7fdd5da0b456488aa763f4bc638ca5f4a7d5ff55c01f', // or pass private key here
+          eth: window._web3.eth.accounts.create().privateKey,
 					btc: localStorage.getItem(config.network+":btc:PrivateKey")//'cTD1xQMqG19968ZLetmHb9NJr5oaJBotbcRwvcaYZuJThvYEDEr9',
 				});
 				console.log("Auth data ready");

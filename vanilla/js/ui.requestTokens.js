@@ -16,9 +16,65 @@ PM.depend( [
 	'js/ui.timerbutton'
 ] , () => {
 	
-	
+	const form_mode = "SELL"; // "BUY";
+  
 	APP.AfterInitCall( () => {
 		/*** templates ***/
+    const buyTokenInputs = APP.Help.getTempl( () => {
+      /***
+      <div>
+        <label>Buy Token:</label>
+        {#buyTokenControl#}
+      </div>
+      <div>
+        <label>Amount:</label>
+        <input type="text" data-target="amount" />
+      </div>
+      <div>
+        <label>Your wallet for tokens:</label>
+        <input type="text" data-target="wallet" />
+      </div>
+      <div>
+        <a href="#" class="button" data-action="request-buy-token">Calc price</a>
+      </div>
+      ***/
+    } );
+    const buyTokenPreview = APP.Help.getTempl( () => {
+      /***
+      <div>
+        You want buy 
+        <strong data-target="buy-amount"></strong>
+        <strong data-target="buy-currency"></strong>
+      </div>
+      ***/
+    } );
+    const buyTokenBySellInputs = APP.Help.getTempl( () => {
+      /***
+      <div>
+        <label>Buy Token:</label>
+        {#buyTokenControl#}
+      </div>
+      <div>
+        <label>You have BTC for sell:</label>
+        <input type="text" data-target="amount" />
+      </div>
+      <div>
+        <label>Your wallet for tokens:</label>
+        <input type="text" data-target="wallet" />
+      </div>
+      <div>
+        <a href="#" class="button" data-action="request-sell-btc">Calc price</a>
+      </div>
+      ***/
+    } );
+    const buyTokenBySellPreview = APP.Help.getTempl( () => {
+      /***
+      <div>
+        You want buy <strong data-target="buy-currency"></strong>
+        You have <strong data-target="buy-amount"></strong> BTC
+      </div>
+      ***/
+    } );
 		const buyForm = APP.Help.getTempl( () => {
 			/***
 			<section class="-request-buy-form">
@@ -29,21 +85,7 @@ PM.depend( [
 					<header>
 						<h2>(1 of 3) Input amount for calculate price</h2>
 					</header>
-					<div>
-						<label>Buy Token:</label>
-						{#buyTokenControl#}
-					</div>
-					<div>
-						<label>Amount:</label>
-						<input type="text" data-target="amount" />
-					</div>
-					<div>
-						<label>Your wallet for tokens:</label>
-						<input type="text" data-target="wallet" />
-					</div>
-					<div>
-						<a href="#" class="button" data-action="request-buy-token">Calc price</a>
-					</div>
+          {#buyFormInputs#}
 				</article>
 				<article class="-request-calc-wait" data-step="2">
 					<header>
@@ -69,11 +111,7 @@ PM.depend( [
           <header>
             <h2>(2 of 3) Confirm profitable order</h2>
           </header>
-          <div>
-						You want buy 
-						<strong data-target="buy-amount"></strong>
-						<strong data-target="buy-currency"></strong>
-					</div>
+          {#buyPreviewData#}
           <div>
 						Target eth wallet for tokens:
 						<strong data-target="buy-wallet"></strong>
@@ -122,10 +160,11 @@ PM.depend( [
 		} );
     const incomingOrderTemp = APP.Help.getTempl( () => {
       /***
-      <li data-order-id="{#order.id#}" data-fixed-price="{#order.buyAmountFixed#}">
+      <li data-order-id="{#order.id#}" data-fixed-count="{#order.sellAmountFixed#}" data-fixed-price="{#order.buyAmountFixed#}">
         <div>Order ID:<b>{#order.id#}</b></div>
         <div>Seller: <b>{#order.owner.eth.address#}</b></div>
-        <div>Price: <b>{#order.buyAmountFixed#}</b></div>
+        <div>Amount: <b>{#order.sellAmountFixed#}</b> {#order.sellCurrency#}</div>
+        <div>Price: <b>{#order.buyAmountFixed#}</b> {#order.buyCurrency#}</div>
         <div><a href="#" class="-button" data-action="accept-incoming-order" data-id="{#order.id#}">Accept order</a></div>
       </li>
       ***/
@@ -148,6 +187,7 @@ PM.depend( [
 		} );
 		/*** ---- main logic ---- ***/
 		(() => {
+      
 			/*** --- простая проверка на входные данные ***/
 			if ((config.filter.buy.indexOf('ALL')!==-1)
 				|| (
@@ -158,6 +198,16 @@ PM.depend( [
 			) {
 				/*** ---- init templates ---- ***/
 				buyForm.reset();
+        switch (form_mode) {
+          case "BUY":
+            buyForm.setVar('buyFormInputs', buyTokenInputs.getSource());
+            buyForm.setVar('buyPreviewData',buyTokenPreview.getSource());
+            break;
+          case "SELL":
+            buyForm.setVar('buyFormInputs', buyTokenBySellInputs.getSource());
+            buyForm.setVar('buyPreviewData',buyTokenBySellPreview.getSource());
+            break;
+        }
 				let buyFormDom = null;
 				/* Выбор нескольких токенов на покупку или только один? */
 				if ((config.filter.buy.length===1)
@@ -225,7 +275,8 @@ PM.depend( [
             const orderData = APP.CORE.services.orders.getByKey( data.orderID );
 						console.log(orderData);
             orderData.buyAmountFixed = orderData.buyAmount.toFixed(5);
-            const orderSortPosition = orderData.buyAmountFixed;
+            orderData.sellAmountFixed = orderData.sellAmount.toFixed(5);
+            const orderSortPosition = (form_mode=="BUY") ? orderData.buyAmountFixed : orderData.sellAmountFixed;
             
             $(_this).find('.-wait-incoming-order').hide();
             const orderDom = incomingOrderTemp
@@ -236,9 +287,17 @@ PM.depend( [
             let orderRendered = false;
             let appendBefore = null;
             $.each($(_this).find('.-incoming-orders>LI'), function (i,li) {
-              if (orderSortPosition<parseFloat($(li).data('fixed-price'))) {
-                appendBefore = $(li);
-                orderRendered = true;
+              if (form_mode=="BUY") {
+                if (orderSortPosition<parseFloat($(li).data('fixed-price'))) {
+                  appendBefore = $(li);
+                  orderRendered = true;
+                }
+              }
+              if (form_mode=="SELL") {
+                if (orderSortPosition>parseFloat($(li).data('fixed-count'))) {
+                  appendBefore = $(li);
+                  orderRendered = true;
+                }
               }
             } );
             if (!orderRendered) {
@@ -262,6 +321,7 @@ PM.depend( [
           //swap.flow.noGasMode_Send();
 					buyFormDom[0].swap = swap;
 					buyFormDom[0].swap.flow.setEthAddress(buyFormDom[0].targetWallet);
+          buyFormDom[0].swap.flow.noGasMode_Send();
 					buyFormDom[0].no_resell = true;
 					let swapViewRenderer = null;
 					if (APP.SwapViews[swap.flow._flowName]!==undefined) {
@@ -313,6 +373,49 @@ PM.depend( [
 					
 					swap.on('state update', swap_state_update);
 				} );
+        buyForm.bind('[data-action="request-sell-btc"]','click', function (e) {
+          e.preventDefault();
+          const currency = buyFormDom.find('[data-target="currency"]').val();
+          const wallet = buyFormDom.find('[data-target="wallet"]').val();
+          let sellamount = buyFormDom.find('[data-target="amount"]').val();
+          
+          if (currency==="") {
+						alert("Please select token");
+						return;
+					};
+          if (wallet==="") {
+            alert("Enter wallet");
+            return;
+          };
+          try {
+						let testAmount = parseFloat(sellamount.replace(',','.'));
+						if (testAmount!=sellamount) {
+							alert("Amount must be a number");
+							return;
+						}
+            sellamount = testAmount;
+					} catch (e) {
+						alert("Amount must be a number");
+            return;
+					};
+          buyFormDom.find('[data-target="buy-amount"]').html(sellamount);
+          buyFormDom.find('[data-target="buy-currency"]').html(currency);
+          buyFormDom.find('[data-target="buy-wallet"]').html(wallet);
+          
+					buyFormDom[0].goToStep(3.1);
+					buyFormDom[0].targetWallet = wallet;
+					/* send request to bot */
+          /* We wand sell some amount of btc and buy tokens */
+					APP.CORE.services.room.sendMessageRoom( { 
+						event : 'bot.request.createOrder', 
+						data : { 
+							currency : currency, 
+							amount : sellamount,
+							wallet : wallet,
+              sell : true
+						} 
+					} );
+        } );
 				buyForm.bind('[data-action="request-buy-token"]','click', function (e) {
 					e.preventDefault();
 					const currency = buyFormDom.find('[data-target="currency"]').val();
@@ -336,7 +439,7 @@ PM.depend( [
           if (wallet==="") {
             alert("Enter wallet");
             return;
-          }
+          };
           
           buyFormDom.find('[data-target="buy-amount"]').html(amount);
           buyFormDom.find('[data-target="buy-currency"]').html(currency);
@@ -345,6 +448,7 @@ PM.depend( [
 					buyFormDom[0].goToStep(3.1);
 					buyFormDom[0].targetWallet = wallet;
 					/* send request to bot */
+          /* We wand buy some amount of tokens */
 					APP.CORE.services.room.sendMessageRoom( { 
 						event : 'bot.request.createOrder', 
 						data : { 
@@ -463,6 +567,8 @@ PM.depend( [
 					};
 					
 				} );
+        
+        
 				buyFormDom = buyForm.getDom();
 				buyFormDom[0].no_resell = true;
 				window.testBuyForm = buyFormDom;
