@@ -48,7 +48,11 @@ const worker = async function () {
   swap.app.services.room.on( 'bot.request.createOrder' , async function (data) {
     console.log('Incoming buy request');
     console.log(data);
-    
+
+    if (swap.app.env.web3.currentProvider.host != data.network) {
+      console.log('not our network');
+      return;
+    }
     /* Incoming request */
     if ((tokensRates[data.currency]===undefined)) {
       /* Not supported token | We are not sell this token */
@@ -100,7 +104,7 @@ const worker = async function () {
       console.log(tokenAmount);
       tokenAmount = parseInt(tokenAmount,10);
       console.log("Token amount:", tokenAmount);
-      const btcAmount = tokenAmount / tokensRates[data.currency];
+      const btcAmount =  Math.round(tokenAmount / tokensRates[data.currency] * Math.pow(10, 5)) / Math.pow(10, 5);
       console.log("Rounded btc price:",btcAmount);
       if (aviableBalance<tokenAmount) {
         console.log("Skip");

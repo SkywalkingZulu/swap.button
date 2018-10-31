@@ -1,6 +1,6 @@
 module.exports = {
   auth : {
-    eth : '0xdc28e16a72c504c522ed49ce0f64a6afa1c77c5018961688298e30aecf529e97'
+    eth : '0xfd25f205684489b699ac99a9bd94d8f5b0991064f5eec826f4cec5719d8fd618'
   },
 	network : 'testnet',
 	services: {
