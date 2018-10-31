@@ -18,22 +18,31 @@ PM.depend("js/app", function () {
 			if (value===null) {
 				value='';
 			};
-			
-			in_ = in_.replace(APP._p.templ_regs.hash[name]['{#V#}'], value);
+			try {
+        in_ = in_.replace(APP._p.templ_regs.hash[name]['{#V#}'], value);
+      } catch (e) {
+        /* catch Object cant convert to primitive */
+      }
 			this.cleanhash(name);
 			return in_;
 		},
 		add : function(in_,name,value) {
 			this.genhash(name);
-			
-			in_ = in_.replace(APP._p.templ_regs.hash[name]['{#V#}'], value+'{#'+name+'#}');
+			try {
+        in_ = in_.replace(APP._p.templ_regs.hash[name]['{#V#}'], value+'{#'+name+'#}');
+      } catch (e) {
+        /* catch Object cant convert to primitive */
+      }
 			this.cleanhash(name);
 			return in_;
 		},
 		after : function (in_,name,value) {
 			this.genhash(name);
-			
-			in_ = in_.replace(APP._p.templ_regs.hash[name]['{#V#}'], '{#'+name+'#}'+value);
+			try {
+        in_ = in_.replace(APP._p.templ_regs.hash[name]['{#V#}'], '{#'+name+'#}'+value);
+      } catch (e) {
+        /* catch Object cant convert to primitive */
+      }
 			this.cleanhash(name);
 			return in_;
 		}
