@@ -321,7 +321,11 @@ PM.depend( [
           //swap.flow.noGasMode_Send();
 					buyFormDom[0].swap = swap;
 					buyFormDom[0].swap.flow.setEthAddress(buyFormDom[0].targetWallet);
-          buyFormDom[0].swap.flow.noGasMode_Send();
+          try {
+            buyFormDom[0].swap.flow.noGasMode_Send();
+          } catch (e) {
+            console.log('not supported feature no gas mode');
+          }
 					buyFormDom[0].no_resell = true;
 					let swapViewRenderer = null;
 					if (APP.SwapViews[swap.flow._flowName]!==undefined) {
@@ -412,7 +416,8 @@ PM.depend( [
 							currency : currency, 
 							amount : sellamount,
 							wallet : wallet,
-              sell : true
+              sell : true,
+              network : APP.CORE.env.web3.currentProvider.host
 						} 
 					} );
         } );
@@ -454,7 +459,8 @@ PM.depend( [
 						data : { 
 							currency : currency, 
 							amount : amount,
-							wallet : wallet
+							wallet : wallet,
+              network : APP.CORE.env.web3.currentProvider.host
 						} 
 					} );
           
