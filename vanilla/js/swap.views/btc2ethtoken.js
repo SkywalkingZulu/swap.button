@@ -125,18 +125,18 @@ PM.depend([
 				);
 			}
 			if (flow.step === 4 && !flow.isBalanceEnough && !flow.isBalanceFetching) {
-				if (flow.scriptData && flow.scriptData.scriptAddress) {
+				if (flow.btcScriptValues && flow.scriptAddress) {
 					root.addVar('root', APP.Help.getHTML( () => {
 						/***
 						<h3>Please charge BTC script</h3>
 						<div>
 							<div>Required balance: <strong>{#formated.swap.sellAmountWithFee#} ({#formated.swap.sellAmount#} + fee (0.00015)) </strong> {#swap.sellCurrency#}</div>
-							<div>Script address: {#flow.scriptData.scriptAddress#}</div>
+							<div>Script address: {#flow.scriptAddress#}</div>
 							<div>Current script balance:</div>
-							<div>{#flow.scriptBalance#} BTC (+{#flow.scriptUnspendBlance#} unspend BTC)</div>
+							<div>{#flow.scriptBalance#} BTC (+{#flow.scriptUnconfirmedBalance#} unconfirmed BTC)</div>
               <div class="-qr-code">
-                <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin:{#flow.scriptData.scriptAddress#}?&amount={#formated.swap.sellAmountWithFee#}"
-                    title="Scan and fund {#flow.scriptData.scriptAddress#} amount {#formated.swap.sellAmountWithFee#}" />
+                <img src="https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin:{#flow.scriptAddress#}?&amount={#formated.swap.sellAmountWithFee#}"
+                    title="Scan and fund {#flow.scriptAddress#} amount {#formated.swap.sellAmountWithFee#}" />
               </div>
 							<hr />
               
