@@ -43,7 +43,7 @@ contract EthTokenToSmthSwaps {
 
   struct Swap {
     address token;
-	address targetWallet;
+    address targetWallet;
     bytes32 secret;
     bytes20 secretHash;
     uint256 createdAt;
@@ -71,7 +71,7 @@ contract EthTokenToSmthSwaps {
 
     swaps[msg.sender][_participantAddress] = Swap(
       _token,
-	  _participantAddress,
+      _participantAddress,
       bytes32(0),
       _secretHash,
       now,
