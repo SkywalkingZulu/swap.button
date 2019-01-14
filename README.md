@@ -1,3 +1,14 @@
+# Создайте виджет просто так
+
+```
+git clone https://github.com/swaponline/swap.react.git
+cd swap.react
+git submodule update
+npm i
+npm run build:testnet-widget 0x9E4AD79049282F942c1b4c9b418F0357A0637017 noxon 0 NOXON
+```
+
+
 # Swap Online Button
 Генератор и загрузчик кнопки моментального обмена криптовалюты
 Для получения кода кнопки, который можно установить на вашем сайте перейдите по ссылке [Генератор Swap.Button](https://swaponline.github.io/swap.button/generator/build/index.html)
