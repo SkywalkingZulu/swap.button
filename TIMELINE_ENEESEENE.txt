@@ -221,3 +221,4 @@
 		29h
 		https://github.com/swaponline/swap.core/pull/234
 		https://github.com/swaponline/swap.react/pull/1306
+22.01.19	9:00-...
